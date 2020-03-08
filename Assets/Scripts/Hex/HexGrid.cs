@@ -39,9 +39,9 @@ public class HexGrid : MonoBehaviour
 
 		cell.transform.SetParent(transform, false);
 		cell.transform.localPosition = position;
+		cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
 
-		PrintCellCoordinates(position, x, z);
-		
+		PrintCellCoordinates(position, cell);
 	}
 
 	private HexCell[] InstantiateHexCellsArray()
@@ -71,12 +71,15 @@ public class HexGrid : MonoBehaviour
 		return position;
 	}
 
-	private void PrintCellCoordinates(Vector3 position, int x, int z)
+	private void PrintCellCoordinates(Vector3 position, HexCell cell)
     {
+		HexCoordinates coordinates = cell.coordinates;
 		Text label = Instantiate<Text>(cellLabelPrefab);
 
 		label.rectTransform.SetParent(gridCanvas.transform, false);
 		label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-		label.text = x.ToString() + "\n" + z.ToString();
+
+		label.text = coordinates.X.ToString() + "\n" + coordinates.Z.ToString();
+		label.text = coordinates.ToStringOnSeparateLines();
 	}
 }
