@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HexGrid : MonoBehaviour
 {
@@ -11,8 +12,13 @@ public class HexGrid : MonoBehaviour
 
 	HexCell[] cells;
 
+	public Text cellLabelPrefab;
+
+	Canvas gridCanvas;
+
 	void Awake()
 	{
+		gridCanvas = GetComponentInChildren<Canvas>();
 		cells = InstantiateHexCellsArray();
 
 		CreateCells();
@@ -25,6 +31,9 @@ public class HexGrid : MonoBehaviour
 
 		cell.transform.SetParent(transform, false);
 		cell.transform.localPosition = position;
+
+		PrintCellCoordinates(position, x, z);
+		
 	}
 
 	private HexCell[] InstantiateHexCellsArray()
@@ -46,10 +55,20 @@ public class HexGrid : MonoBehaviour
 	private Vector3 GetCellPosition(int x, int z)
     {
 		Vector3 position;
+
 		position.x = x * 10f;
 		position.y = 0f;
 		position.z = z * 10f;
 
 		return position;
+	}
+
+	private void PrintCellCoordinates(Vector3 position, int x, int z)
+    {
+		Text label = Instantiate<Text>(cellLabelPrefab);
+
+		label.rectTransform.SetParent(gridCanvas.transform, false);
+		label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
+		label.text = x.ToString() + "\n" + z.ToString();
 	}
 }
