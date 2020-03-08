@@ -4,63 +4,62 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class HexMesh : MonoBehaviour
 {
-	Mesh hexMesh;
-	List<Vector3> vertices;
-	List<int> triangles;
+    Mesh hexMesh;
+    List<Vector3> vertices;
+    List<int> triangles;
 
-	void Awake()
-	{
-		GetComponent<MeshFilter>().mesh = hexMesh = new Mesh();
-		hexMesh.name = "Hex Mesh";
-
-		vertices = new List<Vector3>();
-		triangles = new List<int>();
-	}
-
-	public void Triangulate(HexCell[] cells)
+    void Awake()
     {
-		ClearMesh();		
+        GetComponent<MeshFilter>().mesh = hexMesh = new Mesh();
+        hexMesh.name = "Hex Mesh";
 
-		for (int i = 0; i < cells.Length; i++) {
-			Triangulate(cells[i]);
-		}
+        vertices = new List<Vector3>();
+        triangles = new List<int>();
+    }
 
-		hexMesh.vertices = vertices.ToArray();
-		hexMesh.triangles = triangles.ToArray();
-		hexMesh.RecalculateNormals();
-	}
-
-	private void Triangulate(HexCell cell)
-	{
-		Vector3 center = cell.transform.localPosition;
-
-		for (int i = 0; i < 6; i++)
-		{
-			AddTriangle(
-				center,
-				center + HexMetrics.corners[i],
-				center + HexMetrics.corners[i + 1]
-			);
-		}			
-	}
-
-	void AddTriangle(Vector3 vertex1, Vector3 vertex2, Vector3 vertex3)
-	{
-		int vertexIndex = vertices.Count;
-		
-		vertices.Add(vertex1);
-		vertices.Add(vertex2);
-		vertices.Add(vertex3);
-
-		triangles.Add(vertexIndex);
-		triangles.Add(vertexIndex + 1);
-		triangles.Add(vertexIndex + 2);
-	}
-
-	private void ClearMesh()
+    public void Triangulate(HexCell[] cells)
     {
-		hexMesh.Clear();
-		vertices.Clear();
-		triangles.Clear();
-	}
+        ClearMesh();
+
+        for (int i = 0; i < cells.Length; i++) {
+            Triangulate(cells[i]);
+        }
+
+        hexMesh.vertices = vertices.ToArray();
+        hexMesh.triangles = triangles.ToArray();
+        hexMesh.RecalculateNormals();
+    }
+
+    private void Triangulate(HexCell cell)
+    {
+        Vector3 center = cell.transform.localPosition;
+        for (int i = 0; i < 6; i++) {
+            AddTriangle(
+                center,
+                center + HexMetrics.corners[i],
+                center + HexMetrics.corners[i + 1]
+
+            );
+        }
+    }
+
+    void AddTriangle(Vector3 vertex1, Vector3 vertex2, Vector3 vertex3)
+    {
+        int vertexIndex = vertices.Count;
+
+        vertices.Add(vertex1);
+        vertices.Add(vertex2);
+        vertices.Add(vertex3);
+
+        triangles.Add(vertexIndex);
+        triangles.Add(vertexIndex + 1);
+        triangles.Add(vertexIndex + 2);
+    }
+
+    private void ClearMesh()
+    {
+        hexMesh.Clear();
+        vertices.Clear();
+        triangles.Clear();
+    }
 }

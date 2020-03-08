@@ -3,46 +3,46 @@
 [System.Serializable]
 public class HexCoordinates
 {
-	[SerializeField]
-	private int x, z;
+    [SerializeField]
+    private int x, z;
 
-	public int X { 
-		get {
-			return x;
-        } 		
-	}
+    public int X {
+        get {
+            return x;
+        }
+    }
 
 	public int Y
     {
-		get {
+        get {
 			return -X - Z;
         }
     }
 
-	public int Z { 
-		get {
-			return z;
+	public int Z {
+        get {
+            return z;
         }
-	}
+    }
 
-	public HexCoordinates(int x, int z)
-	{
-		this.x = x;
-		this.z = z;
-	}
+    public HexCoordinates(int x, int z)
+    {
+        this.x = x;
+        this.z = z;
+    }
 
-	public static HexCoordinates FromOffsetCoordinates(int x, int z)
-	{
-		return new HexCoordinates(x - z / 2, z);
-	}
+    public static HexCoordinates FromOffsetCoordinates(int x, int z)
+    {
+        return new HexCoordinates(x - z / 2, z);
+    }
 
-	public override string ToString()
-	{
-		return "(" + X.ToString() + ", " + Y.ToString() + ", " + Z.ToString() + ")";
-	}
+    public override string ToString()
+    {
+        return "(" + X.ToString() + ", " + Y.ToString() + ", " + Z.ToString() + ")";
+    }
 
-	public string ToStringOnSeparateLines()
-	{
-		return X.ToString() + "\n" + Y.ToString() + "\n" + Z.ToString();
-	}
+    public string ToStringOnSeparateLines()
+    {
+        return X.ToString() + "\n" + Y.ToString() + "\n" + Z.ToString();
+    }
 }
