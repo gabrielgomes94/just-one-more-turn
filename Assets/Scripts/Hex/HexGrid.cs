@@ -56,9 +56,9 @@ public class HexGrid : MonoBehaviour
     {
 		Vector3 position;
 
-		position.x = x * 10f;
+		position.x = (x + (z * 0.5f) - (z / 2)) * (HexMetrics.innerRadius * 2f);
 		position.y = 0f;
-		position.z = z * 10f;
+		position.z = z * (HexMetrics.outerRadius * 1.5f);
 
 		return position;
 	}
