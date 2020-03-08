@@ -11,13 +11,14 @@ public class HexCoordinates
             return x;
         }
     }
+
     public int Y {
         get {
             return -X - Z;
         }
     }
 
-	public int Z {
+    public int Z {
         get {
             return z;
         }
