@@ -12,6 +12,7 @@ public class HexMetrics : MonoBehaviour
 		new Vector3(innerRadius, 0f, -0.5f * outerRadius),		// vertex 3
 		new Vector3(0f, 0f, -outerRadius),						// vertex 4
 		new Vector3(-innerRadius, 0f, -0.5f * outerRadius),		// vertex 5
-		new Vector3(-innerRadius, 0f, 0.5f * outerRadius)		// vertex 6
+		new Vector3(-innerRadius, 0f, 0.5f * outerRadius),		// vertex 6
+		new Vector3(0f, 0f, outerRadius)						// vertex 1 - again, to close the hex
 	};
 }
