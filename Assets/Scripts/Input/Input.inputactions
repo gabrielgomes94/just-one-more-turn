@@ -1,0 +1,52 @@
+{
+    "name": "Input",
+    "maps": [
+        {
+            "name": "PlayerInput",
+            "id": "57c96cb1-f509-407b-b146-16800bea6e4c",
+            "actions": [
+                {
+                    "name": "Primary",
+                    "type": "Button",
+                    "id": "472e5af9-95cc-4058-9c80-69b057aae4a6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Secondary",
+                    "type": "Button",
+                    "id": "59c944d9-b255-46f3-bf65-6049bd605dac",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "83c1c8f4-5236-4b12-8cf6-284951fda3a0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Primary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "abe6ed0f-3ee7-46d0-9dd6-1c94b3ebee73",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Secondary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
