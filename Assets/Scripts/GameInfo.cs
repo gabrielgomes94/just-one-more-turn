@@ -9,5 +9,7 @@ public class GameInfo : MonoBehaviour
     void Start()
     {
         Instantiate(settler);
+
+        Debug.Log(settler.settlerData.name);
     }
 }

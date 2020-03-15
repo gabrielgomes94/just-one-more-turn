@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SettlerData : MonoBehaviour
+public class SettlerData
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string name;
 
-    // Update is called once per frame
-    void Update()
+    public string description;
+
+
+    public string unitType;
+
+    public string category;
+
+    public string[] actions;
+
+    public SettlerData()
     {
-        
+        name = "Settler";
     }
 }
