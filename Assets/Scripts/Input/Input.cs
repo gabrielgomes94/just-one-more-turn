@@ -33,6 +33,14 @@ public class @Input : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Button"",
+                    ""id"": ""540249c7-27e5-4d2d-8b6d-7f4587345c87"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -57,6 +65,17 @@ public class @Input : IInputActionCollection, IDisposable
                     ""action"": ""Secondary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f532cf77-f5e8-4f81-b3be-e41f356c8fa7"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -67,6 +86,7 @@ public class @Input : IInputActionCollection, IDisposable
         m_PlayerInput = asset.FindActionMap("PlayerInput", throwIfNotFound: true);
         m_PlayerInput_Primary = m_PlayerInput.FindAction("Primary", throwIfNotFound: true);
         m_PlayerInput_Secondary = m_PlayerInput.FindAction("Secondary", throwIfNotFound: true);
+        m_PlayerInput_MousePosition = m_PlayerInput.FindAction("MousePosition", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -118,12 +138,14 @@ public class @Input : IInputActionCollection, IDisposable
     private IPlayerInputActions m_PlayerInputActionsCallbackInterface;
     private readonly InputAction m_PlayerInput_Primary;
     private readonly InputAction m_PlayerInput_Secondary;
+    private readonly InputAction m_PlayerInput_MousePosition;
     public struct PlayerInputActions
     {
         private @Input m_Wrapper;
         public PlayerInputActions(@Input wrapper) { m_Wrapper = wrapper; }
         public InputAction @Primary => m_Wrapper.m_PlayerInput_Primary;
         public InputAction @Secondary => m_Wrapper.m_PlayerInput_Secondary;
+        public InputAction @MousePosition => m_Wrapper.m_PlayerInput_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_PlayerInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -139,6 +161,9 @@ public class @Input : IInputActionCollection, IDisposable
                 @Secondary.started -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnSecondary;
                 @Secondary.performed -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnSecondary;
                 @Secondary.canceled -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnSecondary;
+                @MousePosition.started -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnMousePosition;
             }
             m_Wrapper.m_PlayerInputActionsCallbackInterface = instance;
             if (instance != null)
@@ -149,6 +174,9 @@ public class @Input : IInputActionCollection, IDisposable
                 @Secondary.started += instance.OnSecondary;
                 @Secondary.performed += instance.OnSecondary;
                 @Secondary.canceled += instance.OnSecondary;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
             }
         }
     }
@@ -157,5 +185,6 @@ public class @Input : IInputActionCollection, IDisposable
     {
         void OnPrimary(InputAction.CallbackContext context);
         void OnSecondary(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
     }
 }
