@@ -10,7 +10,9 @@ public class PrimaryActionHandler
 		RaycastHit hit;
 
         if (Physics.Raycast(inputRay, out hit)) {
-			Debug.Log("tocou");
-		}
+            Debug.Log("tocou");
+            IInteractable interfaceInteractable = hit.transform.gameObject.GetComponent<IInteractable>();
+            interfaceInteractable.Selection();
+        }
     }
 }
