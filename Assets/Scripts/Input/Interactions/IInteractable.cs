@@ -1,4 +1,11 @@
 ﻿public interface IInteractable
 {
-    void Selection();
+
+    void Select();
+
+    bool isSelected
+    {
+        get;
+        set;
+    }
 }

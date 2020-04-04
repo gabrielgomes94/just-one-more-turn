@@ -68,7 +68,8 @@ public class HexMesh : MonoBehaviour, IInteractable
         triangles.Clear();
     }
 
-    public void Selection()
+    public bool isSelected { get; set; }
+    public void Select()
     {
         Debug.Log("Mapa ==========|| interface");
     }
