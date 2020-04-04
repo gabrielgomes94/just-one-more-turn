@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
-public class HexMesh : MonoBehaviour
+public class HexMesh : MonoBehaviour, IInteractable
 {
     Mesh hexMesh;
     List<Vector3> vertices;
@@ -66,5 +66,10 @@ public class HexMesh : MonoBehaviour
         hexMesh.Clear();
         vertices.Clear();
         triangles.Clear();
+    }
+
+    public void Selection()
+    {
+        Debug.Log("Mapa ==========|| interface");
     }
 }
