@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HexCell : MonoBehaviour
+namespace Hex
 {
-    public HexCoordinates coordinates;
+    public class HexCell : MonoBehaviour
+    {
+        public HexCoordinates coordinates;
+    }
 }
