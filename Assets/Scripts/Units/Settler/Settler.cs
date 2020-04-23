@@ -1,34 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Input;
 
-public class Settler : MonoBehaviour, IInteractable
+namespace GameUnit
 {
-    public SettlerData settlerData;
-
-    public bool isSelected { get; set; }
-
-    public GameObject gameObject;
-    public Settler()
+    public class Settler : MonoBehaviour, IInteractable
     {
-        settlerData = new SettlerData();
-    }
+        public SettlerData settlerData;
 
-    public void Awake()
-    {
-        this.isSelected = false;
-        ShowActionsPanel();
-    }
+        public bool isSelected { get; set; }
 
-    public void Select()
-    {
-        this.isSelected = (this.isSelected == true) ? false : true;
+        public GameObject gameObject;
+        public Settler()
+        {
+            settlerData = new SettlerData();
+        }
 
-        ShowActionsPanel();
-    }
+        public void Awake()
+        {
+            this.isSelected = false;
+            ShowActionsPanel();
+        }
 
-    private void ShowActionsPanel()
-    {
-        gameObject.GetComponentInChildren<Canvas>().enabled = this.isSelected;
+        public void Select()
+        {
+            this.isSelected = (this.isSelected == true) ? false : true;
+
+            ShowActionsPanel();
+        }
+
+        private void ShowActionsPanel()
+        {
+            gameObject.GetComponentInChildren<Canvas>().enabled = this.isSelected;
+        }
     }
 }

@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SettlerData
+namespace GameUnit
 {
-    public string name;
-
-    public string description;
-
-
-    public string unitType;
-
-    public string category;
-
-    public string[] actions;
-
-    public SettlerData()
+    public class SettlerData
     {
-        name = "Settler";
+        public string name;
+
+        public string description;
+
+
+        public string unitType;
+
+        public string category;
+
+        public string[] actions;
+
+        public SettlerData()
+        {
+            name = "Settler";
+        }
     }
 }

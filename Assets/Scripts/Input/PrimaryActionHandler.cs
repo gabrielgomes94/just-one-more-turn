@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrimaryActionHandler
+namespace Input
 {
-    public void handle(Vector3 position)
+    public class PrimaryActionHandler
     {
-        Ray inputRay = Camera.main.ScreenPointToRay(position);
-		RaycastHit hit;
+        public void handle(Vector3 position)
+        {
+            Ray inputRay = Camera.main.ScreenPointToRay(position);
+            Debug.Log(inputRay);
+            RaycastHit hit;
 
-        if (Physics.Raycast(inputRay, out hit)) {
-            Debug.Log("tocou");
-            IInteractable interfaceInteractable = hit.transform.gameObject.GetComponent<IInteractable>();
-            interfaceInteractable.Select();
+            if (Physics.Raycast(inputRay, out hit)) {
+                Debug.Log("tocou");
+                IInteractable interfaceInteractable = hit.transform.gameObject.GetComponent<IInteractable>();
+                interfaceInteractable.Select();
+            }
         }
     }
 }
+
