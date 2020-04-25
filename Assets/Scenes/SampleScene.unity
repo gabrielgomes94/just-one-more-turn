@@ -333,14 +333,14 @@ MonoBehaviour:
     m_Name: Primary
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 5aee3106-208e-440c-95fe-26b6348ac687
+    m_Id: c539d115-425b-4ea7-ae8c-19508b63aad9
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: a26c3ad1-dc5f-4795-a2cb-8b314f0ab279
+      m_Id: 936be37b-8a61-453d-882a-5d327dbc7781
       m_Path: <Mouse>/leftButton
-      m_Interactions: Press
+      m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Primary
@@ -349,14 +349,14 @@ MonoBehaviour:
     m_Name: Secondary
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 4ee314c9-44f0-4c55-a554-41d9ed596509
+    m_Id: 124632e3-96f5-4c92-8993-5a01d372fb62
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: aeba0c7c-f3b8-4ca9-a25c-5a46341dd88c
+      m_Id: 15d6e4a5-31ed-4aab-8e7a-627af6f81a1f
       m_Path: <Mouse>/rightButton
-      m_Interactions: Press
+      m_Interactions: 
       m_Processors: 
       m_Groups: 
       m_Action: Secondary
@@ -365,12 +365,12 @@ MonoBehaviour:
     m_Name: Mouse Position
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 77db061f-2909-44ab-8a8b-d9f5b573c362
+    m_Id: a8d2e558-f267-46dc-8f8a-2cb6beaf9ab8
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 8a32d5de-5f48-4be1-9cda-b25bfac2b722
+      m_Id: ea599ca8-7843-4f10-b8f6-dc0504b399ae
       m_Path: <Mouse>/position
       m_Interactions: 
       m_Processors: 
@@ -1193,6 +1193,22 @@ PrefabInstance:
       propertyPath: m_Text
       value: Settler
       objectReference: {fileID: 0}
+    - target: {fileID: 579328239, guid: 995b44eca46f1b34091f8460d292e69e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 906331713, guid: 995b44eca46f1b34091f8460d292e69e, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084510654, guid: 995b44eca46f1b34091f8460d292e69e, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557183882, guid: 995b44eca46f1b34091f8460d292e69e, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1560503124, guid: 995b44eca46f1b34091f8460d292e69e, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 158
@@ -1200,6 +1216,10 @@ PrefabInstance:
     - target: {fileID: 1560503124, guid: 995b44eca46f1b34091f8460d292e69e, type: 3}
       propertyPath: m_SizeDelta.x
       value: -322.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136080420, guid: 995b44eca46f1b34091f8460d292e69e, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5674885962095068233, guid: 995b44eca46f1b34091f8460d292e69e,
         type: 3}

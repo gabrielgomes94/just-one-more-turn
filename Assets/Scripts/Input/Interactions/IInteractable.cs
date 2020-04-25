@@ -1,11 +1,13 @@
-﻿public interface IInteractable
+﻿namespace Input
 {
-
-    void Select();
-
-    bool isSelected
+    public interface IInteractable
     {
-        get;
-        set;
+        void Select();
+
+        bool isSelected
+        {
+            get;
+            set;
+        }
     }
 }
