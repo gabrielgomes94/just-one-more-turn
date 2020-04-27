@@ -28,8 +28,6 @@ Desde o início do jogo, a ideia é incentivar o jogador a definir e implementar
 
 ## 3. Mecânicas do Jogo
 
-
-
 ### 3.1 Cidades
 
 Um império é composto por cidades.
@@ -266,6 +264,23 @@ Posteriormente eu tenho que definir os bônus de cada maravilha.
 - Forte
     - Dá bônus de defesa
 
+#### Slots de cidadão
+
+Cada nível de população que uma cidade conseguir chegar, libera um slot de cidadão praquela cidade.
+O slot de cidadão libera cidadãos para serem alocados em determinadas funções no império.
+
+Por exemplo, um cidadão pode ser alocado pra ser cientista no campus da cidade.
+Assim ele vai gerar mais ciência para a cidade e fazer as construções do campus gerarem mais ciência.
+
+Um cidadão pode ser alocado pra ser um agricultor numa fazenda.
+Assim, ele vai fazer a fazenda gerar mais comida.
+
+Ele também pode ser alocado pra ser um soldado do império.
+Tropas militares só podem ser criadas se existirem slots de população disponíveis.
+
+Cada slot de cidadão equivale a um nível de população.
+Não há como conseguir slots extras.
+
 ### 3.2 Recursos
 
 Recursos são gerados junto com o mapa e estão distribuídos por aí.
@@ -476,39 +491,65 @@ E os dois atributos se relacionam entre si.
 Uma unidade que recebeu muito dano e está com  a vida comprometida, também vai dar menos dano no seu próximo ataque.
 Já uma unidade com a vida cheia, vai dar o seu dano total num próximo ataque.
 
+TODO: definir como funciona o esquema de redução de dano, etc.
 
-Normalmente a troca de dano é feita ao mesmo tempo, ou seja, imagine que tenhamos uma unidade A, que seja 8/10(8 de ataque, 10 de vida)
-e outra unidade B que seja 10/10.
+#### 3.7 Condição de vitória
 
-Na hora da trocação, a Unidade A vai dar 8 de dano e a unidade B vai dar 10 de dano.
-Com isso, saíremos do combate com a Unidade A morta e a unidade B com 10/2 + redutor de dano.
+- Científica
+- Cultural
+- Dominação
 
-Mas podem existir situações em que uma das unidades dá seu dano primeiro, o chamado First Strike.
+##### Científica
 
+> Por toda a história, você estudou como o universo funcionava.
+> Agora voce está pronto para abandonar seu mundo de origem e conquistar novos.
 
+A vitória científica, premia infraestrutura e o foco em ciência.
+Pra ganhar pela vitória científica, o jogador deve sobreviver ao jogo e lançar um foguete rumo à planetas habitáveis.
 
-### Slots de cidadão
+Se você construir um império robusto, capaz de resistir a agressões militares, capaz de se manter estável financeiramente e capaz de manter a coesão dos cidadãos, você pode mirar na vitória científica.
 
-Cada nível de população que uma cidade conseguir chegar, libera um slot de cidadão praquela cidade.
-O slot de cidadão libera cidadãos para serem alocados em determinadas funções no império.
+Na vitória científica, o jogador deve voltar os esforços do seu império pra conseguir enviar um foguete para um planeta habitável antes de todos os outros jogadores ganharem o jogo.
 
-Por exemplo, um cidadão pode ser alocado pra ser cientista no campus da cidade.
-Assim ele vai gerar mais ciência para a cidade e fazer as construções do campus gerarem mais ciência.
+##### Cultural
 
-Um cidadão pode ser alocado pra ser um agricultor numa fazenda.
-Assim, ele vai fazer a fazenda gerar mais comida.
+> Você dominou o mundo inteiro, mas não com sua força.
+> E sim com seu conhecimento e com suas ideias.
+> Toda a humanidade copia os hábitos do seu império e sonham em um dia serem como você.
 
-Ele também pode ser alocado pra ser um soldado do império.
-Tropas militares só podem ser criadas se existirem slots de população disponíveis.
+Se você construir um império robusto, capaz de resistir a agressões militares, capaz de se manter estável financeiramente e capaz de manter a coesão dos cidadãos, você pode mirar na vitória cultural.
 
-Cada slot de cidadão equivale a um nível de população.
-Não há como conseguir slots extras.
+Na vitória cultural, o jogador deve voltar seus esforços para fazer sua civilização ser uma referencia para todos os povos do mundo.
+Isso se torna possível se ele alcançar o nível máximo de influência em todas as civilizações do jogo.
+
+##### Dominação
+
+> Você dominou o mundo inteiro com sua força absoluta.
+> Toda a humanidade está submissa as decisões que vêem do seu palácio.
+
+Na vitória por dominação, o jogador deve voltar seus esforços pra fazer sua civilização conquistar todas as capitais de todas as civilizações.
+
+##### Diplomática
+
+> Por toda a história da humanidade, você foi aquele que preferia o diálogo ao conflito.
+> Assim, você uniu o mundo inteiro em um só governo.
+> Toda a humanidade respeita a sua liderança e acredita que você será capaz de tomar as melhores decisões daqui pra frente, rumo a um futuro glorioso.
+
+Na vitória diplomática, o jogador deve conseguir fazer todas as civilizações integrarem uma organização supra-estatal, que abrange todas as civilizações e cidades do jogo.
+
+#### 3.8 Condição de derrota
+
+Um jogador perde o jogo se:
+- Outro jogador ganhar antes dele
+- Ele perder a capital
+
+----
 
 Esse slot de cidadão pode ser
 
 3.1 Objetivos
 3.2 Habilidades do jogador
-3.3 Mecânicas
+3.3 xMecânicas
 3.3.1 Lista de Civilizações
 3.3.2 Lista de Tecnologias
 3.3.3 Lista de Cívicos
@@ -519,8 +560,6 @@ Esse slot de cidadão pode ser
 5. Menu
 5.1 Fluxos do jogador
 
-
-3
 - xCity Building
     - Rendimentos: fé, ouro, produção, cultura e ciência
     - Distrito
@@ -530,6 +569,57 @@ Esse slot de cidadão pode ser
 - xUnidades
 - xFé e felicidade
 - xRevoltas
-- Combate
-- Condições de Vitória
-- Condições de Derrota
+- xCombate
+- xCondições de Vitória
+- xCondições de Derrota
+
+#### 3.9 Anotações no mapa
+
+Durante o jogo, o jogador poderá fazer anotações no mapa e definir lembretes.
+Tudo isso será acionado com o botão direito do mouse.
+
+Se o jogador clica com o botão direito do mouse num hexágono no mapa, abre um menu com as seguintes opções:
+- Criar nota
+- Editar nota
+- Deletar nota
+
+Com isso, o jogador pode fazer uma anotação ou uma marcação ali. Por exemplo, pode marcar que pretende fazer uma cidade naquele hexágono.
+
+Depois que ele termina, ele vê cada nota minimizada no próprio mapa.
+Se ele quiser ver o conteúdo de cada nota, ele pode clicar no ícone da nota no mapa.
+
+Ao clicar no ícone da nota no mapa, ele pode editar ou apagar a nota.
+
+## 4. Habilidades do jogador
+
+Espera-se que o jogador seja capaz:
+- Analisar informações do estado do jogo e tomar decisões
+- Planejar estratégias em antecipação
+- Reagir a eventos externos(jogadas de outros jogadores)
+- Usar o mouse pra clicar em opções
+- User o teclado para moviemntar câmera e usar os atalhos do jogo.
+
+## 5. Identidade visual do jogo
+
+O mapa de jogo, em si, pode assumir um visual que diz respeito a cada época sendo representada no jogo.
+Mas os menus podem assumir uma identidade mais moderna.
+
+Botões retangulares e retos, sem borda e sem sombra.
+Fontes com serifa, bem espaçadas.
+
+A cor de fundo dos menus pode ser um azul escuro, e a fonte, branca.
+
+Seguir padrões na componentização do jogo.
+Exemplo: Árvore de Tecnologia e Cívicos pode ser idêntica.
+
+Tela com as promoções de cada unidade também.
+Aí a tela de escolha dos cards de promoção pode ser igual à tela de visualização dos cards escolhidos.
+
+
+## 6. Fluxos do usuário
+
+- Jogo Novo: Menu -> Jogar -> Criar Partida(define as configurações) -> Jogar
+- Carregar jogo existente: Menu -> Jogar -> Carregar Partida -> Jogar
+- Visualizar estatísticas: Menu -> Leaderboard
+- Visualizar Civilopedia: Menu -> Civilopedia
+- Sair: Menu -> Sair
