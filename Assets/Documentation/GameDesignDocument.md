@@ -12,10 +12,11 @@ Cada jogador pode construir cidades, melhorar terrenos, treinar unidades civis e
 ## 2. Visão Geral do Jogo
 
 Cada jogador inicia o jogo com um soldado de nível 1(um Guerreiro) e um colono.
-Com o colono ele pode fundar uma cidade. Com o soldado ele pode explorar o território, se proteger e atacar outros.
+Com o colono ele pode fundar uma cidade.
+Com o soldado ele pode explorar o território, se proteger e atacar outros.
 
 Ao fundar sua primeira cidade, o jogador inicia o seu império.
-Então, ele deve buscar expandir seu império: construir novas cidades, distritos e construções, melhorar o terreno ao redor da cidade, extrair recursos, treinar novos cidadãos para trabalhar no império e pesquisar novas tecnologias e cívicos pra avançar sua sociedade no tempo.
+Então, ele deve buscar expandi-lo: construir novas cidades, distritos e construções, melhorar o terreno ao redor da cidade, extrair recursos, treinar novos cidadãos para trabalhar no império e pesquisar novas tecnologias e cívicos pra avançar sua sociedade no tempo.
 
 Além disso, o jogador deve manter a fé da população estável para evitar a insatisfação da população.
 Pois uma população insatisfeita é menos produtiva.
@@ -24,9 +25,16 @@ E uma população muito insatisfeita pode causar revoltas.
 O mapa é gerado automaticamente no começo do jogo.
 Então o jogador e seus adversários devem disputar os espaços do mapa: construir cidades, melhorias, se expandirem, se movimentarem e batalharem por melhores espaços.
 
-Desde o início do jogo, a ideia é incentivar o jogador a definir e implementar suas estratégias com base nas condições ambientais: wide x tall, sparse x dense, quais especializações escolher pras cidades a serem fundadas, quais tipo de unidade construir, como alocar os slotse por aí vai.
+Desde o início do jogo, a ideia é incentivar o jogador a definir e implementar suas estratégias com base nas condições ambientais: wide x tall, sparse x dense, quais especializações escolher pras cidades a serem fundadas, quais tipo de unidade construir, como alocar os slots e por aí vai.
 
 ## 3. Mecânicas do Jogo
+
+- 3.1. Cidades
+- 3.2. Recursos
+- 3.3. Unidades
+- 3.4. Fé
+- 3.5. Revoltas
+- 3.6. Combate
 
 ### 3.1 Cidades
 
@@ -108,7 +116,7 @@ Posteriormente, conforme o jogo for progredindo, o jogador terá a opção de se
 #### Construções, distritos, maravilhas e melhorias
 
 Construções: edificações, melhorias de terreno, distritos e maravilhas
-Dentro das fronteiras de uma cidade, o jogador pode construir: construções, distritos, maravilhas do mundo e melhorias de terreno.
+Dentro das fronteiras de uma cidade, o jogador pode construir: edificações, distritos, maravilhas do mundo e melhorias de terreno.
 
 Cada um desses itens possui custos:
     - Custo de produção:
@@ -203,6 +211,11 @@ Posteriormente eu tenho que definir os bônus de cada maravilha.
 - Templo de Artemis
 - Stonehenge
 - Grande Muralha da China
+- Torre Eifel
+- Cristo Redentor
+- Torre de Pisa
+- Machu Pichu
+- Chichén-Itzá
 
 ##### Lista de Melhorias
 
@@ -266,7 +279,7 @@ Posteriormente eu tenho que definir os bônus de cada maravilha.
 
 #### Slots de cidadão
 
-Cada nível de população que uma cidade conseguir chegar, libera um slot de cidadão praquela cidade.
+Cada nível de população que uma cidade conseguir chegar, libera um slot de cidadão para aquela cidade.
 O slot de cidadão libera cidadãos para serem alocados em determinadas funções no império.
 
 Por exemplo, um cidadão pode ser alocado pra ser cientista no campus da cidade.
@@ -325,16 +338,14 @@ Recursos são divididos em:
 
 ### 3.3 - Unidades
 
-As unidades são geradas pelo jogador e podem agir no mapa.]
+As unidades são geradas pelo jogador e podem agir no mapa
 Via de regra, uma unidade pode ser: militar ou civil.
 Elas podem se mover e alterar o estado do mapa.
 
 Unidades militares podem se mover e se posicionar no mapa.
-Unidades civis, também podem, mas normalmente as unidades civis já são automaticamente atreladas à sua função no jogo.
+Unidades civis também podem.
 
-Lista de unidades
-
-#### Militares
+#### Lista de unidades militares
 - Meelee
 - Heavy Cavalry
 - Light Cavalry
@@ -351,16 +362,15 @@ Cada unidade militar possui alguns atributos:
 Unidades militares podem: atacar outras unidades, pilhar construções, proteger uma cidade, tomar uma cidade de assalto.
 
 A unidade militar ocupa um slot de habitação, igual qualquer outra unidade dentro do jogo.
-Além disso, uma unidade militar também tem custo de manutenção(em golds).
+Além disso, uma unidade militar também tem custo de manutenção(em ouro).
 
 Porém uma unidade militar pode ser melhorada com o passar do tempo, através de:
     - Vitórias em combate
     - Avanços tecnológicos
 
-
 Uma unidade pode ter seus atributos melhorados através do mecanismo de experiência, ganho após vitórias e sobreviência em combates.
 Uma unidade também pode ter seus atributos melhorados por conta de determinados investimentos feitos por uma mais cidade.
-Se uma cidade quiser produzir "Armas melhores", ela vai aumentar a força dos guerreiros em X pontos.
+Se uma cidade quiser produzir "Armas melhores", ela vai aumentar a força dos guerreiros em alguns pontos.
 
 Por fim, com o passar das eras, as unidades também podem sofrer _upgrades_.
 Os upgrades são pagos em ouro ou produção.
@@ -448,10 +458,10 @@ A felicidade/satisfação das pessoas é medida numa escala que vai de 1 a 10.
 
 Valores     | Consequêncas
 ---         | ---
-8, 9, 10    | Estado de felicidade. +10/15% de produção na cidade
+8, 9, 10    | Estado de felicidade. +10/15% de produção e crescimento na cidade
 6, 7        | Estado normal. Sem modificadores
-4, 5        | Estado de infelicidade,  -10%/15% de produção na cidade
-1, 2, 3     | Estado de calamidade. -20%/-25%/30%  de produção na cidade. A cidade progressivamente vai perdendo slots pra serem usados pela cidade.
+4, 5        | Estado de infelicidade,  -10%/15% de produção e crescimento na cidade
+1, 2, 3     | Estado de calamidade. -20%/-25%/30%  de produção e crescimento na cidade. A cidade progressivamente vai perdendo slots pra serem usados pela cidade.
 
 ### 3.5 Revoltas
 Revoltas danificam construções e melhorias.
@@ -469,7 +479,7 @@ O jogo primeiro vai converter as unidades civis.
 Mas se o jogador não conseguir conter a revolta, o jogo vai converter unidades militares.
 E aí o jogador, além de perder o slot, também vai perder a tropa pra cidade rebelde.
 
-Se os rebeldes conseguirem tomar o controle da cidade, uma nova cidade-estado é criada no jogo.
+Se os rebeldes conseguirem tomar o controle da cidade e não quiserem se juntar a nenhum aliado, uma nova cidade-estado é criada no jogo.
 
 Uma cidade em revolta, vai impactar cidades próximas a ela.
 Redução de fé e de satisfação podem acontecer nessas cidades vizinhas.
@@ -479,7 +489,7 @@ Assim, uma revolta não contida pode ser perigosa: o jogador pode perder uma cid
 
 Unidades militares podem se enfrentar em qualquer lugar do mapa.
 Basicamente uma unidade militar possui dois atributos principais: o valor de ataque, ATTACK POINTS e o valor de defesa, HEALTH POINTS.
-Além disso, cada unidade pode ter modificadore, que afetam esses valores dado determinadas condições.
+Além disso, cada unidade pode ter modificadores, que afetam esses valores dado determinadas condições.
 
 Uma unidade é destruída se sua vida(health) chegar a 0.
 
@@ -491,7 +501,8 @@ E os dois atributos se relacionam entre si.
 Uma unidade que recebeu muito dano e está com  a vida comprometida, também vai dar menos dano no seu próximo ataque.
 Já uma unidade com a vida cheia, vai dar o seu dano total num próximo ataque.
 
-TODO: definir como funciona o esquema de redução de dano, etc.
+// Falta definir:
+// - Como ficaria o sistema de redução de dano, com base na vida
 
 #### 3.7 Condição de vitória
 
@@ -505,22 +516,20 @@ TODO: definir como funciona o esquema de redução de dano, etc.
 > Agora voce está pronto para abandonar seu mundo de origem e conquistar novos.
 
 A vitória científica, premia infraestrutura e o foco em ciência.
-Pra ganhar pela vitória científica, o jogador deve sobreviver ao jogo e lançar um foguete rumo à planetas habitáveis.
+Pra ganhar pela vitória científica, o jogador deve sobreviver ao jogo e construir um império organizado o suficiente para lançar um foguete rumo à planetas habitáveis antes de todos os outros jogadores ganharem o jogo.
 
 Se você construir um império robusto, capaz de resistir a agressões militares, capaz de se manter estável financeiramente e capaz de manter a coesão dos cidadãos, você pode mirar na vitória científica.
-
-Na vitória científica, o jogador deve voltar os esforços do seu império pra conseguir enviar um foguete para um planeta habitável antes de todos os outros jogadores ganharem o jogo.
 
 ##### Cultural
 
 > Você dominou o mundo inteiro, mas não com sua força.
 > E sim com seu conhecimento e com suas ideias.
-> Toda a humanidade copia os hábitos do seu império e sonham em um dia serem como você.
+> Toda a humanidade copia os hábitos do seu império e as pessoas sonham em serem como você.
 
-Se você construir um império robusto, capaz de resistir a agressões militares, capaz de se manter estável financeiramente e capaz de manter a coesão dos cidadãos, você pode mirar na vitória cultural.
+Se você construir um império robusto, capaz de resistir a agressões militares, capaz de se manter estável financeiramente e capaz de manter a fé dos cidadãos, você pode mirar na vitória cultural.
 
 Na vitória cultural, o jogador deve voltar seus esforços para fazer sua civilização ser uma referencia para todos os povos do mundo.
-Isso se torna possível se ele alcançar o nível máximo de influência em todas as civilizações do jogo.
+Isso se torna possível se ele alcançar o nível máximo de influência cultural em todas as civilizações do jogo.
 
 ##### Dominação
 
@@ -541,38 +550,7 @@ Na vitória diplomática, o jogador deve conseguir fazer todas as civilizações
 
 Um jogador perde o jogo se:
 - Outro jogador ganhar antes dele
-- Ele perder a capital
-
-----
-
-Esse slot de cidadão pode ser
-
-3.1 Objetivos
-3.2 Habilidades do jogador
-3.3 xMecânicas
-3.3.1 Lista de Civilizações
-3.3.2 Lista de Tecnologias
-3.3.3 Lista de Cívicos
-3.4 Vitória
-3.5 Derrota
-3.6 Progressão e desafio
-4. Visual e Interface Gráfica
-5. Menu
-5.1 Fluxos do jogador
-
-- xCity Building
-    - Rendimentos: fé, ouro, produção, cultura e ciência
-    - Distrito
-    - Melhorias de terreno
-    - Slots de cidadão
-- xRecursos
-- xUnidades
-- xFé e felicidade
-- xRevoltas
-- xCombate
-- xCondições de Vitória
-- xCondições de Derrota
-
+- Ele perder a capital, tanto para algum adversário, como para próprios cidadãos revoltosos
 #### 3.9 Anotações no mapa
 
 Durante o jogo, o jogador poderá fazer anotações no mapa e definir lembretes.
@@ -602,7 +580,7 @@ Espera-se que o jogador seja capaz:
 ## 5. Identidade visual do jogo
 
 O mapa de jogo, em si, pode assumir um visual que diz respeito a cada época sendo representada no jogo.
-Mas os menus podem assumir uma identidade mais moderna.
+Mas os menus podem assumir uma identidade mais moderna durante todo o jogo.
 
 Botões retangulares e retos, sem borda e sem sombra.
 Fontes com serifa, bem espaçadas.
@@ -615,7 +593,6 @@ Exemplo: Árvore de Tecnologia e Cívicos pode ser idêntica.
 Tela com as promoções de cada unidade também.
 Aí a tela de escolha dos cards de promoção pode ser igual à tela de visualização dos cards escolhidos.
 
-
 ## 6. Fluxos do usuário
 
 - Jogo Novo: Menu -> Jogar -> Criar Partida(define as configurações) -> Jogar
@@ -623,3 +600,8 @@ Aí a tela de escolha dos cards de promoção pode ser igual à tela de visualiz
 - Visualizar estatísticas: Menu -> Leaderboard
 - Visualizar Civilopedia: Menu -> Civilopedia
 - Sair: Menu -> Sair
+
+
+## 7. Plataformas
+    - Sistema Operacional: Windows
+    - Entrada: Mouse e Teclado
