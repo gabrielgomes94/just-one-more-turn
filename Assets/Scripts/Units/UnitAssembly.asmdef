@@ -1,5 +1,5 @@
 {
-    "name": "HexAssembly",
+    "name": "UnitAssembly",
     "references": [
         "GUID:600148156417db343b2cbe0d59c5da46",
         "GUID:b6798484492c30f45919b67dfaf3715d"
