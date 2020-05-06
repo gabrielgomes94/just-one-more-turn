@@ -1,0 +1,15 @@
+{
+    "name": "HexAssembly",
+    "references": [
+        "GUID:600148156417db343b2cbe0d59c5da46"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
