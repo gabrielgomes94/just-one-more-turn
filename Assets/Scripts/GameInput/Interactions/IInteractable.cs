@@ -1,4 +1,4 @@
-﻿namespace Input
+﻿namespace GameInput
 {
     public interface IInteractable
     {
