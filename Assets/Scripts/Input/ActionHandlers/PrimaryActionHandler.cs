@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Input
+namespace GameInput
 {
     public class PrimaryActionHandler
     {

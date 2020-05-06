@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Input;
+using GameInput;
 
 namespace Hex
 {
