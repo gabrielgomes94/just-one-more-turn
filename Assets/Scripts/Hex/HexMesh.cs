@@ -13,6 +13,8 @@ namespace Hex
 
         MeshCollider meshCollider;
 
+        List<Color> colors;
+
         void Awake()
         {
             GetComponent<MeshFilter>().mesh = hexMesh = new Mesh();
@@ -21,6 +23,7 @@ namespace Hex
 
             vertices = new List<Vector3>();
             triangles = new List<int>();
+            colors = new List<Color>();
         }
 
         public void Triangulate(HexCell[] cells)
@@ -32,6 +35,7 @@ namespace Hex
             }
 
             hexMesh.vertices = vertices.ToArray();
+            hexMesh.colors = colors.ToArray();
             hexMesh.triangles = triangles.ToArray();
             hexMesh.RecalculateNormals();
 
@@ -51,6 +55,8 @@ namespace Hex
                     center + HexMetrics.corners[i],
                     center + HexMetrics.corners[i + 1]
                 );
+
+                AddColor(cell.color);
             }
         }
 
@@ -69,11 +75,20 @@ namespace Hex
             }
         }
 
+        void AddColor(Color color)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                colors.Add(color);
+            }
+        }
+
         private void ClearMesh()
         {
             hexMesh.Clear();
             vertices.Clear();
             triangles.Clear();
+            colors.Clear();
         }
 
         public bool isSelected { get; set; }
