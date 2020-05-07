@@ -41,27 +41,32 @@ namespace Hex
         private void Triangulate(HexCell cell)
         {
             Vector3 center = cell.transform.localPosition;
+
             for (int i = 0; i < 6; i++) {
-                AddTriangle(
+                int vertexIndex = vertices.Count;
+                AddTriangles(vertexIndex);
+
+                AddVertices(
                     center,
                     center + HexMetrics.corners[i],
                     center + HexMetrics.corners[i + 1]
-
                 );
             }
         }
 
-        void AddTriangle(Vector3 vertex1, Vector3 vertex2, Vector3 vertex3)
+        void AddVertices(Vector3 vertex1, Vector3 vertex2, Vector3 vertex3)
         {
-            int vertexIndex = vertices.Count;
-
             vertices.Add(vertex1);
             vertices.Add(vertex2);
             vertices.Add(vertex3);
+        }
 
-            triangles.Add(vertexIndex);
-            triangles.Add(vertexIndex + 1);
-            triangles.Add(vertexIndex + 2);
+        void AddTriangles(int vertexIndex)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                triangles.Add(vertexIndex + i);
+            }
         }
 
         private void ClearMesh()
