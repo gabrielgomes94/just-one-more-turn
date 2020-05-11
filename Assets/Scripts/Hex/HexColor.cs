@@ -9,6 +9,7 @@ namespace Hex
             Color.green,
             Color.yellow,
             Color.gray,
+            Color.blue
         };
 
         public static Color GetRandomColor()

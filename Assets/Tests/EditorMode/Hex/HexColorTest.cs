@@ -20,6 +20,7 @@ namespace Tests
                 Color.green,
                 Color.yellow,
                 Color.gray,
+                Color.blue
             };
 
             // Act
