@@ -39,6 +39,9 @@ namespace Hex
             cell.transform.SetParent(transform, false);
             cell.transform.localPosition = position;
             cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
+
+            cell.color = HexColor.GetRandomColor();
+
             PrintCellCoordinates(position, cell);
         }
 

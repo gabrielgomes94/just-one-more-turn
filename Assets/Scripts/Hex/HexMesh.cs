@@ -13,6 +13,8 @@ namespace Hex
 
         MeshCollider meshCollider;
 
+        List<Color> colors;
+
         void Awake()
         {
             GetComponent<MeshFilter>().mesh = hexMesh = new Mesh();
@@ -21,6 +23,7 @@ namespace Hex
 
             vertices = new List<Vector3>();
             triangles = new List<int>();
+            colors = new List<Color>();
         }
 
         public void Triangulate(HexCell[] cells)
@@ -32,6 +35,7 @@ namespace Hex
             }
 
             hexMesh.vertices = vertices.ToArray();
+            hexMesh.colors = colors.ToArray();
             hexMesh.triangles = triangles.ToArray();
             hexMesh.RecalculateNormals();
 
@@ -41,27 +45,42 @@ namespace Hex
         private void Triangulate(HexCell cell)
         {
             Vector3 center = cell.transform.localPosition;
+
             for (int i = 0; i < 6; i++) {
-                AddTriangle(
+                int vertexIndex = vertices.Count;
+                AddTriangles(vertexIndex);
+
+                AddVertices(
                     center,
                     center + HexMetrics.corners[i],
                     center + HexMetrics.corners[i + 1]
-
                 );
+
+                AddColor(cell.color);
             }
         }
 
-        void AddTriangle(Vector3 vertex1, Vector3 vertex2, Vector3 vertex3)
+        void AddVertices(Vector3 vertex1, Vector3 vertex2, Vector3 vertex3)
         {
-            int vertexIndex = vertices.Count;
-
             vertices.Add(vertex1);
             vertices.Add(vertex2);
             vertices.Add(vertex3);
+        }
 
-            triangles.Add(vertexIndex);
-            triangles.Add(vertexIndex + 1);
-            triangles.Add(vertexIndex + 2);
+        void AddTriangles(int vertexIndex)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                triangles.Add(vertexIndex + i);
+            }
+        }
+
+        void AddColor(Color color)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                colors.Add(color);
+            }
         }
 
         private void ClearMesh()
@@ -69,6 +88,7 @@ namespace Hex
             hexMesh.Clear();
             vertices.Clear();
             triangles.Clear();
+            colors.Clear();
         }
 
         public bool isSelected { get; set; }
