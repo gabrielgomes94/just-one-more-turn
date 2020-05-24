@@ -21,15 +21,12 @@ namespace Hex
         void Awake()
         {
             gridCanvas = GetComponentInChildren<Canvas>();
-            hexMesh = GetComponentInChildren<HexMesh>();
-
-            cells = InstantiateHexCellsArray();
-            CreateCells();
         }
 
         void Start()
         {
-            hexMesh.Triangulate(cells);
+            CellEntity cellEntity = new CellEntity();
+            cellEntity.CreateCells(width, height);
         }
 
         void CreateCell(int x, int z, int i)
@@ -43,11 +40,6 @@ namespace Hex
             cell.color = HexColor.GetRandomColor();
 
             PrintCellCoordinates(position, cell);
-        }
-
-        private HexCell[] InstantiateHexCellsArray()
-        {
-            return new HexCell[height * width];
         }
 
         private void CreateCells()
