@@ -48,17 +48,12 @@ namespace Hex
                 }
             ).Run();
 
-            var trianglesArray = triangles.ToArray();
-            var verticesArray = vertices.ToArray();
-            var colorsArray = colors.ToArray();
-
             Mesh hexMesh = new Mesh();
-            hexMesh.name = "Hex Mesh";
 
+            hexMesh.name = "Hex Mesh";
             hexMesh.vertices = vertices.ToArray();
             hexMesh.colors = colors.ToArray();
             hexMesh.triangles = triangles.ToArray();
-
             hexMesh.RecalculateNormals();
 
             Entities.
