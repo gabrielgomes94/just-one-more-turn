@@ -25,7 +25,7 @@ namespace Hex
 
         void Start()
         {
-            CellEntity cellEntity = new CellEntity();
+            HexCellEntity cellEntity = new HexCellEntity();
             cellEntity.CreateCells(width, height);
         }
 

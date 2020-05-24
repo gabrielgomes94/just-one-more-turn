@@ -8,7 +8,7 @@ using Unity.Transforms;
 
 namespace Hex
 {
-    public class CellEntity
+    public class HexCellEntity
     {
         public void CreateCells(int width, int height)
         {
