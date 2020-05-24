@@ -22,7 +22,7 @@ namespace Hex
             NativeList<Color> colors = new NativeList<Color>(Allocator.TempJob);
 
             Entities.
-                ForEach((in HexCoordinatesComponent hexCoordinatesComponent, in Translation translation) => {
+                ForEach((in Translation translation, in ColorComponent colorComponent) => {
                     float3 centerPositionFloat3 = translation.Value;
                     Vector3 centerPosition = new Vector3(
                         centerPositionFloat3.x,
@@ -41,10 +41,9 @@ namespace Hex
                         triangles.Add(vertexIndex + 1);
                         triangles.Add(vertexIndex + 2);
 
-                        Color color = Color.white;
-                        colors.Add(color);
-                        colors.Add(color);
-                        colors.Add(color);
+                        colors.Add(colorComponent.Value);
+                        colors.Add(colorComponent.Value);
+                        colors.Add(colorComponent.Value);
                     }
                 }
             ).Run();
