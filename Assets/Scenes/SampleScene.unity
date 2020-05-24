@@ -1119,6 +1119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db7699e17358a84899ad6a088377978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hexMesh: {fileID: 0}
+  hexMaterial: {fileID: 2100000, guid: 41e10ea5c23f27746a925a672a7212d2, type: 2}
 --- !u!23 &1405133344
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1137,7 +1139,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e10ea5c23f27746a925a672a7212d2, type: 2}
+  - {fileID: 2100000, guid: 4edad431249bc324286ea9e4ee83801f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
