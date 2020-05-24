@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Hex
 {
-    public class HexGridSystem : SystemBase
+    public class HexMeshRenderSystem : SystemBase
     {
         private bool shouldRender = true;
 
@@ -48,13 +48,7 @@ namespace Hex
                 }
             ).Run();
 
-            Mesh hexMesh = new Mesh();
-
-            hexMesh.name = "Hex Mesh";
-            hexMesh.vertices = vertices.ToArray();
-            hexMesh.colors = colors.ToArray();
-            hexMesh.triangles = triangles.ToArray();
-            hexMesh.RecalculateNormals();
+            Mesh hexMesh = CreateHexMesh(vertices, triangles, colors);
 
             Entities.
                 WithStructuralChanges().
@@ -77,6 +71,19 @@ namespace Hex
             colors.Dispose();
 
             shouldRender = false;
+        }
+
+        private Mesh CreateHexMesh(NativeList<Vector3> vertices, NativeList<int> triangles, NativeList<Color> colors)
+        {
+            Mesh hexMesh = new Mesh();
+
+            hexMesh.name = "Hex Mesh";
+            hexMesh.vertices = vertices.ToArray();
+            hexMesh.colors = colors.ToArray();
+            hexMesh.triangles = triangles.ToArray();
+            hexMesh.RecalculateNormals();
+
+            return hexMesh;
         }
     }
 }
