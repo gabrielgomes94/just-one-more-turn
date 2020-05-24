@@ -36,11 +36,9 @@ namespace Hex
                         new HexCoordinatesComponent { X = x, Y = -x -z , Z = z }
                     );
 
-                    Vector3 position = GetCellPosition(x, z);
-
                     entityManager.SetComponentData(
                         cellsArray[i],
-                        new Translation { Value = new float3(position.x, position.y, position.z) }
+                        new Translation { Value = GetCellPosition(x, z) }
                     );
 
                     entityManager.SetComponentData(
@@ -53,7 +51,7 @@ namespace Hex
             }
         }
 
-        private Vector3 GetCellPosition(int x, int z)
+        private float3 GetCellPosition(int x, int z)
         {
             Vector3 position;
 
@@ -61,7 +59,7 @@ namespace Hex
             position.y = 0f;
             position.z = z * (HexMetrics.outerRadius * 1.5f);
 
-            return position;
+            return new float3(position.x, position.y, position.z);
         }
     }
 }
