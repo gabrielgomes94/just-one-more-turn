@@ -33,7 +33,7 @@ namespace Hex
                 {
                     entityManager.SetComponentData(
                         cellsArray[i],
-                        new HexCoordinatesComponent { X = x, Z = z }
+                        new HexCoordinatesComponent { X = x, Y = -x -z , Z = z }
                     );
 
                     Vector3 position = GetCellPosition(x, z);
