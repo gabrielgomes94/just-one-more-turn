@@ -1,20 +1,24 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using GameInput;
+using Unity.Entities;
+using Unity.Rendering;
+using Unity.Transforms;
 
 namespace Hex
 {
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
     public class HexMesh : MonoBehaviour, IInteractable
     {
-        Mesh hexMesh;
+        [SerializeField] private Mesh hexMesh;
+        [SerializeField] private Material hexMaterial;
         List<Vector3> vertices;
         List<int> triangles;
 
         MeshCollider meshCollider;
 
         List<Color> colors;
-
+        Entity entity;
         void Awake()
         {
             GetComponent<MeshFilter>().mesh = hexMesh = new Mesh();
@@ -24,6 +28,30 @@ namespace Hex
             vertices = new List<Vector3>();
             triangles = new List<int>();
             colors = new List<Color>();
+
+            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+
+            EntityArchetype hexMeshArchetype = entityManager.CreateArchetype(
+                typeof(LocalToWorld),
+                typeof(RenderMesh),
+                typeof(RenderBounds),
+                typeof(HexMeshTag)
+            );
+
+            entity = entityManager.CreateEntity(hexMeshArchetype);
+
+            entityManager.SetSharedComponentData(entity, new RenderMesh {
+                mesh = hexMesh,
+                material = hexMaterial
+            });
+        }
+
+        void Update() {
+            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var render = entityManager.GetSharedComponentData<RenderMesh>(entity);
+
+            hexMesh = render.mesh;
+            GetComponent<MeshFilter>().mesh = hexMesh;
         }
 
         public void Triangulate(HexCell[] cells)
