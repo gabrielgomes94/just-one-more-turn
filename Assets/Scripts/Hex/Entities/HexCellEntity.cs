@@ -19,7 +19,7 @@ namespace Hex
             NativeArray<Entity> cellsArray = new NativeArray<Entity>(cellsCount, Allocator.Temp);
 
             EntityArchetype archetype = entityManager.CreateArchetype(
-                typeof(HexCoordinatesComponent),
+                typeof(HexCoordinates),
                 typeof(Translation),
                 typeof(LocalToWorld),
                 typeof(ColorComponent)
@@ -33,7 +33,7 @@ namespace Hex
                 {
                     entityManager.SetComponentData(
                         cellsArray[i],
-                        new HexCoordinatesComponent { X = x, Y = -x -z , Z = z }
+                        new HexCoordinates { X = x, Y = -x -z , Z = z }
                     );
 
                     entityManager.SetComponentData(

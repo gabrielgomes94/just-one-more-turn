@@ -4,7 +4,7 @@ using Unity.Entities;
 using UnityEngine;
 
 namespace Hex {
-    public struct HexCoordinatesComponent : IComponentData
+    public struct HexCoordinates : IComponentData
     {
         public int X, Y, Z;
     }
