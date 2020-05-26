@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Hex
 {
-    public class HexGridSystem : SystemBase
+    public class HexMeshRenderSystem : SystemBase
     {
         private bool shouldRender = true;
 
@@ -22,6 +22,7 @@ namespace Hex
             NativeList<Color> colors = new NativeList<Color>(Allocator.TempJob);
 
             Entities.
+                WithoutBurst().
                 ForEach((in Translation translation, in ColorComponent colorComponent) => {
                     float3 centerPositionFloat3 = translation.Value;
                     Vector3 centerPosition = new Vector3(
@@ -33,28 +34,17 @@ namespace Hex
                     for (int i = 0; i < 6; i++) {
                         int vertexIndex = vertices.Length;
 
-                        vertices.Add(centerPosition);
-                        vertices.Add(centerPosition + HexMetrics.corners[i]);
-                        vertices.Add(centerPosition + HexMetrics.corners[i + 1]);
+                        vertices = TriangulateHexMeshService.AddVertices(vertices, centerPosition, i);
 
-                        triangles.Add(vertexIndex);
-                        triangles.Add(vertexIndex + 1);
-                        triangles.Add(vertexIndex + 2);
+                        triangles = TriangulateHexMeshService.AddTriangles(triangles, vertexIndex);
 
-                        colors.Add(colorComponent.Value);
-                        colors.Add(colorComponent.Value);
-                        colors.Add(colorComponent.Value);
+                        Color color = colorComponent.Value;
+                        colors = TriangulateHexMeshService.AddColors(colors, color);
                     }
                 }
             ).Run();
 
-            Mesh hexMesh = new Mesh();
-
-            hexMesh.name = "Hex Mesh";
-            hexMesh.vertices = vertices.ToArray();
-            hexMesh.colors = colors.ToArray();
-            hexMesh.triangles = triangles.ToArray();
-            hexMesh.RecalculateNormals();
+            Mesh hexMesh = CreateHexMesh(vertices, triangles, colors);
 
             Entities.
                 WithStructuralChanges().
@@ -77,6 +67,19 @@ namespace Hex
             colors.Dispose();
 
             shouldRender = false;
+        }
+
+        private Mesh CreateHexMesh(NativeList<Vector3> vertices, NativeList<int> triangles, NativeList<Color> colors)
+        {
+            Mesh hexMesh = new Mesh();
+
+            hexMesh.name = "Hex Mesh";
+            hexMesh.vertices = vertices.ToArray();
+            hexMesh.colors = colors.ToArray();
+            hexMesh.triangles = triangles.ToArray();
+            hexMesh.RecalculateNormals();
+
+            return hexMesh;
         }
     }
 }
