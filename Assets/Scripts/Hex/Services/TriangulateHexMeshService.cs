@@ -6,11 +6,11 @@ namespace Hex
 {
     public class TriangulateHexMeshService
     {
-        public static NativeList<Vector3> AddVertices(NativeList<Vector3> vertices, Vector3 centerPosition, int i)
+        public static NativeList<Vector3> AddVertices(NativeList<Vector3> vertices, Vector3 centerPosition, HexDirection direction)
         {
             vertices.Add(centerPosition);
-            vertices.Add(centerPosition + HexMetrics.corners[i]);
-            vertices.Add(centerPosition + HexMetrics.corners[i + 1]);
+            vertices.Add(centerPosition + HexMetrics.GetFirstCorner(direction));
+            vertices.Add(centerPosition + HexMetrics.GetSecondCorner(direction));
 
             return vertices;
         }
