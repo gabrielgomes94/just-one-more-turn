@@ -16,6 +16,14 @@ namespace Hex
             new Vector3(-innerRadius, 0f, 0.5f * outerRadius),      // vertex 6
             new Vector3(0f, 0f, outerRadius)                        // vertex 1 - again, to close the hex
         };
+
+        public static Vector3 GetFirstCorner (HexDirection direction) {
+            return corners[(int)direction];
+        }
+
+        public static Vector3 GetSecondCorner (HexDirection direction) {
+            return corners[(int)direction + 1];
+        }
     }
 }
 
