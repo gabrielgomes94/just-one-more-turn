@@ -31,9 +31,15 @@ namespace Hex
             {
                 for (int x = 0; x < width; x++)
                 {
+                    int offSetX = x - z / 2;
+
                     entityManager.SetComponentData(
                         cellsArray[i],
-                        new HexCoordinates { X = x, Y = -x -z , Z = z }
+                        new HexCoordinates {
+                            X = offSetX,
+                            Y = -offSetX -z ,
+                            Z = z
+                        }
                     );
 
                     entityManager.SetComponentData(
