@@ -24,11 +24,11 @@ namespace Hex
             return triangles;
         }
 
-        public static NativeList<Color> AddColors(NativeList<Color> colors, Color color)
+        public static NativeList<Color> AddColors(NativeList<Color> colors, Color color1, Color color2, Color color3)
         {
-            colors.Add(color);
-            colors.Add(color);
-            colors.Add(color);
+            colors.Add(color1);
+            colors.Add(color2);
+            colors.Add(color3);
 
             return colors;
         }
