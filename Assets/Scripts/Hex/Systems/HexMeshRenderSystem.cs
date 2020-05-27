@@ -12,6 +12,13 @@ namespace Hex
     public class HexMeshRenderSystem : SystemBase
     {
         private bool shouldRender = true;
+        EntityQuery query;
+        public EntityManager entityManager;
+
+        protected override void OnCreate()
+        {
+            query = GetEntityQuery(ComponentType.ReadOnly<ColorComponent>(), ComponentType.ReadOnly<HexCoordinates>());
+        }
 
         protected override void OnUpdate()
         {
