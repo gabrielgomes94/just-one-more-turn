@@ -28,9 +28,13 @@ namespace Hex
             NativeList<Vector3> vertices = new NativeList<Vector3>(Allocator.TempJob);
             NativeList<Color> colors = new NativeList<Color>(Allocator.TempJob);
 
+
+            NativeArray<ColorComponent> colorsComponentsArray = query.ToComponentDataArray<ColorComponent>(Allocator.Temp);
+            NativeArray<HexCoordinates> hexCoordinatesArray = query.ToComponentDataArray<HexCoordinates>(Allocator.Temp);
+
             Entities.
                 WithoutBurst().
-                ForEach((in Translation translation, in ColorComponent colorComponent) => {
+                ForEach((in Translation translation, in ColorComponent colorComponent, in HexCoordinates hexCoordinates) => {
                     float3 centerPositionFloat3 = translation.Value;
                     Vector3 centerPosition = new Vector3(
                         centerPositionFloat3.x,
@@ -38,15 +42,34 @@ namespace Hex
                         centerPositionFloat3.z
                     );
 
-                    for (int i = 0; i < 6; i++) {
+                    for (HexDirection direction = HexDirection.NE; direction <= HexDirection.NW; direction++) {
                         int vertexIndex = vertices.Length;
 
-                        vertices = TriangulateHexMeshService.AddVertices(vertices, centerPosition, i);
+                        vertices = TriangulateHexMeshService.AddVertices(vertices, centerPosition, direction);
 
                         triangles = TriangulateHexMeshService.AddTriangles(triangles, vertexIndex);
 
                         Color color = colorComponent.Value;
-                        colors = TriangulateHexMeshService.AddColors(colors, color);
+
+                        NeighborService neighborService = new NeighborService(
+                            hexCoordinates,
+                            colorComponent,
+                            colorsComponentsArray,
+                            hexCoordinatesArray
+                        );
+
+                        Color neighborColor = neighborService.GetNeighborColor(direction);
+                        Color edgeColor = (color + neighborColor) * 0.5f;
+
+                        Color prevNeighborColor = neighborService.GetNeighborColor(direction.Previous());
+                        Color nextNeighborColor = neighborService.GetNeighborColor(direction.Next());
+
+                        colors = TriangulateHexMeshService.AddColors(
+                            colors,
+                            color,
+                            (color + prevNeighborColor + neighborColor) / 3f,
+                            (color + neighborColor + nextNeighborColor) / 3f
+                        );
                     }
                 }
             ).Run();
