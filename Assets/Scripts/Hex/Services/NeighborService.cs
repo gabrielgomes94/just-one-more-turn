@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Entities;
 using Unity.Collections;
 
 namespace Hex
@@ -21,17 +22,19 @@ namespace Hex
         // private HexDirection direction;
         private NativeArray<ColorComponent> colorsComponentsArray;
         private NativeArray<HexCoordinates> hexCoordinatesArray;
+        EntityQuery query;
 
         public NeighborService(
             HexCoordinates hexCellCoordinates,
             ColorComponent hexCellColor,
-            NativeArray<ColorComponent> colorsComponentsArray,
-            NativeArray<HexCoordinates> hexCoordinatesArray
+            EntityQuery query
         ) {
             this.hexCellCoordinates = hexCellCoordinates;
             this.hexCellColor = hexCellColor;
-            this.colorsComponentsArray = colorsComponentsArray;
-            this.hexCoordinatesArray = hexCoordinatesArray;
+            this.query = query;
+
+            this.colorsComponentsArray = HexCellFinder.GetColorsComponentsArray(query);
+            this.hexCoordinatesArray = HexCellFinder.GetHexCoordinatesArray(query);
         }
 
         public Color GetNeighborColor(HexDirection direction) {
@@ -40,7 +43,7 @@ namespace Hex
             int index = GetNeighborIndex(direction);
 
             if (index >= 0) {
-                color = colorsComponentsArray[index].Value;
+                color = HexCellFinder.GetColorByIndex(query, index);
             }
 
             return color;
