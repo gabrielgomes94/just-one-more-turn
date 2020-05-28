@@ -24,13 +24,10 @@ namespace Hex
         {
             if (!shouldRender) return;
 
-            NativeList<int> triangles = new NativeList<int>(Allocator.TempJob);
-            NativeList<Vector3> vertices = new NativeList<Vector3>(Allocator.TempJob);
-            NativeList<Color> colors = new NativeList<Color>(Allocator.TempJob);
-
-
             NativeArray<ColorComponent> colorsComponentsArray = query.ToComponentDataArray<ColorComponent>(Allocator.Temp);
             NativeArray<HexCoordinates> hexCoordinatesArray = query.ToComponentDataArray<HexCoordinates>(Allocator.Temp);
+
+            RenderService renderService = new RenderService();
 
             Entities.
                 WithoutBurst().
@@ -42,39 +39,23 @@ namespace Hex
                         centerPositionFloat3.z
                     );
 
-                    for (HexDirection direction = HexDirection.NE; direction <= HexDirection.NW; direction++) {
-                        int vertexIndex = vertices.Length;
-
-                        vertices = TriangulateHexMeshService.AddVertices(vertices, centerPosition, direction);
-
-                        triangles = TriangulateHexMeshService.AddTriangles(triangles, vertexIndex);
-
-                        Color color = colorComponent.Value;
-
-                        NeighborService neighborService = new NeighborService(
+                    NeighborService neighborService = new NeighborService(
                             hexCoordinates,
                             colorComponent,
-                            colorsComponentsArray,
-                            hexCoordinatesArray
+                            query
                         );
 
-                        Color neighborColor = neighborService.GetNeighborColor(direction);
-                        Color edgeColor = (color + neighborColor) * 0.5f;
+                    Color color = colorComponent.Value;
 
-                        Color prevNeighborColor = neighborService.GetNeighborColor(direction.Previous());
-                        Color nextNeighborColor = neighborService.GetNeighborColor(direction.Next());
-
-                        colors = TriangulateHexMeshService.AddColors(
-                            colors,
-                            color,
-                            (color + prevNeighborColor + neighborColor) / 3f,
-                            (color + neighborColor + nextNeighborColor) / 3f
-                        );
-                    }
+                    renderService.Execute(color, centerPosition, neighborService);
                 }
             ).Run();
 
-            Mesh hexMesh = CreateHexMesh(vertices, triangles, colors);
+            Mesh hexMesh = CreateHexMesh(
+                renderService.GetVerticesArray(),
+                renderService.GetTrianglesArray(),
+                renderService.GetColorsArray()
+            );
 
             Entities.
                 WithStructuralChanges().
@@ -92,21 +73,20 @@ namespace Hex
                 }
             ).Run();
 
-            triangles.Dispose();
-            vertices.Dispose();
-            colors.Dispose();
+            colorsComponentsArray.Dispose();
+            hexCoordinatesArray.Dispose();
 
             shouldRender = false;
         }
 
-        private Mesh CreateHexMesh(NativeList<Vector3> vertices, NativeList<int> triangles, NativeList<Color> colors)
+        private Mesh CreateHexMesh(Vector3[] vertices, int[] triangles, Color[] colors)
         {
             Mesh hexMesh = new Mesh();
 
             hexMesh.name = "Hex Mesh";
-            hexMesh.vertices = vertices.ToArray();
-            hexMesh.colors = colors.ToArray();
-            hexMesh.triangles = triangles.ToArray();
+            hexMesh.vertices = vertices;
+            hexMesh.colors = colors;
+            hexMesh.triangles = triangles;
             hexMesh.RecalculateNormals();
 
             return hexMesh;
