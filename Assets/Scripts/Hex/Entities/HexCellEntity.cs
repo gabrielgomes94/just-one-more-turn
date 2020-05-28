@@ -31,7 +31,7 @@ namespace Hex
             {
                 for (int x = 0; x < width; x++)
                 {
-                    int offSetX = x - z / 2;
+                    int offSetX = GetOffsetX(x, z);
 
                     entityManager.SetComponentData(
                         cellsArray[i],
@@ -66,6 +66,11 @@ namespace Hex
             position.z = z * (HexMetrics.outerRadius * 1.5f);
 
             return new float3(position.x, position.y, position.z);
+        }
+
+        private int GetOffsetX(int x, int z)
+        {
+            return x - z / 2;
         }
     }
 }
