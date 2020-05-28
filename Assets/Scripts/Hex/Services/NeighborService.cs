@@ -19,7 +19,6 @@ namespace Hex
 
         private HexCoordinates hexCellCoordinates;
         private ColorComponent hexCellColor;
-        // private HexDirection direction;
         private NativeArray<ColorComponent> colorsComponentsArray;
         private NativeArray<HexCoordinates> hexCoordinatesArray;
         EntityQuery query;
