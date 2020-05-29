@@ -975,8 +975,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 6
   height: 6
-  cellPrefab: {fileID: 3704038411676769322, guid: 5fc7a13300d8ee840a076c8c4978189c,
-    type: 3}
   cellLabelPrefab: {fileID: 8608855748969268874, guid: bd1629367c11bf144b8288f80e6d941e,
     type: 3}
 --- !u!4 &1221751131

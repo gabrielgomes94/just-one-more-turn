@@ -12,39 +12,43 @@ namespace Hex
     public class HexMeshRenderSystem : SystemBase
     {
         private bool shouldRender = true;
+        EntityQuery query;
+        public EntityManager entityManager;
+
+        protected override void OnCreate()
+        {
+            query = GetEntityQuery(ComponentType.ReadOnly<ColorComponent>(), ComponentType.ReadOnly<HexCoordinates>());
+        }
 
         protected override void OnUpdate()
         {
             if (!shouldRender) return;
 
-            NativeList<int> triangles = new NativeList<int>(Allocator.TempJob);
-            NativeList<Vector3> vertices = new NativeList<Vector3>(Allocator.TempJob);
-            NativeList<Color> colors = new NativeList<Color>(Allocator.TempJob);
+            NativeArray<ColorComponent> colorsComponentsArray = query.ToComponentDataArray<ColorComponent>(Allocator.Temp);
+            NativeArray<HexCoordinates> hexCoordinatesArray = query.ToComponentDataArray<HexCoordinates>(Allocator.Temp);
+
+            RenderService renderService = new RenderService();
 
             Entities.
                 WithoutBurst().
-                ForEach((in Translation translation, in ColorComponent colorComponent) => {
-                    float3 centerPositionFloat3 = translation.Value;
+                ForEach((in Translation translation, in ColorComponent colorComponent, in HexCoordinates hexCoordinates) => {
                     Vector3 centerPosition = new Vector3(
-                        centerPositionFloat3.x,
-                        centerPositionFloat3.y,
-                        centerPositionFloat3.z
+                        translation.Value.x,
+                        translation.Value.y,
+                        translation.Value.z
                     );
 
-                    for (int i = 0; i < 6; i++) {
-                        int vertexIndex = vertices.Length;
-
-                        vertices = TriangulateHexMeshService.AddVertices(vertices, centerPosition, i);
-
-                        triangles = TriangulateHexMeshService.AddTriangles(triangles, vertexIndex);
-
-                        Color color = colorComponent.Value;
-                        colors = TriangulateHexMeshService.AddColors(colors, color);
-                    }
+                    renderService.Execute(centerPosition, hexCoordinates, colorComponent, query);
                 }
             ).Run();
 
-            Mesh hexMesh = CreateHexMesh(vertices, triangles, colors);
+            Mesh hexMesh = CreateHexMesh(
+                renderService.GetVerticesArray(),
+                renderService.GetTrianglesArray(),
+                renderService.GetColorsArray()
+            );
+
+            renderService.Dispose();
 
             Entities.
                 WithStructuralChanges().
@@ -62,21 +66,20 @@ namespace Hex
                 }
             ).Run();
 
-            triangles.Dispose();
-            vertices.Dispose();
-            colors.Dispose();
+            colorsComponentsArray.Dispose();
+            hexCoordinatesArray.Dispose();
 
             shouldRender = false;
         }
 
-        private Mesh CreateHexMesh(NativeList<Vector3> vertices, NativeList<int> triangles, NativeList<Color> colors)
+        private Mesh CreateHexMesh(Vector3[] vertices, int[] triangles, Color[] colors)
         {
             Mesh hexMesh = new Mesh();
 
             hexMesh.name = "Hex Mesh";
-            hexMesh.vertices = vertices.ToArray();
-            hexMesh.colors = colors.ToArray();
-            hexMesh.triangles = triangles.ToArray();
+            hexMesh.vertices = vertices;
+            hexMesh.colors = colors;
+            hexMesh.triangles = triangles;
             hexMesh.RecalculateNormals();
 
             return hexMesh;

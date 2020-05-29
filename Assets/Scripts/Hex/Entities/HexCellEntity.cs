@@ -19,7 +19,7 @@ namespace Hex
             NativeArray<Entity> cellsArray = new NativeArray<Entity>(cellsCount, Allocator.Temp);
 
             EntityArchetype archetype = entityManager.CreateArchetype(
-                typeof(HexCoordinatesComponent),
+                typeof(HexCoordinates),
                 typeof(Translation),
                 typeof(LocalToWorld),
                 typeof(ColorComponent)
@@ -31,9 +31,15 @@ namespace Hex
             {
                 for (int x = 0; x < width; x++)
                 {
+                    int offSetX = GetOffsetX(x, z);
+
                     entityManager.SetComponentData(
                         cellsArray[i],
-                        new HexCoordinatesComponent { X = x, Y = -x -z , Z = z }
+                        new HexCoordinates {
+                            X = offSetX,
+                            Y = -offSetX -z ,
+                            Z = z
+                        }
                     );
 
                     entityManager.SetComponentData(
@@ -60,6 +66,11 @@ namespace Hex
             position.z = z * (HexMetrics.outerRadius * 1.5f);
 
             return new float3(position.x, position.y, position.z);
+        }
+
+        private int GetOffsetX(int x, int z)
+        {
+            return x - z / 2;
         }
     }
 }
