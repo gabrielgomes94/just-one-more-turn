@@ -8,38 +8,26 @@ namespace Hex
     public class RenderTriangle: ITriangulatable
     {
         int vertexIndex;
-        Vector3 vertex1;
-        Vector3 vertex2;
-        Vector3 vertex3;
-        Color color1;
-        Color color2;
-        Color color3;
+        NativeArray<Vector3> triangleVertices;
+        NativeArray<Color> triangleColors;
 
         public RenderTriangle(
             int vertexIndex,
-            Vector3 vertex1,
-            Vector3 vertex2,
-            Vector3 vertex3,
-            Color color1,
-            Color color2,
-            Color color3
+            NativeArray<Vector3> triangleVertices,
+            NativeArray<Color> triangleColors
+
         ) {
             this.vertexIndex = vertexIndex;
-
-            this.vertex1 = vertex1;
-            this.vertex2 = vertex2;
-            this.vertex3 = vertex3;
-
-            this.color1 = color1;
-            this.color2 = color2;
-            this.color3 = color3;
+            this.triangleVertices = triangleVertices;
+            this.triangleColors = triangleColors;
         }
 
         public NativeList<Vector3> AddVertices(NativeList<Vector3> vertices)
         {
-            vertices.Add(vertex1);
-            vertices.Add(vertex2);
-            vertices.Add(vertex3);
+            for (int i = 0; i < 3; i++ )
+            {
+                vertices.Add(triangleVertices[i]);
+            }
 
             return vertices;
         }
@@ -55,9 +43,10 @@ namespace Hex
 
         public NativeList<Color> AddColors(NativeList<Color> colors)
         {
-            colors.Add(color1);
-            colors.Add(color2);
-            colors.Add(color3);
+            for (int i = 0; i < 3; i++ )
+            {
+                colors.Add(triangleColors[i]);
+            }
 
             return colors;
         }

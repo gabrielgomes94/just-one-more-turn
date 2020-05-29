@@ -8,39 +8,28 @@ namespace Hex
     public class RenderQuad: ITriangulatable
     {
         int vertexIndex;
-        Vector3 vertex1;
-        Vector3 vertex2;
-        Vector3 vertex3;
-        Vector3 vertex4;
-        Color color1;
-        Color color2;
+
+        NativeArray<Color> quadColors;
+        NativeArray<Vector3> quadVertices;
 
         public RenderQuad(
             int vertexIndex,
-            Vector3 vertex1,
-            Vector3 vertex2,
-            Vector3 vertex3,
-            Vector3 vertex4,
-            Color color1,
-            Color color2
+            NativeArray<Vector3> quadVertices,
+            NativeArray<Color> quadColors
         ) {
             this.vertexIndex = vertexIndex;
 
-            this.vertex1 = vertex1;
-            this.vertex2 = vertex2;
-            this.vertex3 = vertex3;
-            this.vertex4 = vertex4;
+            this.quadVertices = quadVertices;
+            this.quadColors = quadColors;
 
-            this.color1 = color1;
-            this.color2 = color2;
         }
 
         public NativeList<Vector3> AddVertices (NativeList<Vector3> vertices)
         {
-            vertices.Add(vertex1);
-            vertices.Add(vertex2);
-            vertices.Add(vertex3);
-            vertices.Add(vertex4);
+            for (int i = 0; i < 4; i++ )
+            {
+                vertices.Add(quadVertices[i]);
+            }
 
             return vertices;
         }
@@ -60,10 +49,11 @@ namespace Hex
 
 
         public NativeList<Color> AddColors (NativeList<Color> colors) {
-            colors.Add(color1);
-            colors.Add(color1);
-            colors.Add(color2);
-            colors.Add(color2);
+            for (int i = 0; i < 2; i++ )
+            {
+                colors.Add(quadColors[i]);
+                colors.Add(quadColors[i]);
+            }
 
             return colors;
         }

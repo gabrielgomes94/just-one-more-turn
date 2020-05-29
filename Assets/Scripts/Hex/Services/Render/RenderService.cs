@@ -94,13 +94,18 @@ namespace Hex
 
             RenderTriangle renderTriangle = new RenderTriangle(
                 vertexIndex,
-                centerPosition,
-                vertex1,
-                vertex2,
-                color,
-                color,
-                color
+                new NativeArray<Vector3>(new Vector3[] {
+                    centerPosition,
+                    vertex1,
+                    vertex2,
+                }, Allocator.TempJob),
+                new NativeArray<Color>(new Color[] {
+                    color,
+                    color,
+                    color
+                }, Allocator.TempJob)
             );
+
             this.vertices = renderTriangle.AddVertices(this.vertices);
 
             this.triangles = renderTriangle.AddTriangles(this.triangles);
@@ -120,12 +125,16 @@ namespace Hex
         {
             RenderQuad renderQuad = new RenderQuad(
                 vertexIndex,
-                vertex1,
-                vertex2,
-                vertex3,
-                vertex4,
-                color1,
-                color2
+                new NativeArray<Vector3>(new Vector3[] {
+                    vertex1,
+                    vertex2,
+                    vertex3,
+                    vertex4,
+                }, Allocator.TempJob),
+                new NativeArray<Color>(new Color[] {
+                    color1,
+                    color2
+                }, Allocator.TempJob)
             );
 
             this.vertices = renderQuad.AddVertices(this.vertices);
@@ -141,12 +150,16 @@ namespace Hex
 
             RenderTriangle renderTriangle = new RenderTriangle(
                 vertexIndex,
-                centerPosition,
-                vertex1,
-                vertex2,
-                color1,
-                color2,
-                color3
+                new NativeArray<Vector3>(new Vector3[] {
+                    centerPosition,
+                    vertex1,
+                    vertex2,
+                }, Allocator.TempJob),
+                new NativeArray<Color>(new Color[] {
+                    color1,
+                    color2,
+                    color3
+                }, Allocator.TempJob)
             );
 
             this.vertices = renderTriangle.AddVertices(this.vertices);
