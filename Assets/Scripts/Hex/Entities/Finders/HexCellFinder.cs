@@ -23,8 +23,11 @@ namespace Hex
         public static Color GetColorByIndex(EntityQuery query, int index)
         {
             NativeArray<ColorComponent> colorComponentsArray = HexCellFinder.GetColorsComponentsArray(query);
+            Color color = colorComponentsArray[index].Value;
 
-            return colorComponentsArray[index].Value;
+            colorComponentsArray.Dispose();
+
+            return color;
         }
     }
 }

@@ -48,6 +48,8 @@ namespace Hex
                     Color color = colorComponent.Value;
 
                     renderService.Execute(color, centerPosition, neighborService);
+
+                    neighborService.Dispose();
                 }
             ).Run();
 
@@ -56,6 +58,8 @@ namespace Hex
                 renderService.GetTrianglesArray(),
                 renderService.GetColorsArray()
             );
+
+            renderService.Dispose();
 
             Entities.
                 WithStructuralChanges().

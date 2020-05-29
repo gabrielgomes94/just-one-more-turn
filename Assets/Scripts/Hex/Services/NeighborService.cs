@@ -58,6 +58,12 @@ namespace Hex
             return -1;
         }
 
+        public void Dispose()
+        {
+            this.colorsComponentsArray.Dispose();
+            this.hexCoordinatesArray.Dispose();
+        }
+
         private HexCoordinates GetTargetHexCoordinates(HexDirection direction)
         {
             return new HexCoordinates{
