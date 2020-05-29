@@ -36,8 +36,23 @@ namespace Hex
                 Vector3 vertex3 = vertex1 + bridge;
                 Vector3 vertex4 = vertex2 + bridge;
 
-                // AddMainTriangle();
-                AddMainTriangle(centerPosition, vertex1, vertex2, color);
+                // Add Main Triangle
+                NativeArray<Vector3> mainTriangleVertices = new NativeArray<Vector3>(new Vector3[] {
+                        centerPosition,
+                        vertex1,
+                        vertex2,
+                    }, Allocator.TempJob);
+
+                NativeArray<Color> mainTriangleColors = new NativeArray<Color>(new Color[] {
+                        color,
+                        color,
+                        color
+                    }, Allocator.TempJob);
+
+                AddTriangle(mainTriangleVertices, mainTriangleColors);
+
+                mainTriangleVertices.Dispose();
+                mainTriangleColors.Dispose();
 
                 // AddEdgeQuad
                 if (direction <= HexDirection.SE) {
@@ -49,19 +64,54 @@ namespace Hex
                     Color nextNeighborColor = neighborService.GetNeighborColor(direction.Next());
                     int vertexIndex = vertices.Length;
 
+                    NativeArray<Vector3> edgeQuadVertices = new NativeArray<Vector3>(
+                        new Vector3[] {
+                            vertex1,
+                            vertex2,
+                            vertex3,
+                            vertex4,
+                        },
+                        Allocator.TempJob
+                    );
+
+                    NativeArray<Color> edgeQuadColors = new NativeArray<Color>(
+                        new Color[] {
+                            color,
+                            neighborColor
+                        },
+                        Allocator.TempJob
+                    );
+
                     AddEdgeQuad(
                         vertexIndex,
-                        vertex1,
-                        vertex2,
-                        vertex3,
-                        vertex4,
-                        color,
-                        neighborColor
+                        edgeQuadVertices,
+                        edgeQuadColors
                     );
+
+                    edgeQuadVertices.Dispose();
+                    edgeQuadColors.Dispose();
 
                     // Minor triangle optimized
                     if (direction <= HexDirection.E && nextNeighborIndex >= 0) {
-                        AddEdgeTriangle(vertex2, vertex4, vertex2 + HexMetrics.GetBridge(direction.Next()), color, neighborColor, nextNeighborColor);
+                        NativeArray<Vector3> edgeTriangleVertices = new NativeArray<Vector3>(new Vector3[] {
+                            vertex2,
+                            vertex4,
+                            vertex2 + HexMetrics.GetBridge(direction.Next()),
+                        }, Allocator.TempJob);
+
+                        NativeArray<Color> edgeTriangleColors = new NativeArray<Color>(new Color[] {
+                            color,
+                            neighborColor,
+                            nextNeighborColor
+                        }, Allocator.TempJob);
+
+                        AddTriangle(
+                            edgeTriangleVertices,
+                            edgeTriangleColors
+                        );
+
+                        edgeTriangleVertices.Dispose();
+                        edgeTriangleColors.Dispose();
                     }
                 }
             }
@@ -88,53 +138,16 @@ namespace Hex
             return this.colors.ToArray();
         }
 
-        private void AddMainTriangle(Vector3 centerPosition, Vector3 vertex1, Vector3 vertex2, Color color)
-        {
-            int vertexIndex = this.vertices.Length;
-
-            RenderTriangle renderTriangle = new RenderTriangle(
-                vertexIndex,
-                new NativeArray<Vector3>(new Vector3[] {
-                    centerPosition,
-                    vertex1,
-                    vertex2,
-                }, Allocator.TempJob),
-                new NativeArray<Color>(new Color[] {
-                    color,
-                    color,
-                    color
-                }, Allocator.TempJob)
-            );
-
-            this.vertices = renderTriangle.AddVertices(this.vertices);
-
-            this.triangles = renderTriangle.AddTriangles(this.triangles);
-
-            this.colors = renderTriangle.AddColors(this.colors);
-        }
-
         private void AddEdgeQuad(
             int vertexIndex,
-            Vector3 vertex1,
-            Vector3 vertex2,
-            Vector3 vertex3,
-            Vector3 vertex4,
-            Color color1,
-            Color color2
+            NativeArray<Vector3> vertices,
+            NativeArray<Color> colors
         )
         {
             RenderQuad renderQuad = new RenderQuad(
                 vertexIndex,
-                new NativeArray<Vector3>(new Vector3[] {
-                    vertex1,
-                    vertex2,
-                    vertex3,
-                    vertex4,
-                }, Allocator.TempJob),
-                new NativeArray<Color>(new Color[] {
-                    color1,
-                    color2
-                }, Allocator.TempJob)
+                vertices,
+                colors
             );
 
             this.vertices = renderQuad.AddVertices(this.vertices);
@@ -144,22 +157,14 @@ namespace Hex
             this.colors = renderQuad.AddColors(this.colors);
         }
 
-        private void AddEdgeTriangle(Vector3 centerPosition, Vector3 vertex1, Vector3 vertex2, Color color1, Color color2, Color color3)
+        private void AddTriangle(NativeArray<Vector3> vertices, NativeArray<Color> colors)
         {
             int vertexIndex = this.vertices.Length;
 
             RenderTriangle renderTriangle = new RenderTriangle(
                 vertexIndex,
-                new NativeArray<Vector3>(new Vector3[] {
-                    centerPosition,
-                    vertex1,
-                    vertex2,
-                }, Allocator.TempJob),
-                new NativeArray<Color>(new Color[] {
-                    color1,
-                    color2,
-                    color3
-                }, Allocator.TempJob)
+                vertices,
+                colors
             );
 
             this.vertices = renderTriangle.AddVertices(this.vertices);
