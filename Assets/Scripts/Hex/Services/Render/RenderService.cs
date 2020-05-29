@@ -25,8 +25,20 @@ namespace Hex
             this.colors = new NativeList<Color>(Allocator.TempJob);
         }
 
-        public void Execute(Color color, Vector3 centerPosition, NeighborService neighborService)
-        {
+        public void Execute(
+            Vector3 centerPosition,
+            HexCoordinates hexCoordinates,
+            ColorComponent colorComponent,
+            EntityQuery query
+        ) {
+            NeighborService neighborService = new NeighborService(
+                hexCoordinates,
+                colorComponent,
+                query
+            );
+
+            Color color = colorComponent.Value;
+
             for (HexDirection direction = HexDirection.NE; direction <= HexDirection.NW; direction++)
             {
                 Vector3 bridge = HexMetrics.GetBridge(direction);
@@ -115,6 +127,8 @@ namespace Hex
                     }
                 }
             }
+
+            neighborService.Dispose();
         }
 
         public void Dispose()

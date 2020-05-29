@@ -32,24 +32,13 @@ namespace Hex
             Entities.
                 WithoutBurst().
                 ForEach((in Translation translation, in ColorComponent colorComponent, in HexCoordinates hexCoordinates) => {
-                    float3 centerPositionFloat3 = translation.Value;
                     Vector3 centerPosition = new Vector3(
-                        centerPositionFloat3.x,
-                        centerPositionFloat3.y,
-                        centerPositionFloat3.z
+                        translation.Value.x,
+                        translation.Value.y,
+                        translation.Value.z
                     );
 
-                    NeighborService neighborService = new NeighborService(
-                            hexCoordinates,
-                            colorComponent,
-                            query
-                        );
-
-                    Color color = colorComponent.Value;
-
-                    renderService.Execute(color, centerPosition, neighborService);
-
-                    neighborService.Dispose();
+                    renderService.Execute(centerPosition, hexCoordinates, colorComponent, query);
                 }
             ).Run();
 
