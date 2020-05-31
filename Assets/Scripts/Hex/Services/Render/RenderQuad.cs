@@ -18,10 +18,8 @@ namespace Hex
             NativeArray<Color> quadColors
         ) {
             this.vertexIndex = vertexIndex;
-
             this.quadVertices = quadVertices;
             this.quadColors = quadColors;
-
         }
 
         public NativeList<Vector3> AddVertices (NativeList<Vector3> vertices)
