@@ -23,6 +23,8 @@ namespace Hex
         private Vector3 vertex3;
         private Vector3 vertex4;
 
+        private NeighborService neighborService;
+
         public RenderService()
         {
             this.triangles = new NativeList<int>(Allocator.TempJob);
@@ -37,7 +39,7 @@ namespace Hex
             ColorComponent colorComponent,
             EntityQuery query
         ) {
-            NeighborService neighborService = new NeighborService(
+            neighborService = new NeighborService(
                 entity,
                 query
             );
@@ -52,6 +54,7 @@ namespace Hex
                 this.vertex2 = centerPosition + HexMetrics.GetSecondSolidCorner(direction);
                 this.vertex3 = vertex1 + bridge;
                 this.vertex4 = vertex2 + bridge;
+                vertex3.y = vertex4.y = neighborService.GetNeighborElevation(direction) * HexMetrics.elevationStep;
 
                 // Create Main Triangle
                 CreateMainTriangle(color);
@@ -68,7 +71,7 @@ namespace Hex
                 // Create corner triangle
                 if(direction > HexDirection.E || !neighborService.HasNeighbor(direction.Next())) continue;
 
-                CreateCornerTriangle(color, neighborColor, nextNeighborColor, HexMetrics.GetBridge(direction.Next()));
+                CreateCornerTriangle(color, neighborColor, nextNeighborColor, direction.Next());
             }
 
             neighborService.Dispose();
@@ -184,12 +187,18 @@ namespace Hex
             edgeQuadColors.Dispose();
         }
 
-        private void CreateCornerTriangle(Color color1, Color color2, Color color3, Vector3 bridge)
+        private void CreateCornerTriangle(Color color1, Color color2, Color color3, HexDirection direction)
         {
+            // Vector3 bridge = ;
+            Vector3 vertex5 = vertex2 + HexMetrics.GetBridge(direction);
+            int elevation = neighborService.GetNeighborElevation(direction);
+			vertex5.y = elevation * HexMetrics.elevationStep;
+			// AddTriangle(v2, v4, v5);
+
             NativeArray<Vector3> edgeTriangleVertices = new NativeArray<Vector3>(new Vector3[] {
                 vertex2,
                 vertex4,
-                vertex2 + bridge
+                vertex5
             }, Allocator.TempJob);
 
             NativeArray<Color> edgeTriangleColors = new NativeArray<Color>(new Color[] {
