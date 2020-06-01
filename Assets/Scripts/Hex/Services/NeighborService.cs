@@ -53,6 +53,18 @@ namespace Hex
             return color;
         }
 
+        public int GetNeighborElevation(HexDirection direction) {
+            int elevation = 0;
+
+            int index = GetNeighborIndex(direction);
+
+            if (index >= 0) {
+                elevation = HexCellFinder.GetElevationByIndex(query, index);
+            }
+
+            return elevation;
+        }
+
         public bool HasNeighbor(HexDirection direction)
         {
             HexCoordinates targetHexCoordinates = GetTargetHexCoordinates(direction);

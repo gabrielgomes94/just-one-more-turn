@@ -17,7 +17,7 @@ namespace Hex
 
         protected override void OnCreate()
         {
-            query = GetEntityQuery(ComponentType.ReadOnly<ColorComponent>(), ComponentType.ReadOnly<HexCoordinates>());
+            query = GetEntityQuery(ComponentType.ReadOnly<ColorComponent>(), ComponentType.ReadOnly<HexCoordinates>(), ComponentType.ReadOnly<Elevation>());
         }
 
         protected override void OnUpdate()
@@ -31,14 +31,14 @@ namespace Hex
 
             Entities.
                 WithoutBurst().
-                ForEach((in Translation translation, in ColorComponent colorComponent, in HexCoordinates hexCoordinates) => {
+                ForEach((Entity entity, in Translation translation, in ColorComponent colorComponent, in HexCoordinates hexCoordinates) => {
                     Vector3 centerPosition = new Vector3(
                         translation.Value.x,
                         translation.Value.y,
                         translation.Value.z
                     );
 
-                    renderService.Execute(centerPosition, hexCoordinates, colorComponent, query);
+                    renderService.Execute(entity, centerPosition, hexCoordinates, colorComponent, query);
                 }
             ).Run();
 
