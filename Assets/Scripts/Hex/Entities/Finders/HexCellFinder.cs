@@ -20,6 +20,12 @@ namespace Hex
             return query.ToComponentDataArray<HexCoordinates>(Allocator.Temp);
         }
 
+        public static NativeArray<Elevation> GetElevationArray(EntityQuery query)
+        {
+            return query.ToComponentDataArray<Elevation>(Allocator.Temp);
+        }
+
+
         public static Color GetColorByIndex(EntityQuery query, int index)
         {
             NativeArray<ColorComponent> colorComponentsArray = HexCellFinder.GetColorsComponentsArray(query);
@@ -28,6 +34,16 @@ namespace Hex
             colorComponentsArray.Dispose();
 
             return color;
+        }
+
+        public static int GetElevationByIndex(EntityQuery query, int index)
+        {
+            NativeArray<Elevation> elevationArray = HexCellFinder.GetElevationArray(query);
+            int elevation = elevationArray[index].Value;
+
+            elevationArray.Dispose();
+
+            return elevation;
         }
     }
 }

@@ -22,7 +22,8 @@ namespace Hex
                 typeof(HexCoordinates),
                 typeof(Translation),
                 typeof(LocalToWorld),
-                typeof(ColorComponent)
+                typeof(ColorComponent),
+                typeof(Elevation)
             );
 
             entityManager.CreateEntity(archetype, cellsArray);
@@ -32,6 +33,7 @@ namespace Hex
                 for (int x = 0; x < width; x++)
                 {
                     int offSetX = GetOffsetX(x, z);
+                    int elevation = UnityEngine.Random.Range(0, 6);
 
                     entityManager.SetComponentData(
                         cellsArray[i],
@@ -42,9 +44,12 @@ namespace Hex
                         }
                     );
 
+
                     entityManager.SetComponentData(
                         cellsArray[i],
-                        new Translation { Value = GetCellPosition(x, z) }
+                        new Translation {
+                            Value = GetCellPosition(x, GetPositionY(elevation), z )
+                        }
                     );
 
                     entityManager.SetComponentData(
@@ -52,17 +57,23 @@ namespace Hex
                         new ColorComponent { Value = HexColor.GetRandomColor() }
                     );
 
+                    entityManager.SetComponentData(
+                        cellsArray[i],
+                        new Elevation { Value = elevation }
+                    );
+
                     i++;
                 }
             }
         }
 
-        private float3 GetCellPosition(int x, int z)
+        private float3 GetCellPosition(int x, float y, int z)
         {
             Vector3 position;
 
             position.x = (x + (z * 0.5f) - (z / 2)) * (HexMetrics.innerRadius * 2f);
-            position.y = 0f;
+            // position.y = 0f;
+            position.y = y;
             position.z = z * (HexMetrics.outerRadius * 1.5f);
 
             return new float3(position.x, position.y, position.z);
@@ -71,6 +82,11 @@ namespace Hex
         private int GetOffsetX(int x, int z)
         {
             return x - z / 2;
+        }
+
+        private float GetPositionY(int elevation)
+        {
+            return elevation * HexMetrics.elevationStep;
         }
     }
 }
