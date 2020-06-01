@@ -11,6 +11,8 @@ namespace Hex
 
         public const float blendFactor = 1f - solidFactor;
 
+        public const float elevationStep = 5f;
+
         public static readonly Vector3[] corners = {
             new Vector3(0f, 0f, outerRadius),                       // vertex 1
             new Vector3(innerRadius, 0f, 0.5f * outerRadius),       // vertex 2

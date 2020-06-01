@@ -13,10 +13,15 @@ namespace Hex
         public NativeList<int> triangles;
         public NativeList<Vector3> vertices;
         public NativeList<Color> colors;
-
         Vector3 centerPosition;
         Color color;
         EntityQuery query;
+
+        private Vector3 bridge;
+        private Vector3 vertex1;
+        private Vector3 vertex2;
+        private Vector3 vertex3;
+        private Vector3 vertex4;
 
         public RenderService()
         {
@@ -26,116 +31,47 @@ namespace Hex
         }
 
         public void Execute(
+            Entity entity,
             Vector3 centerPosition,
             HexCoordinates hexCoordinates,
             ColorComponent colorComponent,
             EntityQuery query
         ) {
             NeighborService neighborService = new NeighborService(
-                hexCoordinates,
-                colorComponent,
+                entity,
                 query
             );
 
             Color color = colorComponent.Value;
+            this.centerPosition = centerPosition;
 
             for (HexDirection direction = HexDirection.NE; direction <= HexDirection.NW; direction++)
             {
-                Vector3 bridge = HexMetrics.GetBridge(direction);
+                this.bridge = HexMetrics.GetBridge(direction);
+                this.vertex1 = centerPosition + HexMetrics.GetFirstSolidCorner(direction);
+                this.vertex2 = centerPosition + HexMetrics.GetSecondSolidCorner(direction);
+                this.vertex3 = vertex1 + bridge;
+                this.vertex4 = vertex2 + bridge;
 
-                Vector3 vertex1 = centerPosition + HexMetrics.GetFirstSolidCorner(direction);
-                Vector3 vertex2 = centerPosition + HexMetrics.GetSecondSolidCorner(direction);
-                Vector3 vertex3 = vertex1 + bridge;
-                Vector3 vertex4 = vertex2 + bridge;
+                // Create Main Triangle
+                CreateMainTriangle(color);
 
-                // Add Main Triangle
-                NativeArray<Vector3> mainTriangleVertices = new NativeArray<Vector3>(new Vector3[] {
-                        centerPosition,
-                        vertex1,
-                        vertex2,
-                    }, Allocator.TempJob);
+                // Create Edge Quad
+                if (direction > HexDirection.SE) continue;
+                if (!neighborService.HasNeighbor(direction)) continue;
 
-                NativeArray<Color> mainTriangleColors = new NativeArray<Color>(new Color[] {
-                        color,
-                        color,
-                        color
-                    }, Allocator.TempJob);
+                Color neighborColor = neighborService.GetNeighborColor(direction);
+                Color nextNeighborColor = neighborService.GetNeighborColor(direction.Next());
 
-                AddTriangle(mainTriangleVertices, mainTriangleColors);
+                CreateEdgeQuad(color, neighborColor);
 
-                mainTriangleVertices.Dispose();
-                mainTriangleColors.Dispose();
+                // Create corner triangle
+                if(direction > HexDirection.E || !neighborService.HasNeighbor(direction.Next())) continue;
 
-                // AddEdgeQuad
-                if (direction <= HexDirection.SE) {
-                    int index = neighborService.GetNeighborIndex(direction);
-                    if (index < 0 ) continue;
-
-                    Color neighborColor = neighborService.GetNeighborColor(direction);
-                    int nextNeighborIndex = neighborService.GetNeighborIndex(direction.Next());
-                    Color nextNeighborColor = neighborService.GetNeighborColor(direction.Next());
-                    int vertexIndex = vertices.Length;
-
-                    NativeArray<Vector3> edgeQuadVertices = new NativeArray<Vector3>(
-                        new Vector3[] {
-                            vertex1,
-                            vertex2,
-                            vertex3,
-                            vertex4,
-                        },
-                        Allocator.TempJob
-                    );
-
-                    NativeArray<Color> edgeQuadColors = new NativeArray<Color>(
-                        new Color[] {
-                            color,
-                            neighborColor
-                        },
-                        Allocator.TempJob
-                    );
-
-                    AddEdgeQuad(
-                        vertexIndex,
-                        edgeQuadVertices,
-                        edgeQuadColors
-                    );
-
-                    edgeQuadVertices.Dispose();
-                    edgeQuadColors.Dispose();
-
-                    // Minor triangle optimized
-                    if (direction <= HexDirection.E && nextNeighborIndex >= 0) {
-                        NativeArray<Vector3> edgeTriangleVertices = new NativeArray<Vector3>(new Vector3[] {
-                            vertex2,
-                            vertex4,
-                            vertex2 + HexMetrics.GetBridge(direction.Next()),
-                        }, Allocator.TempJob);
-
-                        NativeArray<Color> edgeTriangleColors = new NativeArray<Color>(new Color[] {
-                            color,
-                            neighborColor,
-                            nextNeighborColor
-                        }, Allocator.TempJob);
-
-                        AddTriangle(
-                            edgeTriangleVertices,
-                            edgeTriangleColors
-                        );
-
-                        edgeTriangleVertices.Dispose();
-                        edgeTriangleColors.Dispose();
-                    }
-                }
+                CreateCornerTriangle(color, neighborColor, nextNeighborColor, HexMetrics.GetBridge(direction.Next()));
             }
 
             neighborService.Dispose();
-        }
-
-        public void Dispose()
-        {
-            this.triangles.Dispose();
-            this.vertices.Dispose();
-            this.colors.Dispose();
         }
 
         public Vector3[] GetVerticesArray()
@@ -150,6 +86,13 @@ namespace Hex
         public Color[] GetColorsArray()
         {
             return this.colors.ToArray();
+        }
+
+        public void Dispose()
+        {
+            this.triangles.Dispose();
+            this.vertices.Dispose();
+            this.colors.Dispose();
         }
 
         private void AddEdgeQuad(
@@ -186,6 +129,82 @@ namespace Hex
             this.triangles = renderTriangle.AddTriangles(this.triangles);
 
             this.colors = renderTriangle.AddColors(this.colors);
+        }
+
+        private void CreateMainTriangle(Color color)
+        {
+            NativeArray<Vector3> mainTriangleVertices = new NativeArray<Vector3>(new Vector3[] {
+                        centerPosition,
+                        vertex1,
+                        vertex2,
+                    }, Allocator.TempJob);
+
+            NativeArray<Color> mainTriangleColors = new NativeArray<Color>(new Color[] {
+                    color,
+                    color,
+                    color
+                }, Allocator.TempJob);
+
+            AddTriangle(mainTriangleVertices, mainTriangleColors);
+
+            mainTriangleVertices.Dispose();
+            mainTriangleColors.Dispose();
+        }
+
+        private void CreateEdgeQuad(Color color1, Color color2)
+        {
+
+            int vertexIndex = vertices.Length;
+
+            NativeArray<Vector3> edgeQuadVertices = new NativeArray<Vector3>(
+                new Vector3[] {
+                    vertex1,
+                    vertex2,
+                    vertex3,
+                    vertex4,
+                },
+                Allocator.TempJob
+            );
+
+            NativeArray<Color> edgeQuadColors = new NativeArray<Color>(
+                new Color[] {
+                    color1,
+                    color2
+                },
+                Allocator.TempJob
+            );
+
+            AddEdgeQuad(
+                vertexIndex,
+                edgeQuadVertices,
+                edgeQuadColors
+            );
+
+            edgeQuadVertices.Dispose();
+            edgeQuadColors.Dispose();
+        }
+
+        private void CreateCornerTriangle(Color color1, Color color2, Color color3, Vector3 bridge)
+        {
+            NativeArray<Vector3> edgeTriangleVertices = new NativeArray<Vector3>(new Vector3[] {
+                vertex2,
+                vertex4,
+                vertex2 + bridge
+            }, Allocator.TempJob);
+
+            NativeArray<Color> edgeTriangleColors = new NativeArray<Color>(new Color[] {
+                color1,
+                color2,
+                color3,
+            }, Allocator.TempJob);
+
+            AddTriangle(
+                edgeTriangleVertices,
+                edgeTriangleColors
+            );
+
+            edgeTriangleVertices.Dispose();
+            edgeTriangleColors.Dispose();
         }
     }
 }

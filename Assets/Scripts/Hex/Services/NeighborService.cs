@@ -21,16 +21,21 @@ namespace Hex
         private ColorComponent hexCellColor;
         private NativeArray<ColorComponent> colorsComponentsArray;
         private NativeArray<HexCoordinates> hexCoordinatesArray;
+
+        private EntityManager entityManager;
         EntityQuery query;
+        Entity entity;
 
         public NeighborService(
-            HexCoordinates hexCellCoordinates,
-            ColorComponent hexCellColor,
+            Entity entity,
             EntityQuery query
         ) {
-            this.hexCellCoordinates = hexCellCoordinates;
-            this.hexCellColor = hexCellColor;
+            entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            this.entity = entity;
             this.query = query;
+
+            this.hexCellCoordinates = entityManager.GetComponentData<HexCoordinates>(entity);
+            this.hexCellColor = entityManager.GetComponentData<ColorComponent>(entity);
 
             this.colorsComponentsArray = HexCellFinder.GetColorsComponentsArray(query);
             this.hexCoordinatesArray = HexCellFinder.GetHexCoordinatesArray(query);
@@ -48,11 +53,24 @@ namespace Hex
             return color;
         }
 
+        public bool HasNeighbor(HexDirection direction)
+        {
+            HexCoordinates targetHexCoordinates = GetTargetHexCoordinates(direction);
+
+            for (int i = 0; i < this.hexCoordinatesArray.Length; i++) {
+                if (targetHexCoordinates == hexCoordinatesArray[i]) return true;
+            }
+
+            return false;
+        }
+
         public int GetNeighborIndex(HexDirection direction) {
             HexCoordinates targetHexCoordinates = GetTargetHexCoordinates(direction);
 
             for (int i = 0; i < this.hexCoordinatesArray.Length; i++) {
-                if (targetHexCoordinates == hexCoordinatesArray[i]) return i;
+                if (targetHexCoordinates == hexCoordinatesArray[i]) {
+                    return i;
+                }
             }
 
             return -1;
