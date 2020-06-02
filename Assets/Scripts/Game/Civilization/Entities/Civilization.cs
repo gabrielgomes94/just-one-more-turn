@@ -20,8 +20,6 @@ namespace Game
             );
 
             Entity entity = entityManager.CreateEntity(archetype);
-
-            Debug.Log(entity);
         }
     }
 }
