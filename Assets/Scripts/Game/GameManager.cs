@@ -20,7 +20,6 @@ namespace Game
             CreateUnitEventArgs args = new CreateUnitEventArgs();
             args.position = new float3(10, 20, 30);
 
-
             OnCivilizationCreated?.Invoke(this, args);
         }
     }

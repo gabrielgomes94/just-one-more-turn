@@ -18,6 +18,7 @@ namespace Game
             SettlerPrefab settlerPrefab = GetSingleton<SettlerPrefab>();
 
             Entities
+                .WithoutBurst()
                 .ForEach((
                     Entity entity,
                     int entityInQueryIndex,
@@ -27,9 +28,11 @@ namespace Game
 
                     ecb.SetComponent<Translation>(settler, new Translation { Value = createUnitEvent.position });
 
+                    ecb.AddSharedComponent<CivIdSharedComponent>(settler, new CivIdSharedComponent { Value = 1} );
+
                     ecb.DestroyEntity(entity);
                 })
-                .Schedule();
+                .Run();
 
             barrier.AddJobHandleForProducer(this.Dependency);
         }
