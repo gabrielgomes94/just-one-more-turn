@@ -11,7 +11,6 @@ namespace Game
         {
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-
             EntityArchetype archetype = entityManager.CreateArchetype(
                 typeof(Name),
                 typeof(CivColors),

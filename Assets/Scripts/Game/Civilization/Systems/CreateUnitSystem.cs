@@ -27,9 +27,7 @@ namespace Game
                     Entity settler = ecb.Instantiate(settlerPrefab.Value);
 
                     ecb.SetComponent<Translation>(settler, new Translation { Value = createUnitEvent.position });
-
                     ecb.AddSharedComponent<CivIdSharedComponent>(settler, new CivIdSharedComponent { Value = 1} );
-
                     ecb.DestroyEntity(entity);
                 })
                 .Run();
