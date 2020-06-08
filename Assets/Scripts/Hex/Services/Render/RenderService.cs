@@ -25,6 +25,10 @@ namespace Hex
 
         private NeighborService neighborService;
 
+        private NativeArray<float3> verticesArray;
+
+        private NativeArray<int3> trianglesInt3;
+
         public RenderService()
         {
             this.triangles = new NativeList<int>(Allocator.TempJob);
@@ -82,10 +86,43 @@ namespace Hex
             return this.vertices.ToArray();
         }
 
+        public NativeArray<float3> GetVerticesFloat3Array()
+        {
+            this.verticesArray = new NativeArray<float3>(this.vertices.Length, Allocator.TempJob);
+
+            for(int i = 0; i < this.vertices.Length; i++) {
+                verticesArray[i] = new float3(
+                    this.vertices[i].x,
+                    this.vertices[i].y,
+                    this.vertices[i].z
+                );
+            }
+
+            return verticesArray;
+        }
+
         public int[] GetTrianglesArray()
         {
             return this.triangles.ToArray();
         }
+
+        public NativeArray<int3> GetTrianglesInt3()
+        {
+            int size = this.triangles.Length / 3;
+            this.trianglesInt3 = new NativeArray<int3>(size, Allocator.TempJob);
+
+            for(int j = 0, i = 0; j < size; j++)
+            {
+                trianglesInt3[j] = new int3(
+                    GetTrianglesArray()[i++],
+                    GetTrianglesArray()[i++],
+                    GetTrianglesArray()[i++]
+                );
+            }
+
+            return trianglesInt3;
+        }
+
         public Color[] GetColorsArray()
         {
             return this.colors.ToArray();
@@ -96,6 +133,8 @@ namespace Hex
             this.triangles.Dispose();
             this.vertices.Dispose();
             this.colors.Dispose();
+            this.verticesArray.Dispose();
+            this.trianglesInt3.Dispose();
         }
 
         private void AddEdgeQuad(
