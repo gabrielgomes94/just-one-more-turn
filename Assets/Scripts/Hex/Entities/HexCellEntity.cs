@@ -80,7 +80,8 @@ namespace Hex
                 typeof(Translation),
                 typeof(LocalToWorld),
                 typeof(ColorComponent),
-                typeof(Elevation)
+                typeof(Elevation),
+                typeof(HexCellTag)
             );
 
             return archetype;
