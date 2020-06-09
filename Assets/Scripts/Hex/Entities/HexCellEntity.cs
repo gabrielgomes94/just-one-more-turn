@@ -21,16 +21,14 @@ namespace Hex
             int cellsCount = width * height;
 
             NativeArray<Entity> cellsArray = new NativeArray<Entity>(cellsCount, Allocator.Temp);
-
             EntityArchetype archetype = GetHexCellArchetype();
-
             entityManager.CreateEntity(archetype, cellsArray);
 
             for (int z = 0, i = 0; z < height; z++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    int offSetX = PositionCalculator.GetOffsetX(x, z);
+                    int offSetX = CoordinatesCalculator.GetXFromOffset(x, z);
                     int elevation = UnityEngine.Random.Range(0, 6);
 
                     entityManager.SetComponentData(
@@ -77,15 +75,15 @@ namespace Hex
 
         private EntityArchetype GetHexCellArchetype()
         {
-            return
-                entityManager.
-                    CreateArchetype(
-                        typeof(HexCoordinates),
-                        typeof(Translation),
-                        typeof(LocalToWorld),
-                        typeof(ColorComponent),
-                        typeof(Elevation)
-                    );
+            EntityArchetype archetype = entityManager.CreateArchetype(
+                typeof(HexCoordinates),
+                typeof(Translation),
+                typeof(LocalToWorld),
+                typeof(ColorComponent),
+                typeof(Elevation)
+            );
+
+            return archetype;
         }
     }
 }

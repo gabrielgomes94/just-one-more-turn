@@ -6,11 +6,6 @@ namespace Hex
 {
     public class PositionCalculator
     {
-        public static int GetOffsetX(int x, int z)
-        {
-            return x - z / 2;
-        }
-
         public static float GetPositionX(int x, int z)
         {
             return (x + (z * 0.5f) - (z / 2)) * (HexMetrics.innerRadius * 2f);
