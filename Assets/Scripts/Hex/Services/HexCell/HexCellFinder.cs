@@ -45,5 +45,35 @@ namespace Hex
 
             return elevation;
         }
+
+        public static float3 GetTranslationComponentByHexCoordinates(float3 hexCoordinates)
+        {
+            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            EntityQuery m_Query = entityManager.CreateEntityQuery(typeof(HexCoordinates), ComponentType.ReadOnly<Translation>());
+
+            var entityArray = m_Query.ToEntityArray(Allocator.TempJob);
+
+            HexCoordinates hexCoordinatesZ = new HexCoordinates {
+                X = (int) hexCoordinates.x,
+                Y = (int) hexCoordinates.y,
+                Z = (int) hexCoordinates.z
+            };
+
+            float3 translation = float3.zero;
+
+            foreach(var entity in entityArray)
+            {
+                if (hexCoordinatesZ == entityManager.GetComponentData<HexCoordinates>(entity))
+                {
+                    translation = entityManager.GetComponentData<Translation>(entity).Value;
+                    break;
+                }
+            }
+            translation.y += 10f;
+
+            entityArray.Dispose();
+
+            return translation;
+        }
     }
 }
