@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using GameInput;
 using Unity.Entities;
 using Unity.Rendering;
 using Unity.Transforms;
@@ -9,7 +8,7 @@ using Unity.Physics;
 namespace Hex
 {
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
-    public class HexMesh : MonoBehaviour, IInteractable
+    public class HexMesh : MonoBehaviour
     {
         [SerializeField] private Mesh hexMesh;
         [SerializeField] private UnityEngine.Material hexMaterial;
