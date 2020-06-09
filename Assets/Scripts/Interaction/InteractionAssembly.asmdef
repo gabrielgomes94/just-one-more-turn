@@ -1,13 +1,10 @@
 {
-    "name": "GameInputAssembly",
+    "name": "InteractionAssembly",
     "references": [
-        "GUID:1f4f57f1c6b947e42a2fdacbf6936273",
-        "GUID:75469ad4d38634e559750d17036d5f7c",
         "GUID:734d92eba21c94caba915361bd5ac177",
-        "GUID:63afb046c8423dd448ae7aba042ea63d",
         "GUID:d8b63aba1907145bea998dd612889d6b",
         "GUID:e0cd26848372d4e5c891c569017e11f1",
-        "GUID:36cb5add8949df54a899d5c7a7ed9f1b"
+        "GUID:a5baed0c9693541a5bd947d336ec7659"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
