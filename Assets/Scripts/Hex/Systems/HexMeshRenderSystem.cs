@@ -5,6 +5,7 @@ using Unity.Transforms;
 using Unity.Entities;
 using Unity.Rendering;
 using Unity.Jobs;
+using Unity.Physics;
 using System.Collections.Generic;
 
 namespace Hex
@@ -48,6 +49,11 @@ namespace Hex
                 renderService.GetColorsArray()
             );
 
+            NativeArray<float3> vertices = renderService.GetVerticesFloat3Array();
+            NativeArray<int3> triangles = renderService.GetTrianglesInt3();
+
+            BlobAssetReference<Unity.Physics.Collider> collider = Unity.Physics.MeshCollider.Create(vertices, triangles);
+
             renderService.Dispose();
 
             Entities.
@@ -62,6 +68,12 @@ namespace Hex
                             mesh = hexMesh,
                             material = render.material
                         }
+                    );
+
+
+                    EntityManager.SetComponentData<PhysicsCollider>(
+                        entity,
+                        new PhysicsCollider { Value = collider }
                     );
                 }
             ).Run();
