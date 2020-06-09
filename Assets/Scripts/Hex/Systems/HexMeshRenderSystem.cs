@@ -35,13 +35,7 @@ namespace Hex
             Entities.
                 WithoutBurst().
                 ForEach((Entity entity, in Translation translation, in ColorComponent colorComponent, in HexCoordinates hexCoordinates) => {
-                    Vector3 centerPosition = new Vector3(
-                        translation.Value.x,
-                        translation.Value.y,
-                        translation.Value.z
-                    );
-
-                    renderService.Execute(entity, centerPosition, hexCoordinates, colorComponent, query);
+                    renderService.Execute(entity, query);
                 }
             ).Run();
 
@@ -51,8 +45,8 @@ namespace Hex
                 renderService.GetColorsArray()
             );
 
-            NativeArray<float3> vertices = renderService.GetVerticesFloat3Array();
-            NativeArray<int3> triangles = renderService.GetTrianglesInt3();
+            NativeArray<float3> vertices = renderService.ConvertVerticesToNativeArray();
+            NativeArray<int3> triangles = renderService.ConvertTrianglesToNativeArray();
 
             BlobAssetReference<Unity.Physics.Collider> collider = Unity.Physics.MeshCollider.Create(vertices, triangles);
 
@@ -72,7 +66,6 @@ namespace Hex
                         }
                     );
 
-
                     EntityManager.SetComponentData<PhysicsCollider>(
                         entity,
                         new PhysicsCollider { Value = collider }
@@ -82,8 +75,6 @@ namespace Hex
 
             colorsComponentsArray.Dispose();
             hexCoordinatesArray.Dispose();
-
-            shouldRender = false;
         }
 
         private Mesh CreateHexMesh(Vector3[] vertices, int[] triangles, Color[] colors)
