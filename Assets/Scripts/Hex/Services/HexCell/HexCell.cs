@@ -8,7 +8,7 @@ using Unity.Transforms;
 
 namespace Hex
 {
-    public class HexCellFinder
+    public class HexCell
     {
         public static NativeArray<ColorComponent> GetColorsComponentsArray(EntityQuery query)
         {
@@ -28,7 +28,7 @@ namespace Hex
 
         public static Color GetColorByIndex(EntityQuery query, int index)
         {
-            NativeArray<ColorComponent> colorComponentsArray = HexCellFinder.GetColorsComponentsArray(query);
+            NativeArray<ColorComponent> colorComponentsArray = HexCell.GetColorsComponentsArray(query);
             Color color = colorComponentsArray[index].Value;
 
             colorComponentsArray.Dispose();
@@ -38,7 +38,7 @@ namespace Hex
 
         public static int GetElevationByIndex(EntityQuery query, int index)
         {
-            NativeArray<Elevation> elevationArray = HexCellFinder.GetElevationArray(query);
+            NativeArray<Elevation> elevationArray = HexCell.GetElevationArray(query);
             int elevation = elevationArray[index].Value;
 
             elevationArray.Dispose();

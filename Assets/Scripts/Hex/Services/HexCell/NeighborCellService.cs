@@ -37,8 +37,8 @@ namespace Hex
             this.hexCellCoordinates = entityManager.GetComponentData<HexCoordinates>(entity);
             this.hexCellColor = entityManager.GetComponentData<ColorComponent>(entity);
 
-            this.colorsComponentsArray = HexCellFinder.GetColorsComponentsArray(query);
-            this.hexCoordinatesArray = HexCellFinder.GetHexCoordinatesArray(query);
+            this.colorsComponentsArray = HexCell.GetColorsComponentsArray(query);
+            this.hexCoordinatesArray = HexCell.GetHexCoordinatesArray(query);
         }
 
         public Color GetNeighborColor(HexDirection direction) {
@@ -47,7 +47,7 @@ namespace Hex
             int index = GetNeighborIndex(direction);
 
             if (index >= 0) {
-                color = HexCellFinder.GetColorByIndex(query, index);
+                color = HexCell.GetColorByIndex(query, index);
             }
 
             return color;
@@ -59,7 +59,7 @@ namespace Hex
             int index = GetNeighborIndex(direction);
 
             if (index >= 0) {
-                elevation = HexCellFinder.GetElevationByIndex(query, index);
+                elevation = HexCell.GetElevationByIndex(query, index);
             }
 
             return elevation;
