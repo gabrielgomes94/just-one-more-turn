@@ -4,6 +4,7 @@ using GameInput;
 using Unity.Entities;
 using Unity.Rendering;
 using Unity.Transforms;
+using Unity.Physics;
 
 namespace Hex
 {
@@ -11,15 +12,15 @@ namespace Hex
     public class HexMesh : MonoBehaviour, IInteractable
     {
         [SerializeField] private Mesh hexMesh;
-        [SerializeField] private Material hexMaterial;
+        [SerializeField] private UnityEngine.Material hexMaterial;
 
-        MeshCollider meshCollider;
+        UnityEngine.MeshCollider meshCollider;
         Entity entity;
 
         void Awake()
         {
             GetComponent<MeshFilter>().mesh = hexMesh = new Mesh();
-            meshCollider = gameObject.AddComponent<MeshCollider>();
+            meshCollider = gameObject.AddComponent<UnityEngine.MeshCollider>();
             hexMesh.name = "Hex Mesh";
 
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -28,7 +29,10 @@ namespace Hex
                 typeof(LocalToWorld),
                 typeof(RenderMesh),
                 typeof(RenderBounds),
-                typeof(HexMeshTag)
+                typeof(HexMeshTag),
+                typeof(PhysicsCollider),
+                typeof(Translation),
+                typeof(Rotation)
             );
 
             entity = entityManager.CreateEntity(hexMeshArchetype);

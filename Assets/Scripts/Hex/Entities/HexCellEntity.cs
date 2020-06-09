@@ -10,29 +10,25 @@ namespace Hex
 {
     public class HexCellEntity
     {
+        EntityManager entityManager;
+
+        public HexCellEntity()
+        {
+            this.entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        }
         public void CreateCells(int width, int height)
         {
-            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-
             int cellsCount = width * height;
 
             NativeArray<Entity> cellsArray = new NativeArray<Entity>(cellsCount, Allocator.Temp);
-
-            EntityArchetype archetype = entityManager.CreateArchetype(
-                typeof(HexCoordinates),
-                typeof(Translation),
-                typeof(LocalToWorld),
-                typeof(ColorComponent),
-                typeof(Elevation)
-            );
-
+            EntityArchetype archetype = GetHexCellArchetype();
             entityManager.CreateEntity(archetype, cellsArray);
 
             for (int z = 0, i = 0; z < height; z++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    int offSetX = GetOffsetX(x, z);
+                    int offSetX = CoordinatesCalculator.GetXFromOffset(x, z);
                     int elevation = UnityEngine.Random.Range(0, 6);
 
                     entityManager.SetComponentData(
@@ -44,11 +40,10 @@ namespace Hex
                         }
                     );
 
-
                     entityManager.SetComponentData(
                         cellsArray[i],
                         new Translation {
-                            Value = GetCellPosition(x, GetPositionY(elevation), z )
+                            Value = GetCellPosition(x, elevation, z)
                         }
                     );
 
@@ -67,26 +62,29 @@ namespace Hex
             }
         }
 
-        private float3 GetCellPosition(int x, float y, int z)
+        private float3 GetCellPosition(int x, int y, int z)
         {
             Vector3 position;
 
-            position.x = (x + (z * 0.5f) - (z / 2)) * (HexMetrics.innerRadius * 2f);
-            // position.y = 0f;
-            position.y = y;
-            position.z = z * (HexMetrics.outerRadius * 1.5f);
+            position.x = PositionCalculator.GetPositionX(x, z);
+            position.y = PositionCalculator.GetPositionY(y);
+            position.z = PositionCalculator.GetPositionZ(z);
 
             return new float3(position.x, position.y, position.z);
         }
 
-        private int GetOffsetX(int x, int z)
+        private EntityArchetype GetHexCellArchetype()
         {
-            return x - z / 2;
-        }
+            EntityArchetype archetype = entityManager.CreateArchetype(
+                typeof(HexCoordinates),
+                typeof(Translation),
+                typeof(LocalToWorld),
+                typeof(ColorComponent),
+                typeof(Elevation),
+                typeof(HexCellTag)
+            );
 
-        private float GetPositionY(int elevation)
-        {
-            return elevation * HexMetrics.elevationStep;
+            return archetype;
         }
     }
 }

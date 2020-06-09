@@ -7,5 +7,6 @@ namespace Game
     public struct CreateUnitEventComponent : IComponentData
     {
         public float3 position;
+        public float3 Coordinates;
     }
 }

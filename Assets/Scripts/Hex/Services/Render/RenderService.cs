@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
-
+using Unity.Transforms;
 
 namespace Hex
 {
@@ -13,8 +13,12 @@ namespace Hex
         public NativeList<int> triangles;
         public NativeList<Vector3> vertices;
         public NativeList<Color> colors;
+        private NativeArray<float3> verticesNativeArray;
+        private NativeArray<int3> trianglesNativeArray;
+
         Vector3 centerPosition;
         Color color;
+        EntityManager entityManager;
         EntityQuery query;
 
         private Vector3 bridge;
@@ -23,23 +27,32 @@ namespace Hex
         private Vector3 vertex3;
         private Vector3 vertex4;
 
-        private NeighborService neighborService;
+        private NeighborCellService neighborService;
 
         public RenderService()
         {
             this.triangles = new NativeList<int>(Allocator.TempJob);
             this.vertices = new NativeList<Vector3>(Allocator.TempJob);
             this.colors = new NativeList<Color>(Allocator.TempJob);
+
+            this.entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         }
 
         public void Execute(
             Entity entity,
-            Vector3 centerPosition,
-            HexCoordinates hexCoordinates,
-            ColorComponent colorComponent,
             EntityQuery query
         ) {
-            neighborService = new NeighborService(
+            var hexCoordinates = entityManager.GetComponentData<HexCoordinates>(entity);
+            var translation = entityManager.GetComponentData<Translation>(entity);
+            var colorComponent = entityManager.GetComponentData<ColorComponent>(entity);
+
+            Vector3 centerPosition = new Vector3(
+                translation.Value.x,
+                translation.Value.y,
+                translation.Value.z
+            );
+
+            neighborService = new NeighborCellService(
                 entity,
                 query
             );
@@ -77,6 +90,38 @@ namespace Hex
             neighborService.Dispose();
         }
 
+        public NativeArray<float3> ConvertVerticesToNativeArray()
+        {
+            this.verticesNativeArray = new NativeArray<float3>(this.vertices.Length, Allocator.TempJob);
+
+            for(int i = 0; i < this.vertices.Length; i++) {
+                verticesNativeArray[i] = new float3(
+                    this.vertices[i].x,
+                    this.vertices[i].y,
+                    this.vertices[i].z
+                );
+            }
+
+            return verticesNativeArray;
+        }
+
+        public NativeArray<int3> ConvertTrianglesToNativeArray()
+        {
+            int size = this.triangles.Length / 3;
+            this.trianglesNativeArray = new NativeArray<int3>(size, Allocator.TempJob);
+
+            for(int j = 0, i = 0; j < size; j++)
+            {
+                trianglesNativeArray[j] = new int3(
+                    GetTrianglesArray()[i++],
+                    GetTrianglesArray()[i++],
+                    GetTrianglesArray()[i++]
+                );
+            }
+
+            return trianglesNativeArray;
+        }
+
         public Vector3[] GetVerticesArray()
         {
             return this.vertices.ToArray();
@@ -86,6 +131,7 @@ namespace Hex
         {
             return this.triangles.ToArray();
         }
+
         public Color[] GetColorsArray()
         {
             return this.colors.ToArray();
@@ -96,6 +142,8 @@ namespace Hex
             this.triangles.Dispose();
             this.vertices.Dispose();
             this.colors.Dispose();
+            this.verticesNativeArray.Dispose();
+            this.trianglesNativeArray.Dispose();
         }
 
         private void AddEdgeQuad(
@@ -111,9 +159,7 @@ namespace Hex
             );
 
             this.vertices = renderQuad.AddVertices(this.vertices);
-
             this.triangles = renderQuad.AddTriangles(this.triangles);
-
             this.colors = renderQuad.AddColors(this.colors);
         }
 
@@ -128,9 +174,7 @@ namespace Hex
             );
 
             this.vertices = renderTriangle.AddVertices(this.vertices);
-
             this.triangles = renderTriangle.AddTriangles(this.triangles);
-
             this.colors = renderTriangle.AddColors(this.colors);
         }
 
@@ -189,11 +233,9 @@ namespace Hex
 
         private void CreateCornerTriangle(Color color1, Color color2, Color color3, HexDirection direction)
         {
-            // Vector3 bridge = ;
             Vector3 vertex5 = vertex2 + HexMetrics.GetBridge(direction);
             int elevation = neighborService.GetNeighborElevation(direction);
 			vertex5.y = elevation * HexMetrics.elevationStep;
-			// AddTriangle(v2, v4, v5);
 
             NativeArray<Vector3> edgeTriangleVertices = new NativeArray<Vector3>(new Vector3[] {
                 vertex2,

@@ -25,7 +25,8 @@ namespace Game
             entityManager.SetComponentData(
                 entity,
                 new CreateUnitEventComponent {
-                    position = e.position
+                    position = e.position,
+                    Coordinates = e.Coordinates
                 }
             );
         }
