@@ -6,6 +6,7 @@ using Unity.Jobs;
 using Unity.Transforms;
 using Unity.Mathematics;
 using Unity.Physics;
+using Hex;
 
 namespace Game
 {
@@ -31,15 +32,17 @@ namespace Game
                     {
                         Center = float3.zero,
                         Orientation = quaternion.identity,
-                        Size = new float3(3.0f, 3.0f, 3.0f),
-                        BevelRadius = 0.01f
+                        Size = new float3(7.5f, 5.5f, 7.5f),
+                        BevelRadius = 0.05f
                     };
-
                     BlobAssetReference<Unity.Physics.Collider> collider = Unity.Physics.BoxCollider.Create(settlerGeometry);
 
-                    ecb.SetComponent<Translation>(settler, new Translation { Value = createUnitEvent.position });
+                    float3 position = HexCell.GetTranslationComponentByHexCoordinates(createUnitEvent.Coordinates);
+
+                    ecb.SetComponent<Translation>(settler, new Translation { Value = position });
                     ecb.AddSharedComponent<CivIdSharedComponent>(settler, new CivIdSharedComponent { Value = 1} );
                     ecb.AddComponent<PhysicsCollider>(settler, new PhysicsCollider { Value = collider });
+
                     ecb.DestroyEntity(entity);
                 })
                 .Run();
