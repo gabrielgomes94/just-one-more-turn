@@ -49,9 +49,9 @@ namespace Hex
         public static float3 GetTranslationComponentByHexCoordinates(float3 hexCoordinates)
         {
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            EntityQuery m_Query = entityManager.CreateEntityQuery(typeof(HexCoordinates), ComponentType.ReadOnly<Translation>());
+            EntityQuery query = entityManager.CreateEntityQuery(typeof(HexCoordinates), ComponentType.ReadOnly<Translation>());
 
-            var entityArray = m_Query.ToEntityArray(Allocator.TempJob);
+            var entityArray = query.ToEntityArray(Allocator.TempJob);
 
             HexCoordinates hexCoordinatesZ = new HexCoordinates {
                 X = (int) hexCoordinates.x,
