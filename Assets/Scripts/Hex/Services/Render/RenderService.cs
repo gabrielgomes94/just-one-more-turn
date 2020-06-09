@@ -23,7 +23,7 @@ namespace Hex
         private Vector3 vertex3;
         private Vector3 vertex4;
 
-        private NeighborService neighborService;
+        private NeighborCellService neighborService;
 
         private NativeArray<float3> verticesArray;
 
@@ -43,7 +43,7 @@ namespace Hex
             ColorComponent colorComponent,
             EntityQuery query
         ) {
-            neighborService = new NeighborService(
+            neighborService = new NeighborCellService(
                 entity,
                 query
             );

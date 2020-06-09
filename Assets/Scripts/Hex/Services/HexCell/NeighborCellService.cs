@@ -6,7 +6,7 @@ using Unity.Collections;
 
 namespace Hex
 {
-    public class NeighborService
+    public class NeighborCellService
     {
         int[,] hexCoordinatesModifier = new int [,] {
             {0, -1, 1},
@@ -26,7 +26,7 @@ namespace Hex
         EntityQuery query;
         Entity entity;
 
-        public NeighborService(
+        public NeighborCellService(
             Entity entity,
             EntityQuery query
         ) {
