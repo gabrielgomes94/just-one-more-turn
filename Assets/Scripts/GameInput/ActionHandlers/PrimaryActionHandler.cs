@@ -7,7 +7,6 @@ using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Collections;
 using System;
-using Interaction;
 using Game;
 
 namespace GameInput
