@@ -28,20 +28,24 @@ namespace Game
                 ) => {
                     Entity settler = ecb.Instantiate(settlerPrefab.Value);
 
+                    float3 position = HexCell.GetTranslationComponentByHexCoordinates(createUnitEvent.Coordinates);
+
                     BoxGeometry settlerGeometry = new BoxGeometry
                     {
                         Center = float3.zero,
                         Orientation = quaternion.identity,
-                        Size = new float3(7.5f, 5.5f, 7.5f),
+                        Size = new float3(10f, 10f, 10f),
                         BevelRadius = 0.05f
                     };
                     BlobAssetReference<Unity.Physics.Collider> collider = Unity.Physics.BoxCollider.Create(settlerGeometry);
 
-                    float3 position = HexCell.GetTranslationComponentByHexCoordinates(createUnitEvent.Coordinates);
-
                     ecb.SetComponent<Translation>(settler, new Translation { Value = position });
                     ecb.AddSharedComponent<CivIdSharedComponent>(settler, new CivIdSharedComponent { Value = 1} );
                     ecb.AddComponent<PhysicsCollider>(settler, new PhysicsCollider { Value = collider });
+
+                    ecb.AddComponent<SettlerTag>(settler, new SettlerTag{});
+
+                    ecb.AddComponent<Selectable>(settler, new Selectable{});
 
                     ecb.DestroyEntity(entity);
                 })
