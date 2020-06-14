@@ -53,22 +53,17 @@ namespace Hex
 
             var entityArray = query.ToEntityArray(Allocator.TempJob);
 
-            HexCoordinates hexCoordinatesZ = new HexCoordinates {
-                X = (int) hexCoordinates.X,
-                Y = (int) hexCoordinates.Y,
-                Z = (int) hexCoordinates.Z
-            };
-
             float3 translation = float3.zero;
 
             foreach(var entity in entityArray)
             {
-                if (hexCoordinatesZ == entityManager.GetComponentData<HexCoordinates>(entity))
+                if (hexCoordinates == entityManager.GetComponentData<HexCoordinates>(entity))
                 {
                     translation = entityManager.GetComponentData<Translation>(entity).Value;
                     break;
                 }
             }
+
             translation.y += 10f;
 
             entityArray.Dispose();
