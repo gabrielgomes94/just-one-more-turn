@@ -13,7 +13,7 @@ namespace Game
 {
     public class CityEntity
     {
-        public static void Create(EntityCommandBuffer ecb, CityPrefab cityPrefab, Entity settlerEntity, int3 coordinates)
+        public static void Create(EntityCommandBuffer ecb, CityPrefab cityPrefab, Entity settlerEntity)
         {
             Entity city = ecb.Instantiate(cityPrefab.Value);
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
