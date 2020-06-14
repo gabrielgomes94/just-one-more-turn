@@ -12,35 +12,28 @@ namespace Game
 {
     public class SettlerEntity
     {
-        public static void Create(EntityCommandBuffer ecb, SettlerPrefab settlerPrefab, int3 coordinates)
+        public static void Create(EntityCommandBuffer ecb, SettlerPrefab settlerPrefab, HexCoordinates coordinates)
         {
             Entity settler = ecb.Instantiate(settlerPrefab.Value);
 
             float3 position = HexCell.GetTranslationComponentByHexCoordinates(coordinates);
 
-            BoxGeometry settlerGeometry = new BoxGeometry
-            {
-                Center = float3.zero,
-                Orientation = quaternion.identity,
-                Size = new float3(10f, 10f, 10f),
-                BevelRadius = 0.05f
-            };
-            BlobAssetReference<Unity.Physics.Collider> collider = Unity.Physics.BoxCollider.Create(settlerGeometry);
+            BlobAssetReference<Unity.Physics.Collider> collider = Unity.Physics.BoxCollider.Create(
+                new BoxGeometry
+                {
+                    Center = float3.zero,
+                    Orientation = quaternion.identity,
+                    Size = new float3(10f, 10f, 10f),
+                    BevelRadius = 0.05f
+                }
+            );
 
-            ecb.SetComponent<Translation>(settler, new Translation { Value = position });
-
-            ecb.AddComponent<HexCoordinates>(settler, new HexCoordinates {
-                X = coordinates.x,
-                Y = coordinates.y,
-                Z = coordinates.z
-            });
-
-            ecb.AddSharedComponent<CivIdSharedComponent>(settler, new CivIdSharedComponent { Value = 1} );
+            ecb.AddComponent<HexCoordinates>(settler, coordinates);
             ecb.AddComponent<PhysicsCollider>(settler, new PhysicsCollider { Value = collider });
-
             ecb.AddComponent<SettlerTag>(settler, new SettlerTag{});
-
             ecb.AddComponent<Selectable>(settler, new Selectable{});
+            ecb.SetComponent<Translation>(settler, new Translation { Value = position });
+            ecb.AddSharedComponent<CivIdSharedComponent>(settler, new CivIdSharedComponent { Value = 1} );
         }
 
         public static Entity GetSelected(EntityManager entityManager)
