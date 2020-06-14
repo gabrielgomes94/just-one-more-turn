@@ -16,20 +16,13 @@ namespace GameInput
         public void handle(Vector3 position)
         {
             UnityEngine.Ray inputRay = Camera.main.ScreenPointToRay(position);
+            var entity = Raycast(inputRay.origin, inputRay.direction * 200f);
 
-            var entityRaycasted = Raycast(inputRay.origin, inputRay.direction * 200f);
-
-            if (entityRaycasted == Entity.Null) return;
+            if (entity == Entity.Null) return;
 
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            var query = entityManager.CreateEntityQuery(ComponentType.ReadOnly<Selected>());
 
-            if (query.CalculateEntityCount() > 0 )
-            {
-                entityManager.RemoveComponent(query, typeof(Selected));
-            }
-
-            entityManager.AddComponentData<Selected>(entityRaycasted, new Selected{});
+            SelectEntity(entityManager, entity);
         }
 
         public Entity Raycast(float3 RayFrom, float3 RayTo)
@@ -57,6 +50,20 @@ namespace GameInput
                 return e;
             }
             return Entity.Null;
+        }
+
+        private void SelectEntity(EntityManager entityManager, Entity entity)
+        {
+            var query = entityManager.CreateEntityQuery(ComponentType.ReadOnly<Selected>());
+
+            if (query.CalculateEntityCount() > 0 )
+            {
+                entityManager.RemoveComponent(query, typeof(Selected));
+            }
+
+            if (entityManager.HasComponent<Selectable>(entity)) {
+                entityManager.AddComponentData<Selected>(entity, new Selected{});
+            }
         }
     }
 }
