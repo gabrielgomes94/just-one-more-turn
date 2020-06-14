@@ -24,10 +24,9 @@ namespace Game
                 .ForEach((
                     Entity entity,
                     int entityInQueryIndex,
-                    in CommandCreateUnitComponent createUnitCommand
+                    in CommandCreateUnitComponent createUnitCommand,
+                    in HexCoordinates coordinates
                 ) => {
-                    int3 coordinates = createUnitCommand.Coordinates;
-
                     SettlerEntity.Create(ecb, settlerPrefab, coordinates);
 
                     ecb.DestroyEntity(entity);

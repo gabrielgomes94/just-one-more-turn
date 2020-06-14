@@ -1,9 +1,7 @@
 using System;
 using UnityEngine;
 using Unity.Entities;
-using Unity.Mathematics;
-using Unity.Rendering;
-using Unity.Transforms;
+using Hex;
 
 namespace Game
 {
@@ -17,15 +15,18 @@ namespace Game
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
             EntityArchetype createUnitEventArch = entityManager.CreateArchetype(
-                typeof(CommandCreateUnitComponent)
+                typeof(CommandCreateUnitComponent),
+                typeof(HexCoordinates)
             );
 
             Entity entity = entityManager.CreateEntity(createUnitEventArch);
 
             entityManager.SetComponentData(
                 entity,
-                new CommandCreateUnitComponent {
-                    Coordinates = e.Coordinates
+                new HexCoordinates{
+                    X = e.Coordinates.x,
+                    Y = e.Coordinates.y,
+                    Z = e.Coordinates.z
                 }
             );
         }
