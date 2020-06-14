@@ -7,7 +7,7 @@ using Unity.Transforms;
 
 namespace Game
 {
-    public class CreateUnitEventSubscriber : MonoBehaviour {
+    public class CreateUnitEvent : MonoBehaviour {
         private void Start() {
             GameManager gameManager = GetComponent<GameManager>();
             gameManager.OnCivilizationCreated += OnCreateUnitOnCivilizationCreated;
@@ -17,14 +17,14 @@ namespace Game
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
             EntityArchetype createUnitEventArch = entityManager.CreateArchetype(
-                typeof(CreateUnitEventComponent)
+                typeof(CommandCreateUnitComponent)
             );
 
             Entity entity = entityManager.CreateEntity(createUnitEventArch);
 
             entityManager.SetComponentData(
                 entity,
-                new CreateUnitEventComponent {
+                new CommandCreateUnitComponent {
                     Coordinates = e.Coordinates
                 }
             );
