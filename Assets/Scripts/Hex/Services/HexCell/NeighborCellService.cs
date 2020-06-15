@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Entities;
 using Unity.Collections;
+using Unity.Entities;
+using Unity.Mathematics;
 
 namespace Hex
 {
@@ -70,7 +71,7 @@ namespace Hex
             HexCoordinates targetHexCoordinates = GetTargetHexCoordinates(direction);
 
             for (int i = 0; i < this.hexCoordinatesArray.Length; i++) {
-                if (targetHexCoordinates == hexCoordinatesArray[i]) return true;
+                if ((targetHexCoordinates == hexCoordinatesArray[i])) return true;
             }
 
             return false;
@@ -97,9 +98,11 @@ namespace Hex
         private HexCoordinates GetTargetHexCoordinates(HexDirection direction)
         {
             return new HexCoordinates{
-                X = this.hexCellCoordinates.X + this.hexCoordinatesModifier[(int) direction, 0],
-                Y = this.hexCellCoordinates.Y + this.hexCoordinatesModifier[(int) direction, 1],
-                Z = this.hexCellCoordinates.Z + this.hexCoordinatesModifier[(int) direction, 2]
+                Value = new int3(
+                    this.hexCellCoordinates.Value.x + this.hexCoordinatesModifier[(int) direction, 0],
+                    this.hexCellCoordinates.Value.y + this.hexCoordinatesModifier[(int) direction, 1],
+                    this.hexCellCoordinates.Value.z + this.hexCoordinatesModifier[(int) direction, 2]
+                )
             };
         }
     }

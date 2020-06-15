@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Unity.Entities;
+using Unity.Mathematics;
 using Hex;
 
 namespace Game
@@ -24,9 +25,7 @@ namespace Game
             entityManager.SetComponentData(
                 entity,
                 new HexCoordinates{
-                    X = e.Coordinates.x,
-                    Y = e.Coordinates.y,
-                    Z = e.Coordinates.z
+                    Value = new int3(e.Coordinates)
                 }
             );
         }

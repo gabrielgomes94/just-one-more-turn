@@ -1,19 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Hex {
     public struct HexCoordinates : IComponentData
     {
-        public int X, Y, Z;
+        public int3 Value;
 
         public static bool operator == (HexCoordinates hexCoordinates1, HexCoordinates hexCoordinates2) {
             bool status = false;
             if (
-                hexCoordinates1.X == hexCoordinates2.X &&
-                hexCoordinates1.Y == hexCoordinates2.Y &&
-                hexCoordinates1.Z == hexCoordinates2.Z
+                hexCoordinates1.Value.x == hexCoordinates2.Value.x &&
+                hexCoordinates1.Value.y == hexCoordinates2.Value.y &&
+                hexCoordinates1.Value.z == hexCoordinates2.Value.z
             ) {
                 status = true;
             }
@@ -22,9 +23,9 @@ namespace Hex {
 
         public static bool operator != (HexCoordinates hexCoordinates1, HexCoordinates hexCoordinates2) {
             bool status = false;
-            if (hexCoordinates1.X != hexCoordinates2.X) return true;
-            if (hexCoordinates1.Y != hexCoordinates2.Y) return true;
-            if (hexCoordinates1.Z != hexCoordinates2.Z) return true;
+            if (hexCoordinates1.Value.x != hexCoordinates2.Value.x) return true;
+            if (hexCoordinates1.Value.y != hexCoordinates2.Value.y) return true;
+            if (hexCoordinates1.Value.z != hexCoordinates2.Value.z) return true;
 
             return status;
         }

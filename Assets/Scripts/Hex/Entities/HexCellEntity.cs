@@ -34,9 +34,12 @@ namespace Hex
                     entityManager.SetComponentData(
                         cellsArray[i],
                         new HexCoordinates {
-                            X = offSetX,
-                            Y = -offSetX -z ,
-                            Z = z
+                            Value = new int3(
+                                offSetX,
+                                -offSetX -z,
+                                z
+                            )
+
                         }
                     );
 

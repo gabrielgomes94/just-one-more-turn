@@ -30,15 +30,10 @@ namespace Game
             CreateCityEventArgs args = new CreateCityEventArgs();
 
             NativeArray<HexCoordinates> coordinates = query.ToComponentDataArray<HexCoordinates>(Allocator.Temp);
-            // var settler = query.ToEntityArray();
-
-            Debug.Log("Coordenadas: " + coordinates[0]);
 
             // get selected coordinates and civ ID
             args.Coordinates = new int3(
-                coordinates[0].X,
-                coordinates[0].Y,
-                coordinates[0].Z
+                coordinates[0].Value
             );
 
             args.CivId = 1;
