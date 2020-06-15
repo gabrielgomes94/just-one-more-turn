@@ -10,6 +10,7 @@ namespace Game
     {
         public event EventHandler<CreateUnitEventArgs> OnCivilizationCreated;
 
+
         void Start()
         {
             // Create Civilization
@@ -18,7 +19,8 @@ namespace Game
 
             // Create Civilization's settler
             CreateUnitEventArgs args = new CreateUnitEventArgs();
-            args.position = new float3(10, 20, 30);
+
+            args.Coordinates = new int3(1, -1, 0);
 
             OnCivilizationCreated?.Invoke(this, args);
         }

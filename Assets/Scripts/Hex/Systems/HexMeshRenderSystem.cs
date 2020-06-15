@@ -12,6 +12,7 @@ namespace Hex
 {
     public class HexMeshRenderSystem : SystemBase
     {
+        private bool shouldRender = true;
         EntityQuery query;
         public EntityManager entityManager;
 
@@ -27,6 +28,8 @@ namespace Hex
 
         protected override void OnUpdate()
         {
+            if (!shouldRender) return;
+
             NativeArray<ColorComponent> colorsComponentsArray = query.ToComponentDataArray<ColorComponent>(Allocator.Temp);
             NativeArray<HexCoordinates> hexCoordinatesArray = query.ToComponentDataArray<HexCoordinates>(Allocator.Temp);
 
@@ -75,6 +78,8 @@ namespace Hex
 
             colorsComponentsArray.Dispose();
             hexCoordinatesArray.Dispose();
+
+            shouldRender = false;
         }
 
         private Mesh CreateHexMesh(Vector3[] vertices, int[] triangles, Color[] colors)

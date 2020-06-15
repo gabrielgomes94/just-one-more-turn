@@ -35,13 +35,13 @@ namespace GameInput
 
         private void primaryActionClick(InputAction.CallbackContext context)
         {
-            Debug.Log("Clicou com o esquerdo - " + this.vectorMousePosition);
+            // Debug.Log("Clicou com o esquerdo - " + this.vectorMousePosition);
             primaryActionHandler.handle(this.vectorMousePosition);
         }
 
         private void secondaryActionClick(InputAction.CallbackContext context)
         {
-            Debug.Log("Clicou com o direito - " + this.vectorMousePosition);
+            // Debug.Log("Clicou com o direito - " + this.vectorMousePosition);
         }
 
         private void trackMousePosition(InputAction.CallbackContext context)

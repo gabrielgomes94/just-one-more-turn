@@ -46,29 +46,24 @@ namespace Hex
             return elevation;
         }
 
-        public static float3 GetTranslationComponentByHexCoordinates(float3 hexCoordinates)
+        public static float3 GetTranslationComponentByHexCoordinates(HexCoordinates hexCoordinates)
         {
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             EntityQuery query = entityManager.CreateEntityQuery(typeof(HexCoordinates), ComponentType.ReadOnly<Translation>());
 
             var entityArray = query.ToEntityArray(Allocator.TempJob);
 
-            HexCoordinates hexCoordinatesZ = new HexCoordinates {
-                X = (int) hexCoordinates.x,
-                Y = (int) hexCoordinates.y,
-                Z = (int) hexCoordinates.z
-            };
-
             float3 translation = float3.zero;
 
             foreach(var entity in entityArray)
             {
-                if (hexCoordinatesZ == entityManager.GetComponentData<HexCoordinates>(entity))
+                if (hexCoordinates == entityManager.GetComponentData<HexCoordinates>(entity))
                 {
                     translation = entityManager.GetComponentData<Translation>(entity).Value;
                     break;
                 }
             }
+
             translation.y += 10f;
 
             entityArray.Dispose();
