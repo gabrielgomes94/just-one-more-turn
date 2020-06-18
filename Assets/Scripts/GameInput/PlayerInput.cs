@@ -11,10 +11,12 @@ namespace GameInput
         public InputAction mousePosition;
         private Vector3 vectorMousePosition;
         private PrimaryActionHandler primaryActionHandler;
+        private SecondaryActionHandler secondaryActionHandler;
 
         private void Awake ()
         {
             primaryActionHandler = new PrimaryActionHandler();
+            secondaryActionHandler = new SecondaryActionHandler();
 
             primaryAction.performed += primaryActionClick;
             secondaryAction.performed += secondaryActionClick;
@@ -42,6 +44,7 @@ namespace GameInput
         private void secondaryActionClick(InputAction.CallbackContext context)
         {
             // Debug.Log("Clicou com o direito - " + this.vectorMousePosition);
+            secondaryActionHandler.handle(this.vectorMousePosition);
         }
 
         private void trackMousePosition(InputAction.CallbackContext context)
