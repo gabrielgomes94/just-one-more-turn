@@ -30,12 +30,12 @@ namespace Hex
         {
             if (!shouldRender) return;
 
-            RenderService renderService = new RenderService();
+            RenderService renderService = new RenderService(query);
 
             Entities.
                 WithoutBurst().
                 ForEach((Entity entity, in Translation translation, in ColorComponent colorComponent, in HexCoordinates hexCoordinates) => {
-                    renderService.Execute(entity, query);
+                    renderService.Execute(entity, translation, colorComponent);
                 }
             ).Run();
 
@@ -45,12 +45,7 @@ namespace Hex
                 renderService.GetColorsArray()
             );
 
-            NativeArray<float3> vertices = renderService.ConvertVerticesToNativeArray();
-            NativeArray<int3> triangles = renderService.ConvertTrianglesToNativeArray();
-
-            BlobAssetReference<Unity.Physics.Collider> collider = Unity.Physics.MeshCollider.Create(vertices, triangles);
-
-            renderService.Dispose();
+            BlobAssetReference<Unity.Physics.Collider> collider = RenderColliders.CreateHexMeshCollider(renderService);
 
             Entities.
                 WithStructuralChanges().
