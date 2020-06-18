@@ -30,9 +30,6 @@ namespace Hex
         {
             if (!shouldRender) return;
 
-            NativeArray<ColorComponent> colorsComponentsArray = query.ToComponentDataArray<ColorComponent>(Allocator.Temp);
-            NativeArray<HexCoordinates> hexCoordinatesArray = query.ToComponentDataArray<HexCoordinates>(Allocator.Temp);
-
             RenderService renderService = new RenderService();
 
             Entities.
@@ -75,9 +72,6 @@ namespace Hex
                     );
                 }
             ).Run();
-
-            colorsComponentsArray.Dispose();
-            hexCoordinatesArray.Dispose();
 
             shouldRender = false;
         }
