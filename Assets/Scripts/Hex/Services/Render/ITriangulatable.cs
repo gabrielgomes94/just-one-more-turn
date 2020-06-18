@@ -7,8 +7,8 @@ namespace Hex
 {
     interface ITriangulatable
     {
-        NativeList<int> AddTriangles(NativeList<int> triangles);
-        NativeList<Vector3> AddVertices(NativeList<Vector3> vertices);
-        NativeList<Color> AddColors(NativeList<Color> colors);
+        List<int> AddTriangles(List<int> triangles);
+        List<Vector3> AddVertices(List<Vector3> vertices);
+        List<Color> AddColors(List<Color> colors);
     }
 }

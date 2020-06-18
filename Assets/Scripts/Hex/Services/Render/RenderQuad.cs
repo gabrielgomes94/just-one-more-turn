@@ -9,20 +9,20 @@ namespace Hex
     {
         int vertexIndex;
 
-        NativeArray<Color> quadColors;
-        NativeArray<Vector3> quadVertices;
+        Vector3[] quadVertices = new Vector3[4];
+        Color[] quadColors = new Color[2];
 
         public RenderQuad(
             int vertexIndex,
-            NativeArray<Vector3> quadVertices,
-            NativeArray<Color> quadColors
+            Vector3[] quadVertices,
+            Color[] quadColors
         ) {
             this.vertexIndex = vertexIndex;
             this.quadVertices = quadVertices;
             this.quadColors = quadColors;
         }
 
-        public NativeList<Vector3> AddVertices (NativeList<Vector3> vertices)
+        public List<Vector3> AddVertices (List<Vector3> vertices)
         {
             for (int i = 0; i < 4; i++ )
             {
@@ -32,7 +32,7 @@ namespace Hex
             return vertices;
         }
 
-        public NativeList<int> AddTriangles(NativeList<int> triangles)
+        public List<int> AddTriangles(List<int> triangles)
         {
             triangles.Add(vertexIndex);
             triangles.Add(vertexIndex + 2);
@@ -46,7 +46,7 @@ namespace Hex
         }
 
 
-        public NativeList<Color> AddColors (NativeList<Color> colors) {
+        public List<Color> AddColors (List<Color> colors) {
             for (int i = 0; i < 2; i++ )
             {
                 colors.Add(quadColors[i]);
