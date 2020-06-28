@@ -30,7 +30,6 @@ namespace Hex
 
         public void Execute(
             Entity entity,
-            Translation translation,
             ColorComponent colorComponent
         ) {
             neighborService = new NeighborCellService(
@@ -43,7 +42,7 @@ namespace Hex
 
             for (HexDirection direction = HexDirection.NE; direction <= HexDirection.NW; direction++)
             {
-                RenderData renderData = new RenderData(direction, translation, neighborService);
+                RenderData renderData = new RenderData(direction, entity, neighborService);
 
                 RenderOperations renderOperations = new RenderOperations(renderData, this.hexMeshData);
 
