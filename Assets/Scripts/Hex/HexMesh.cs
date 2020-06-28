@@ -47,7 +47,6 @@ namespace Hex
             var render = entityManager.GetSharedComponentData<RenderMesh>(entity);
 
             hexMesh = render.mesh;
-            GetComponent<MeshFilter>().mesh = hexMesh;
         }
 
         public bool isSelected { get; set; }
