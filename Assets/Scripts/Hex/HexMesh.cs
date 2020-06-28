@@ -48,11 +48,5 @@ namespace Hex
 
             hexMesh = render.mesh;
         }
-
-        public bool isSelected { get; set; }
-        public void Select()
-        {
-            Debug.Log("Mapa ==========|| interface");
-        }
     }
 }
