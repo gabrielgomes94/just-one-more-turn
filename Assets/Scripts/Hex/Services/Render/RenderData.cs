@@ -19,11 +19,18 @@ namespace Hex
 
         public NeighborCellService neighborService;
 
+        public Entity entity;
+
         public RenderData(
             HexDirection direction,
-            Translation translation,
+            Entity entity,
             NeighborCellService neighborService
         ) {
+            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var translation = entityManager.GetComponentData<Translation>(entity);
+
+            this.entity = entity;
+
             this.centerPosition = new Vector3(
                 translation.Value.x,
                 translation.Value.y,
