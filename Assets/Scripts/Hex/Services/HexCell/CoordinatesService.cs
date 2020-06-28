@@ -10,12 +10,30 @@ namespace Hex
 {
     public class CoordinatesService
     {
+        public static HexCoordinates CreateFromOffset(int x, int z)
+        {
+            int offSetX = CoordinatesCalculator.GetXFromOffset(x, z);
+
+            return Create(offSetX, z);
+        }
+
+        public static HexCoordinates Create(int x, int z)
+        {
+            return new HexCoordinates {
+                Value = new int3(
+                    x,
+                    -x -z,
+                    z
+                )
+            };
+        }
+
         public static HexCoordinates GetCoordinatesFromPosition(float3 position)
         {
-            float x = position.x / (HexMetrics.innerRadius * 2f);
+            float x = (position.x) / (HexMetrics.innerRadius * 2f) ;
             float y = -x;
-
             float offset = position.z / (HexMetrics.outerRadius * 3f);
+
             x -= offset;
             y -= offset;
 
@@ -38,13 +56,7 @@ namespace Hex
                 }
 		    }
 
-            return new HexCoordinates {
-                Value = new int3(
-                    iX,
-                    iX - iZ,
-                    iZ
-                )
-            };
+            return CoordinatesService.Create(iX, iZ);
         }
     }
 }
