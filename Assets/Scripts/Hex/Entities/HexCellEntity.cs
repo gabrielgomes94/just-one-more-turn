@@ -28,25 +28,18 @@ namespace Hex
             {
                 for (int x = 0; x < width; x++)
                 {
-                    int offSetX = CoordinatesCalculator.GetXFromOffset(x, z);
                     int elevation = UnityEngine.Random.Range(0, 6);
 
                     entityManager.SetComponentData(
                         cellsArray[i],
-                        new HexCoordinates {
-                            Value = new int3(
-                                offSetX,
-                                -offSetX -z,
-                                z
-                            )
-
-                        }
+                        CoordinatesService.CreateFromOffset(x, z)
                     );
 
+                    var pos = GetCellPosition(x, elevation, z);
                     entityManager.SetComponentData(
                         cellsArray[i],
                         new Translation {
-                            Value = GetCellPosition(x, elevation, z)
+                            Value = pos
                         }
                     );
 
@@ -63,6 +56,29 @@ namespace Hex
                     i++;
                 }
             }
+        }
+
+        public static Entity GetByCoordinates(HexCoordinates coordinates)
+        {
+            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var query = entityManager.CreateEntityQuery(typeof(HexCellTag));
+
+            NativeArray<Entity> hexCells =  query.ToEntityArray(Allocator.TempJob);
+            Entity hexCell = Entity.Null;
+
+            foreach(Entity hexCellEntity in hexCells)
+            {
+                HexCoordinates hexCellCoordinates = entityManager.GetComponentData<HexCoordinates>(hexCellEntity);
+
+                if (hexCellCoordinates == coordinates) {
+                    hexCell = hexCellEntity;
+                    break;
+                }
+            }
+
+            hexCells.Dispose();
+
+            return hexCell;
         }
 
         private float3 GetCellPosition(int x, int y, int z)
