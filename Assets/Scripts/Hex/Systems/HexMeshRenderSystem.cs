@@ -12,9 +12,11 @@ namespace Hex
 {
     public class HexMeshRenderSystem : SystemBase
     {
-        private bool shouldRender = true;
+        public static bool shouldRender = true;
         EntityQuery query;
         public EntityManager entityManager;
+
+        EntityQuery shouldRenderQuery;
 
         protected override void OnCreate()
         {
@@ -35,7 +37,7 @@ namespace Hex
             Entities.
                 WithoutBurst().
                 ForEach((Entity entity, in Translation translation, in ColorComponent colorComponent, in HexCoordinates hexCoordinates) => {
-                    renderService.Execute(entity, translation, colorComponent);
+                    renderService.Execute(entity, colorComponent);
                 }
             ).Run();
 
@@ -53,12 +55,14 @@ namespace Hex
                 ForEach((Entity entity, in HexMeshTag hexMeshTag) => {
                     var render = EntityManager.GetSharedComponentData<RenderMesh>(entity);
 
+                    var renderMesh = new RenderMesh() {
+                        mesh = hexMesh,
+                        material = render.material
+                    };
+
                     EntityManager.SetSharedComponentData(
                         entity,
-                        new RenderMesh() {
-                            mesh = hexMesh,
-                            material = render.material
-                        }
+                        renderMesh
                     );
 
                     EntityManager.SetComponentData<PhysicsCollider>(
