@@ -9,6 +9,7 @@ using Hex;
 using RaycastHit = Unity.Physics.RaycastHit;
 using Unity.Physics;
 using Unity.Physics.Systems;
+using Game;
 
 namespace GameInput
 {
@@ -25,7 +26,6 @@ namespace GameInput
         {
         }
 
-
         protected override void OnUpdate()
         {
             Entity hitEntity;
@@ -37,22 +37,12 @@ namespace GameInput
                     int entityInQueryIndex,
                     ref MouseInput mouseInput
                 ) => {
-                    Vector3 position = new Vector3(
-                        mouseInput.mousePosition.x,
-                        mouseInput.mousePosition.y,
-                        mouseInput.mousePosition.z
-                    );
-
                     if (mouseInput.primaryAction == 0) return;
 
-                    mouseInput.primaryAction = 0;
-
-                    UnityEngine.Ray inputRay = Camera.main.ScreenPointToRay(position);
-
-                    hitEntity = Raycast(
-                        inputRay.origin,
-                        inputRay.origin + inputRay.direction * 500f,
-                        out RaycastHit hit
+                    hitEntity = RaycastUtils.Raycast(
+                        mouseInput.mousePosition,
+                        out RaycastHit hit,
+                        buildPhysicsWorldSystem
                     );
 
                     if (hitEntity == Entity.Null) return;
@@ -61,44 +51,19 @@ namespace GameInput
 
                     Entity selectedEntity = HexCellEntity.GetByCoordinates(coordinates);
 
-                    var color = EntityManager.GetComponentData<ColorComponent>(selectedEntity).Value;
+                    if (EntityManager.HasComponent<SettlerTag>(selectedEntity)) {
+                        var color = EntityManager.GetComponentData<ColorComponent>(selectedEntity).Value;
 
-                    EntityManager.SetComponentData<ColorComponent>(selectedEntity, new ColorComponent {
-                        Value = Color.black
-                    });
+                        Debug.Log(selectedEntity);
 
-                    HexMeshRenderSystem.shouldRender = true;
-                    NativeArray<Entity> array  = GetEntityQuery(ComponentType.ReadOnly<HexMeshTag>()).ToEntityArray(Allocator.TempJob);
+                        Debug.Log("ODKASDASDA");
+                    }
 
-                    hexMeshEntity = array[0];
-
-                    array.Dispose();
-
-                    EntityManager.AddComponent<RenderTag>(hexMeshEntity);
-
+                    mouseInput.primaryAction = 0;
                 })
                 .Run();
         }
 
-        public Entity Raycast(float3 RayFrom, float3 RayTo, out RaycastHit hit)
-        {
-            var collisionWorld = buildPhysicsWorldSystem.PhysicsWorld.CollisionWorld;
 
-            RaycastInput input = new RaycastInput()
-            {
-                Start = RayFrom,
-                End = RayTo,
-                Filter = CollisionFilter.Default
-            };
-
-            bool haveHit = collisionWorld.CastRay(input, out hit);
-            if (haveHit)
-            {
-                Entity e = buildPhysicsWorldSystem.PhysicsWorld.Bodies[hit.RigidBodyIndex].Entity;
-                return e;
-            }
-
-            return Entity.Null;
-        }
     }
 }
