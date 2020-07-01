@@ -21,11 +21,10 @@ namespace Hex
 
         public void CreateMainTriangle(Color color)
         {
-
             Vector3[] mainTriangleVertices = new Vector3[3] {
-                renderData.centerPosition,
-                renderData.vertex1,
-                renderData.vertex2
+                renderData.CenterPosition,
+                renderData.Vertex1,
+                renderData.Vertex2
             };
 
             Color[] mainTriangleColors = new Color[3] {
@@ -33,7 +32,6 @@ namespace Hex
                 color,
                 color
             };
-
 
             AddTriangle(mainTriangleVertices, mainTriangleColors);
         }
@@ -43,10 +41,10 @@ namespace Hex
             int vertexIndex = hexMeshData.vertices.Count;
 
             Vector3[] edgeQuadVertices = new Vector3[4] {
-                    renderData.vertex1,
-                    renderData.vertex2,
-                    renderData.vertex3,
-                    renderData.vertex4
+                    renderData.Vertex1,
+                    renderData.Vertex2,
+                    renderData.Vertex3,
+                    renderData.Vertex4
             };
 
             Color[] edgeQuadColors = new Color[2] {
@@ -63,13 +61,13 @@ namespace Hex
 
         public void CreateCornerTriangle(Color color1, Color color2, Color color3, HexDirection direction)
         {
-            Vector3 vertex5 = renderData.vertex2 + HexMetrics.GetBridge(direction);
-            int elevation = renderData.neighborService.GetNeighborElevation(direction);
+            Vector3 vertex5 = renderData.Vertex2 + HexMetrics.GetBridge(direction);
+            int elevation = renderData.NeighborService.GetNeighborElevation(direction);
 			vertex5.y = elevation * HexMetrics.elevationStep;
 
             Vector3[] edgeTriangleVertices = new Vector3[3] {
-                renderData.vertex2,
-                renderData.vertex4,
+                renderData.Vertex2,
+                renderData.Vertex4,
                 vertex5
             };
 
