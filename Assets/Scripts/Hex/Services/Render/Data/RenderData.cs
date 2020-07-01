@@ -9,17 +9,53 @@ namespace Hex
 {
     public class RenderData
     {
-        public Vector3 bridge;
-        public Vector3 vertex1;
-        public Vector3 vertex2;
+        private Vector3 bridge;
+        public Vector3 Bridge
+        {
+            get { return bridge; }
+        }
+
+        private Vector3 vertex1;
+        public Vector3 Vertex1
+        {
+            get { return vertex1; }
+        }
+
+        private Vector3 vertex2;
+        public Vector3 Vertex2
+        {
+            get { return vertex2; }
+        }
+
         public Vector3 vertex3;
-        public Vector3 vertex4;
+        public Vector3 Vertex3
+        {
+            get { return vertex3; }
+        }
 
-        public Vector3 centerPosition;
+        private Vector3 vertex4;
+        public Vector3 Vertex4
+        {
+            get { return vertex4; }
+        }
 
-        public NeighborCellService neighborService;
+        private Vector3 centerPosition;
+        public Vector3 CenterPosition
+        {
+            get { return centerPosition; }
+        }
 
-        public Entity entity;
+        private NeighborCellService neighborService;
+        public NeighborCellService NeighborService
+        {
+            get { return neighborService; }
+        }
+
+        private Entity entity;
+        public Entity Entity
+        {
+            get { return entity; }
+        }
 
         public RenderData(
             HexDirection direction,
