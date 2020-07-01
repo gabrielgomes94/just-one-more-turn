@@ -7,9 +7,9 @@ using Collider = Unity.Physics.Collider;
 
 namespace Hex
 {
-    public class RenderColliders
+    public class HexMeshCollider
     {
-        public static BlobAssetReference<Collider> CreateHexMeshCollider(RenderService renderService)
+        public static BlobAssetReference<Collider> Create(RenderService renderService)
         {
             NativeArray<float3> vertices = new NativeArray<float3>(
                 renderService.GetVerticesArrayFloat3(),

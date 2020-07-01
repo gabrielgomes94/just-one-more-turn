@@ -47,7 +47,7 @@ namespace Hex
                 renderService.GetColorsArray()
             );
 
-            BlobAssetReference<Unity.Physics.Collider> collider = RenderColliders.CreateHexMeshCollider(renderService);
+            BlobAssetReference<Unity.Physics.Collider> collider = HexMeshCollider.Create(renderService);
 
             Entities.
                 WithStructuralChanges().
