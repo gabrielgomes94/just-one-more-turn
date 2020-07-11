@@ -5,7 +5,10 @@
         "UnityEditor.TestRunner",
         "GameAssebly",
         "HexAssembly",
-        "Unity.Collections"
+        "Unity.Collections",
+        "Unity.Physics",
+        "Unity.Entities",
+        "Unity.Mathematics"
     ],
     "includePlatforms": [
         "Editor"
@@ -14,7 +17,9 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll"
+        "nunit.framework.dll",
+        "NSubstitute.dll",
+        "System.Runtime.CompilerServices.Unsafe.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [
