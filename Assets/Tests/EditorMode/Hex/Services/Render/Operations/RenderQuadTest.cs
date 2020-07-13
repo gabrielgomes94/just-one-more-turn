@@ -10,19 +10,31 @@ namespace Tests
 {
     public class RenderQuadTest
     {
+        private Vector3 vertex1;
+        private Vector3 vertex2;
+        private Vector3 vertex3;
+        private Vector3 vertex4;
+
+        private Color color1;
+        private Color color2;
+
+        [SetUp]
+        public void Setup()
+        {
+            vertex1 = new Vector3(0f, 0f, 0f);
+            vertex2 = new Vector3(0f, 0f, 2f);
+            vertex3 = new Vector3(2f, 0f, 0f);
+            Vector3 vertex4 = new Vector3(2f, 0f, 2f);
+
+            color1 = Color.black;
+            color2 = Color.black;
+        }
+
         [Test]
         public void Test_Should_Add_Vertices_To_List()
         {
             // Set
             List<Vector3> vertices = new List<Vector3>();
-
-            Vector3 vertex1 = new Vector3(0f, 0f, 0f);
-            Vector3 vertex2 = new Vector3(0f, 0f, 2f);
-            Vector3 vertex3 = new Vector3(2f, 0f, 0f);
-            Vector3 vertex4 = new Vector3(2f, 0f, 2f);
-
-            Color color1 = Color.black;
-            Color color2 = Color.black;
 
             Vector3[] quadVertices = new Vector3[] { vertex1, vertex2, vertex3, vertex4 } ;
 
@@ -36,24 +48,24 @@ namespace Tests
             List<Vector3> verticesResult = renderQuad.AddVertices(vertices);
 
             // Assert
-            Assert.AreEqual(
+            Assert.That(
                 new Vector3(0f, 0f, 0f),
-                verticesResult.ToArray()[0]
+                Is.EqualTo(verticesResult.ToArray()[0])
             );
 
-            Assert.AreEqual(
+            Assert.That(
                 new Vector3(0f, 0f, 2f),
-                verticesResult.ToArray()[1]
+                Is.EqualTo(verticesResult.ToArray()[1])
             );
 
-            Assert.AreEqual(
+            Assert.That(
                 new Vector3(2f, 0f, 0f),
-                verticesResult.ToArray()[2]
+                Is.EqualTo(verticesResult.ToArray()[2])
             );
 
-            Assert.AreEqual(
+            Assert.That(
                 new Vector3(2f, 0f, 2f),
-                verticesResult.ToArray()[3]
+                Is.EqualTo(verticesResult.ToArray()[3])
             );
         }
 
@@ -62,14 +74,6 @@ namespace Tests
         {
             // Set
             List<int> triangles = new List<int>();
-
-            Vector3 vertex1 = new Vector3(0f, 0f, 0f);
-            Vector3 vertex2 = new Vector3(0f, 0f, 2f);
-            Vector3 vertex3 = new Vector3(2f, 0f, 0f);
-            Vector3 vertex4 = new Vector3(2f, 0f, 2f);
-
-            Color color1 = Color.black;
-            Color color2 = Color.black;
 
             Vector3[] quadVertices = new Vector3[] { vertex1, vertex2, vertex3, vertex4 } ;
 
@@ -83,12 +87,12 @@ namespace Tests
             List<int> trianglesResult = renderQuad.AddTriangles(triangles);
 
             // Assert
-            Assert.AreEqual(1, trianglesResult[0]);
-            Assert.AreEqual(3, trianglesResult[1]);
-            Assert.AreEqual(2, trianglesResult[2]);
-            Assert.AreEqual(2, trianglesResult[3]);
-            Assert.AreEqual(3, trianglesResult[4]);
-            Assert.AreEqual(4, trianglesResult[5]);
+            Assert.That(1, Is.EqualTo(trianglesResult[0]));
+            Assert.That(3, Is.EqualTo(trianglesResult[1]));
+            Assert.That(2, Is.EqualTo(trianglesResult[2]));
+            Assert.That(2, Is.EqualTo(trianglesResult[3]));
+            Assert.That(3, Is.EqualTo(trianglesResult[4]));
+            Assert.That(4, Is.EqualTo(trianglesResult[5]));
         }
 
         [Test]
@@ -96,14 +100,6 @@ namespace Tests
         {
             // Set
             List<Color> colors = new List<Color>();
-
-            Vector3 vertex1 = new Vector3(0f, 0f, 0f);
-            Vector3 vertex2 = new Vector3(0f, 0f, 2f);
-            Vector3 vertex3 = new Vector3(2f, 0f, 0f);
-            Vector3 vertex4 = new Vector3(2f, 0f, 2f);
-
-            Color color1 = Color.black;
-            Color color2 = Color.white;
 
             Vector3[] quadVertices = new Vector3[] { vertex1, vertex2, vertex3, vertex4 } ;
 
@@ -117,10 +113,10 @@ namespace Tests
             List<Color> colorsResult = renderQuad.AddColors(colors);
 
             // Assert
-            Assert.AreEqual(Color.black, colorsResult[0]);
-            Assert.AreEqual(Color.black, colorsResult[1]);
-            Assert.AreEqual(Color.white, colorsResult[2]);
-            Assert.AreEqual(Color.white, colorsResult[3]);
+            Assert.That(Color.black, Is.EqualTo(colorsResult[0]));
+            Assert.That(Color.black, Is.EqualTo(colorsResult[1]));
+            Assert.That(Color.white, Is.EqualTo(colorsResult[2]));
+            Assert.That(Color.white, Is.EqualTo(colorsResult[3]));
         }
     }
 }
