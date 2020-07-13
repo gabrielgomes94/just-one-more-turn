@@ -8,7 +8,7 @@ using Unity.Transforms;
 
 namespace Hex
 {
-    public class RenderService
+    public class RenderService : IRenderService
     {
         Vector3 centerPosition;
         Color color;
@@ -113,6 +113,11 @@ namespace Hex
         public Color[] GetColorsArray()
         {
             return this.hexMeshData.colors.ToArray();
+        }
+
+        public void Clear()
+        {
+            hexMeshData.Clear();
         }
     }
 }
