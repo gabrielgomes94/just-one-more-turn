@@ -20,5 +20,12 @@ namespace Hex
             this.vertices = new List<Vector3>();
             this.colors = new List<Color>();
         }
+
+        public void Clear()
+        {
+            triangles.Clear();
+            vertices.Clear();
+            colors.Clear();
+        }
     }
 }
