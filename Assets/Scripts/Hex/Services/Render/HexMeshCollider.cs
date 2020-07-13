@@ -9,7 +9,7 @@ namespace Hex
 {
     public class HexMeshCollider
     {
-        public static BlobAssetReference<Collider> Create(RenderService renderService)
+        public static BlobAssetReference<Collider> Create(IRenderService renderService)
         {
             NativeArray<float3> vertices = new NativeArray<float3>(
                 renderService.GetVerticesArrayFloat3(),
