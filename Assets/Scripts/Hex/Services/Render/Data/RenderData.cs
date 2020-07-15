@@ -60,7 +60,7 @@ namespace Hex
         public RenderData(
             HexDirection direction,
             Entity entity,
-            NeighborCellService neighborService
+            int neighborElevation
         ) {
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             var translation = entityManager.GetComponentData<Translation>(entity);
@@ -79,9 +79,7 @@ namespace Hex
             this.vertex3 = vertex1 + bridge;
             this.vertex4 = vertex2 + bridge;
 
-            this.neighborService = neighborService;
-
-            vertex3.y = vertex4.y = neighborService.GetNeighborElevation(direction) * HexMetrics.elevationStep;
+            vertex3.y = vertex4.y = neighborElevation * HexMetrics.elevationStep;
         }
     }
 }

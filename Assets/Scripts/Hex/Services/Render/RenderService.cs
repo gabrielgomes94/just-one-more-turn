@@ -42,7 +42,7 @@ namespace Hex
 
             for (HexDirection direction = HexDirection.NE; direction <= HexDirection.NW; direction++)
             {
-                RenderData renderData = new RenderData(direction, entity, neighborService);
+                RenderData renderData = new RenderData(direction, entity, neighborService.GetNeighborElevation(direction));
 
                 RenderOperations renderOperations = new RenderOperations(renderData, this.hexMeshData);
 
@@ -61,7 +61,15 @@ namespace Hex
                 // Create corner triangle
                 if(direction > HexDirection.E || !neighborService.HasNeighbor(direction.Next())) continue;
 
-                renderOperations.CreateCornerTriangle(color, neighborColor, nextNeighborColor, direction.Next());
+                int elevation = neighborService.GetNeighborElevation(direction);
+
+                renderOperations.CreateCornerTriangle(
+                    color,
+                    neighborColor,
+                    nextNeighborColor,
+                    direction.Next(),
+                    elevation
+                );
             }
 
             neighborService.Dispose();
