@@ -7,7 +7,7 @@ using Unity.Transforms;
 
 namespace Hex
 {
-    public class RenderData
+    public class RenderData: IRenderData
     {
         private Vector3 bridge;
         public Vector3 Bridge
