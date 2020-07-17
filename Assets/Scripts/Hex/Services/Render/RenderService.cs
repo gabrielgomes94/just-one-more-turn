@@ -43,15 +43,13 @@ namespace Hex
             for (HexDirection direction = HexDirection.NE; direction <= HexDirection.NW; direction++)
             {
                 RenderData renderData = new RenderData(direction, entity, neighborService.GetNeighborElevation(direction));
-
                 RenderOperations renderOperations = new RenderOperations(renderData, this.hexMeshData);
 
                 // Create Main Triangle
                 renderOperations.CreateMainTriangle(color);
 
                 // Create Edge Quad
-                if (direction > HexDirection.SE) continue;
-                if (!neighborService.HasNeighbor(direction)) continue;
+                if (!HasEdgeQuad(direction, neighborService.HasNeighbor(direction))) continue;
 
                 Color neighborColor = neighborService.GetNeighborColor(direction);
                 Color nextNeighborColor = neighborService.GetNeighborColor(direction.Next());
@@ -59,9 +57,9 @@ namespace Hex
                 renderOperations.CreateEdgeQuad(color, neighborColor);
 
                 // Create corner triangle
-                if(direction > HexDirection.E || !neighborService.HasNeighbor(direction.Next())) continue;
+                if (!HasCornerTriangle(direction, neighborService.HasNeighbor(direction.Next()))) continue;
 
-                int elevation = neighborService.GetNeighborElevation(direction);
+                int elevation = neighborService.GetNeighborElevation(direction.Next());
 
                 renderOperations.CreateCornerTriangle(
                     color,
@@ -73,6 +71,16 @@ namespace Hex
             }
 
             neighborService.Dispose();
+        }
+
+        private bool HasEdgeQuad(HexDirection direction, bool hasNeighborInDirection)
+        {
+            return direction <= HexDirection.SE && hasNeighborInDirection;
+        }
+
+        private bool HasCornerTriangle(HexDirection direction, bool hasNeighborInDirection)
+        {
+            return direction <= HexDirection.E && hasNeighborInDirection;
         }
 
         public float3[] GetVerticesArrayFloat3()
