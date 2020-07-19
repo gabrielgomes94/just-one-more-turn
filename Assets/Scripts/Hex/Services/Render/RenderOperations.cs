@@ -60,11 +60,11 @@ namespace Hex
         }
 
         public void CreateCornerTriangle(
+            HexDirection direction,
+            int elevation,
             Color color1,
             Color color2,
-            Color color3,
-            HexDirection direction,
-            int elevation
+            Color color3
         ) {
             Vector3 vertex5 = renderData.Vertex2 + HexMetrics.GetBridge(direction);
 			vertex5.y = elevation * HexMetrics.elevationStep;

@@ -84,11 +84,11 @@ namespace Tests
 
             // Act
             renderOperations.CreateCornerTriangle(
+                HexDirection.E,
+                elevation,
                 color1,
                 color2,
-                color3,
-                HexDirection.E,
-                elevation
+                color3
             );
 
             // Assert
