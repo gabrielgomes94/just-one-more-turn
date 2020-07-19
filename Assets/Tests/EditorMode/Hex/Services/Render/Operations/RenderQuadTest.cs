@@ -24,7 +24,7 @@ namespace Tests
             vertex1 = new Vector3(0f, 0f, 0f);
             vertex2 = new Vector3(0f, 0f, 2f);
             vertex3 = new Vector3(2f, 0f, 0f);
-            Vector3 vertex4 = new Vector3(2f, 0f, 2f);
+            vertex4 = new Vector3(2f, 0f, 2f);
 
             color1 = Color.black;
             color2 = Color.black;
@@ -115,8 +115,8 @@ namespace Tests
             // Assert
             Assert.That(Color.black, Is.EqualTo(colorsResult[0]));
             Assert.That(Color.black, Is.EqualTo(colorsResult[1]));
-            Assert.That(Color.white, Is.EqualTo(colorsResult[2]));
-            Assert.That(Color.white, Is.EqualTo(colorsResult[3]));
+            Assert.That(Color.black, Is.EqualTo(colorsResult[2]));
+            Assert.That(Color.black, Is.EqualTo(colorsResult[3]));
         }
     }
 }
