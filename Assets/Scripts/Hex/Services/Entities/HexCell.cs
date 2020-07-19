@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Collections;
@@ -10,6 +8,68 @@ namespace Hex
 {
     public class HexCell
     {
+        EntityManager entityManager;
+        public HexCell()
+        {
+            this.entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        }
+
+        public static Entity FindBy(HexCoordinates targetHexCoordinates)
+        {
+            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+
+            NativeArray<Entity> hexCells = HexCell.List(Allocator.TempJob);
+            Entity neighborHexCell = Entity.Null;
+
+            foreach(Entity hexCell in hexCells) {
+                HexCoordinates hexCellCoordinates = entityManager.GetComponentData<HexCoordinates>(hexCell);
+
+                if (targetHexCoordinates == hexCellCoordinates) {
+                    neighborHexCell = hexCell;
+                }
+            }
+
+            hexCells.Dispose();
+
+            return neighborHexCell;
+        }
+
+        public static Entity GetByCoordinates(HexCoordinates coordinates)
+        {
+            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            var query = entityManager.CreateEntityQuery(typeof(HexCellTag));
+
+            NativeArray<Entity> hexCells =  query.ToEntityArray(Allocator.TempJob);
+            Entity hexCell = Entity.Null;
+
+            foreach(Entity hexCellEntity in hexCells)
+            {
+                HexCoordinates hexCellCoordinates = entityManager.GetComponentData<HexCoordinates>(hexCellEntity);
+
+                if (hexCellCoordinates == coordinates) {
+                    hexCell = hexCellEntity;
+                    break;
+                }
+            }
+
+            hexCells.Dispose();
+
+            return hexCell;
+        }
+
+        public static NativeArray<Entity> List(Allocator allocator = Allocator.TempJob)
+        {
+            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            EntityQuery query = entityManager.CreateEntityQuery(
+                ComponentType.ReadOnly<ColorComponent>(),
+                ComponentType.ReadOnly<HexCoordinates>(),
+                ComponentType.ReadOnly<Elevation>(),
+                ComponentType.ReadOnly<HexCellTag>()
+            );
+
+            return query.ToEntityArray(allocator);
+        }
+
         public static NativeArray<ColorComponent> GetColorsComponentsArray(EntityQuery query)
         {
             return query.ToComponentDataArray<ColorComponent>(Allocator.Temp);
@@ -70,5 +130,7 @@ namespace Hex
 
             return translation;
         }
+
+
     }
 }
