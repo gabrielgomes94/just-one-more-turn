@@ -20,8 +20,9 @@ namespace Hex
 
         void Start()
         {
-            HexCellEntity cellEntity = new HexCellEntity();
-            cellEntity.CreateCells(width, height);
+            // HexCell cellEntity = new HexCell();
+            HexGridService gridService = new HexGridService();
+            gridService.CreateCells(width, height);
 
             AddTextCoordinatesOnGrid(width, height);
         }
