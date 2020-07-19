@@ -20,7 +20,6 @@ namespace Hex
 
         void Start()
         {
-            // HexCell cellEntity = new HexCell();
             HexGridService gridService = new HexGridService();
             gridService.CreateCells(width, height);
 
