@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -17,91 +15,57 @@ namespace Hex
             {-1, 1, 0},
             {-1, 0, 1}
         };
+        Entity mainHexCell;
+        private EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-        private HexCoordinates hexCellCoordinates;
-        private ColorComponent hexCellColor;
-        private NativeArray<ColorComponent> colorsComponentsArray;
-        private NativeArray<HexCoordinates> hexCoordinatesArray;
-
-        private EntityManager entityManager;
-        EntityQuery query;
-        Entity entity;
-
-        public NeighborCellService(
-            Entity entity,
-            EntityQuery query
-        ) {
-            entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            this.entity = entity;
-            this.query = query;
-
-            this.hexCellCoordinates = entityManager.GetComponentData<HexCoordinates>(entity);
-            this.hexCellColor = entityManager.GetComponentData<ColorComponent>(entity);
-
-            this.colorsComponentsArray = HexCell.GetColorsComponentsArray(query);
-            this.hexCoordinatesArray = HexCell.GetHexCoordinatesArray(query);
+        public NeighborCellService(Entity mainHexCell) {
+            this.mainHexCell = mainHexCell;
         }
 
-        public Color GetNeighborColor(HexDirection direction) {
-            Color color = this.hexCellColor.Value;
+        public Entity GetNeighborCell(HexDirection direction) {
+            HexCoordinates targetHexCoordinates = GetTargetHexCoordinates(direction);
 
-            int index = GetNeighborIndex(direction);
+            return HexCell.FindBy(targetHexCoordinates);
+        }
 
-            if (index >= 0) {
-                color = HexCell.GetColorByIndex(query, index);
+        public Color GetColor(HexDirection direction) {
+            Entity neighborCell = GetNeighborCell(direction);
+            Color color  = entityManager.GetComponentData<ColorComponent>(mainHexCell).Value;
+
+            if (Entity.Null != neighborCell) {
+                color = entityManager.GetComponentData<ColorComponent>(neighborCell).Value;
             }
 
             return color;
         }
 
-        public int GetNeighborElevation(HexDirection direction) {
+        public int GetElevation(HexDirection direction) {
+            Entity neighborCell = GetNeighborCell(direction);
             int elevation = 0;
 
-            int index = GetNeighborIndex(direction);
-
-            if (index >= 0) {
-                elevation = HexCell.GetElevationByIndex(query, index);
+            if (Entity.Null != neighborCell) {
+                elevation = entityManager.GetComponentData<Elevation>(neighborCell).Value;
             }
 
             return elevation;
         }
 
-        public bool HasNeighbor(HexDirection direction)
+        public bool Exists(HexDirection direction)
         {
-            HexCoordinates targetHexCoordinates = GetTargetHexCoordinates(direction);
+            Entity neighbor = GetNeighborCell(direction);
 
-            for (int i = 0; i < this.hexCoordinatesArray.Length; i++) {
-                if ((targetHexCoordinates == hexCoordinatesArray[i])) return true;
-            }
-
-            return false;
-        }
-
-        public int GetNeighborIndex(HexDirection direction) {
-            HexCoordinates targetHexCoordinates = GetTargetHexCoordinates(direction);
-
-            for (int i = 0; i < this.hexCoordinatesArray.Length; i++) {
-                if (targetHexCoordinates == hexCoordinatesArray[i]) {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
-        public void Dispose()
-        {
-            this.colorsComponentsArray.Dispose();
-            this.hexCoordinatesArray.Dispose();
+            return Entity.Null != neighbor ? true : false;
         }
 
         private HexCoordinates GetTargetHexCoordinates(HexDirection direction)
         {
+            HexCoordinates hexCellCoordinates = entityManager.GetComponentData<HexCoordinates>(mainHexCell);
+
             return new HexCoordinates{
                 Value = new int3(
-                    this.hexCellCoordinates.Value.x + this.hexCoordinatesModifier[(int) direction, 0],
-                    this.hexCellCoordinates.Value.y + this.hexCoordinatesModifier[(int) direction, 1],
-                    this.hexCellCoordinates.Value.z + this.hexCoordinatesModifier[(int) direction, 2]
+                    hexCellCoordinates.Value.x + this.hexCoordinatesModifier[(int) direction, 0],
+                    hexCellCoordinates.Value.y + this.hexCoordinatesModifier[(int) direction, 1],
+                    hexCellCoordinates.Value.z + this.hexCoordinatesModifier[(int) direction, 2]
                 )
             };
         }
