@@ -25,7 +25,7 @@ namespace Hex
         public Entity GetNeighborCell(HexDirection direction) {
             HexCoordinates targetHexCoordinates = GetTargetHexCoordinates(direction);
 
-            return HexCell.FindBy(targetHexCoordinates);
+            return HexCellService.FindBy(targetHexCoordinates);
         }
 
         public Color GetColor(HexDirection direction) {

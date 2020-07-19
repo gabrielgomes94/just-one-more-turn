@@ -6,10 +6,10 @@ using Unity.Transforms;
 
 namespace Hex
 {
-    public class HexCell
+    public class HexCellService
     {
         EntityManager entityManager;
-        public HexCell()
+        public HexCellService()
         {
             this.entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         }
@@ -18,7 +18,7 @@ namespace Hex
         {
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-            NativeArray<Entity> hexCells = HexCell.List(Allocator.TempJob);
+            NativeArray<Entity> hexCells = HexCellService.List(Allocator.TempJob);
             Entity neighborHexCell = Entity.Null;
 
             foreach(Entity hexCell in hexCells) {
@@ -88,7 +88,7 @@ namespace Hex
 
         public static Color GetColorByIndex(EntityQuery query, int index)
         {
-            NativeArray<ColorComponent> colorComponentsArray = HexCell.GetColorsComponentsArray(query);
+            NativeArray<ColorComponent> colorComponentsArray = HexCellService.GetColorsComponentsArray(query);
             Color color = colorComponentsArray[index].Value;
 
             colorComponentsArray.Dispose();
@@ -98,7 +98,7 @@ namespace Hex
 
         public static int GetElevationByIndex(EntityQuery query, int index)
         {
-            NativeArray<Elevation> elevationArray = HexCell.GetElevationArray(query);
+            NativeArray<Elevation> elevationArray = HexCellService.GetElevationArray(query);
             int elevation = elevationArray[index].Value;
 
             elevationArray.Dispose();

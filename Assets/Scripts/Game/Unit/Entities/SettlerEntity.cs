@@ -16,7 +16,7 @@ namespace Game
         {
             Entity settler = ecb.Instantiate(settlerPrefab.Value);
 
-            float3 position = HexCell.GetTranslationComponentByHexCoordinates(coordinates);
+            float3 position = HexCellService.GetTranslationComponentByHexCoordinates(coordinates);
 
             BlobAssetReference<Unity.Physics.Collider> collider = Unity.Physics.BoxCollider.Create(
                 new BoxGeometry
