@@ -49,14 +49,10 @@ namespace GameInput
 
                     HexCoordinates coordinates = CoordinatesService.GetCoordinatesFromPosition(hit.Position);
 
-                    Entity selectedEntity = HexCellEntity.GetByCoordinates(coordinates);
+                    Entity selectedEntity = HexCellService.FindBy(coordinates);
 
                     if (EntityManager.HasComponent<SettlerTag>(selectedEntity)) {
                         var color = EntityManager.GetComponentData<ColorComponent>(selectedEntity).Value;
-
-                        Debug.Log(selectedEntity);
-
-                        Debug.Log("ODKASDASDA");
                     }
 
                     mouseInput.primaryAction = 0;

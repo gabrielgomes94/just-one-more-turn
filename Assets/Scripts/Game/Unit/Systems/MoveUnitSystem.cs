@@ -20,7 +20,7 @@ namespace Game
                     in Movable movable,
                     in CommandMoveComponent cmdMove
                 ) => {
-                    translation.Value =  HexCell.GetTranslationComponentByHexCoordinates(
+                    translation.Value =  HexCellService.GetTranslationComponentByHexCoordinates(
                         new HexCoordinates{ Value = new int3(cmdMove.moveToCoordinates) }
                     );
 

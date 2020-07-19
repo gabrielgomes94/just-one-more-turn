@@ -22,7 +22,7 @@ namespace Game
 
             CivIdSharedComponent settlerCivId = entityManager.GetSharedComponentData<CivIdSharedComponent>(settlerEntity);
 
-            float3 position = HexCell.GetTranslationComponentByHexCoordinates(settlerHexCoordinates);
+            float3 position = HexCellService.GetTranslationComponentByHexCoordinates(settlerHexCoordinates);
 
             ecb.SetComponent<Translation>(
                 city,

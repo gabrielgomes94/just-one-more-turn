@@ -8,14 +8,14 @@ using Unity.Transforms;
 
 namespace Hex
 {
-    public class RenderService
+    public class RenderService : IRenderService
     {
         Vector3 centerPosition;
         Color color;
         EntityManager entityManager;
         EntityQuery query;
 
-        private NeighborCellService neighborService;
+        private NeighborCellService neighborCell;
 
         private RenderHexMeshData hexMeshData;
 
@@ -32,39 +32,47 @@ namespace Hex
             Entity entity,
             ColorComponent colorComponent
         ) {
-            neighborService = new NeighborCellService(
-                entity,
-                query
-            );
-
+            neighborCell = new NeighborCellService(entity);
             Color color = colorComponent.Value;
-            this.centerPosition = centerPosition;
 
             for (HexDirection direction = HexDirection.NE; direction <= HexDirection.NW; direction++)
             {
-                RenderData renderData = new RenderData(direction, entity, neighborService);
-
+                RenderData renderData = new RenderData(direction, entity, neighborCell.GetElevation(direction));
                 RenderOperations renderOperations = new RenderOperations(renderData, this.hexMeshData);
 
-                // Create Main Triangle
                 renderOperations.CreateMainTriangle(color);
 
-                // Create Edge Quad
-                if (direction > HexDirection.SE) continue;
-                if (!neighborService.HasNeighbor(direction)) continue;
+                if (!HasEdgeQuad(direction, neighborCell.Exists(direction))) {
+                    continue;
+                }
 
-                Color neighborColor = neighborService.GetNeighborColor(direction);
-                Color nextNeighborColor = neighborService.GetNeighborColor(direction.Next());
-
+                Color neighborColor = neighborCell.GetColor(direction);
                 renderOperations.CreateEdgeQuad(color, neighborColor);
 
-                // Create corner triangle
-                if(direction > HexDirection.E || !neighborService.HasNeighbor(direction.Next())) continue;
+                if (!HasCornerTriangle(direction, neighborCell.Exists(direction.Next()))) {
+                    continue;
+                }
 
-                renderOperations.CreateCornerTriangle(color, neighborColor, nextNeighborColor, direction.Next());
+                Color nextNeighborColor = neighborCell.GetColor(direction.Next());
+                int nexNeighborElevation = neighborCell.GetElevation(direction.Next());
+                renderOperations.CreateCornerTriangle(
+                    direction.Next(),
+                    nexNeighborElevation,
+                    color,
+                    neighborColor,
+                    nextNeighborColor
+                );
             }
+        }
 
-            neighborService.Dispose();
+        private bool HasEdgeQuad(HexDirection direction, bool hasNeighborInDirection)
+        {
+            return direction <= HexDirection.SE && hasNeighborInDirection;
+        }
+
+        private bool HasCornerTriangle(HexDirection direction, bool hasNeighborInDirection)
+        {
+            return direction <= HexDirection.E && hasNeighborInDirection;
         }
 
         public float3[] GetVerticesArrayFloat3()
@@ -102,17 +110,22 @@ namespace Hex
 
         public Vector3[] GetVerticesArray()
         {
-            return this.hexMeshData.vertices.ToArray();
+            return hexMeshData.vertices.ToArray();
         }
 
         public int[] GetTrianglesArray()
         {
-            return this.hexMeshData.triangles.ToArray();
+            return hexMeshData.triangles.ToArray();
         }
 
         public Color[] GetColorsArray()
         {
-            return this.hexMeshData.colors.ToArray();
+            return hexMeshData.colors.ToArray();
+        }
+
+        public void Clear()
+        {
+            hexMeshData.Clear();
         }
     }
 }

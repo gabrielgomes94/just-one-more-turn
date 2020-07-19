@@ -18,6 +18,8 @@ namespace Hex
 
         EntityQuery shouldRenderQuery;
 
+        RenderService renderService;
+
         protected override void OnCreate()
         {
             query = GetEntityQuery(
@@ -26,13 +28,16 @@ namespace Hex
                 ComponentType.ReadOnly<Elevation>(),
                 ComponentType.ReadOnly<HexCellTag>()
             );
+
+            renderService = new RenderService(query);
         }
 
         protected override void OnUpdate()
         {
             if (!shouldRender) return;
 
-            RenderService renderService = new RenderService(query);
+            renderService.Clear();
+
 
             Entities.
                 WithoutBurst().
@@ -47,7 +52,7 @@ namespace Hex
                 renderService.GetColorsArray()
             );
 
-            BlobAssetReference<Unity.Physics.Collider> collider = RenderColliders.CreateHexMeshCollider(renderService);
+            BlobAssetReference<Unity.Physics.Collider> collider = HexMeshCollider.Create(renderService);
 
             Entities.
                 WithStructuralChanges().
