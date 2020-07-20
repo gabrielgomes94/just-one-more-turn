@@ -598,10 +598,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 488953412}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20e064eaa37d7de4f89ce21c211667ab, type: 3}
+  m_Script: {fileID: 11500000, guid: c9425035241733943b798317b4b3763a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridCanvas: {fileID: 0}
+  width: 36
+  height: 36
+  cellLabelPrefab: {fileID: 8608855748969268874, guid: bd1629367c11bf144b8288f80e6d941e,
+    type: 3}
 --- !u!1 &550996324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,13 +1584,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1221751129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37298c418ea9a2248a1da8d9c6b26910, type: 3}
+  m_Script: {fileID: 11500000, guid: c9425035241733943b798317b4b3763a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 24
-  height: 12
-  cellLabelPrefab: {fileID: 8608855748969268874, guid: bd1629367c11bf144b8288f80e6d941e,
-    type: 3}
+  width: 6
+  height: 6
+  cellLabelPrefab: {fileID: 0}
 --- !u!4 &1221751131
 Transform:
   m_ObjectHideFlags: 0
@@ -1701,7 +1703,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1405133341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1db7699e17358a84899ad6a088377978, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b3170cd41fa61e4ebfcea1335f692ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hexMesh: {fileID: 0}
