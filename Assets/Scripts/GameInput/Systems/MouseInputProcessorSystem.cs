@@ -10,7 +10,7 @@ using RaycastHit = Unity.Physics.RaycastHit;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Game;
-
+using GameUI;
 namespace GameInput
 {
     public class MoveInputProcessorSystem : SystemBase
@@ -48,11 +48,12 @@ namespace GameInput
                     if (hitEntity == Entity.Null) return;
 
                     HexCoordinates coordinates = CoordinatesService.GetCoordinatesFromPosition(hit.Position);
-
                     Entity selectedEntity = HexCellService.FindBy(coordinates);
 
-                    if (EntityManager.HasComponent<SettlerTag>(selectedEntity)) {
-                        var color = EntityManager.GetComponentData<ColorComponent>(selectedEntity).Value;
+                    if (EntityManager.HasComponent<Selected>(selectedEntity)) {
+                        CommandSelectService.RemoveSelectionCommand(coordinates);
+                    } else {
+                        CommandSelectService.CreateSelectionCommand(coordinates);
                     }
 
                     mouseInput.primaryAction = 0;
