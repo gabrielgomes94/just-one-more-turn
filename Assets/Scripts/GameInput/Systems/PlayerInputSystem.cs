@@ -20,7 +20,7 @@ namespace GameInput
             if (mouseInputQuery.CalculateEntityCount() == 0)
                 EntityManager.CreateEntity(typeof(MouseInput));
 
-            if (Input.GetMouseButton(0)) {
+            if (Input.GetMouseButtonDown(0)) {
                 var position = new float3(Input.mousePosition.x, Input.mousePosition.y, 0f);
 
                 mouseInputQuery.SetSingleton(new MouseInput {
