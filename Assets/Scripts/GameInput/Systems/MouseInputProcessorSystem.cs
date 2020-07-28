@@ -51,9 +51,9 @@ namespace GameInput
                     Entity selectedEntity = HexCellService.FindBy(coordinates);
 
                     if (EntityManager.HasComponent<Selected>(selectedEntity)) {
-                        CommandSelectService.RemoveSelectionCommand(coordinates);
+                        SelectCommand.Remove(coordinates);
                     } else {
-                        CommandSelectService.CreateSelectionCommand(coordinates);
+                        SelectCommand.Create(coordinates);
                     }
 
                     mouseInput.primaryAction = 0;
