@@ -10,7 +10,7 @@ using RaycastHit = Unity.Physics.RaycastHit;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Game;
-using GameUI;
+
 namespace GameInput
 {
     public class MoveInputProcessorSystem : SystemBase
