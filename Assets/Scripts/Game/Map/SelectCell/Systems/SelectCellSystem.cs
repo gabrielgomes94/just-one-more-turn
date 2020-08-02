@@ -1,6 +1,4 @@
 using Unity.Entities;
-using Unity.Mathematics;
-using Unity.Transforms;
 using Hex;
 
 namespace Game
@@ -13,26 +11,20 @@ namespace Game
         {
             EntityCommandBuffer ecb = barrier.CreateCommandBuffer();
 
-            EntityArchetype archetype = EntityManager.CreateArchetype(
-                typeof(CommandCreateHighlight)
-            );
-
-            EntityArchetype archetypeRemoveHighlight = EntityManager.CreateArchetype(
-                typeof(CommandRemoveHighlight)
-            );
+            EntityArchetype archetypeCreateHighlight = HighlightArchetype.GetCommandCreate();
+            EntityArchetype archetypeRemoveHighlight = HighlightArchetype.GetCommandRemove();
 
             Entities
                 .WithoutBurst()
                 .ForEach((
                     Entity entity,
-                    int entityInQueryIndex,
                     in CommandSelectCell commandSelectCell,
                     in HexCoordinates hexCoordinates
                 ) => {
                     Entity selectedCell = HexCellService.FindBy(hexCoordinates);
 
                     if (commandSelectCell.select) {
-                        CommandHighlight.Create(ecb, hexCoordinates, archetype);
+                        CommandHighlight.Create(ecb, hexCoordinates, archetypeCreateHighlight);
                         ecb.AddComponent<Selected>(selectedCell, new Selected{});
                     } else {
                         CommandHighlight.Remove(ecb, hexCoordinates, archetypeRemoveHighlight);
