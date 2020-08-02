@@ -12,11 +12,7 @@ namespace Game
         {
             HighlightCellPrefab highlightPrefab = GetSingleton<HighlightCellPrefab>();
             EntityCommandBuffer ecb = barrier.CreateCommandBuffer();
-            EntityQuery query = EntityManager.CreateEntityQuery(
-                typeof(HexCoordinates),
-                typeof(HighlightTag)
-            );
-            NativeArray<Entity> highlightedCells = query.ToEntityArray(Allocator.TempJob);
+            NativeArray<Entity> highlightedCells = HighlightCell.List();
 
             Entities
                 .WithoutBurst()

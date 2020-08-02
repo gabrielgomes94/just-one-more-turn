@@ -1,4 +1,5 @@
 using Unity.Entities;
+using Unity.Collections;
 using Unity.Mathematics;
 using Unity.Transforms;
 using Hex;
@@ -15,6 +16,18 @@ namespace Game
             ecb.SetComponent<Translation>(highlight, new Translation { Value = position });
             ecb.AddComponent<HexCoordinates>(highlight, coordinates);
             ecb.AddComponent<HighlightTag>(highlight, new HighlightTag{ });
+        }
+
+        public static NativeArray<Entity> List()
+        {
+            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+
+            EntityQuery query = entityManager.CreateEntityQuery(
+                typeof(HexCoordinates),
+                typeof(HighlightTag)
+            );
+
+            return query.ToEntityArray(Allocator.TempJob);
         }
     }
 }
