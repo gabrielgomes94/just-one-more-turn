@@ -51,7 +51,7 @@ namespace Hex
                 translation = entityManager.GetComponentData<Translation>(hexCell).Value;
             }
 
-            translation.y += 10f;
+            translation.y += 0.10f;
 
             return translation;
         }
