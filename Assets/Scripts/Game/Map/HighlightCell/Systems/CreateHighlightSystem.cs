@@ -16,7 +16,6 @@ namespace Game
                 .WithoutBurst()
                 .ForEach((
                     Entity entity,
-                    int entityInQueryIndex,
                     in CommandCreateHighlight commandCreateHighlight,
                     in HexCoordinates coordinates
                 ) => {
