@@ -7,21 +7,15 @@ namespace Game
     {
         public static void Create(HexCoordinates coordinates)
         {
-            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-
-            EntityArchetype archetype = entityManager.CreateArchetype(
-                typeof(CommandSelectCell)
-            );
-
-            Entity entity = entityManager.CreateEntity(archetype);
-
-            entityManager.AddComponentData<CommandSelectCell>(entity, new CommandSelectCell {
-                select = true
-            });
-            entityManager.AddComponentData<HexCoordinates>(entity, coordinates);
+            SelectCommand.CreateCommand(coordinates, true);
         }
 
         public static void Remove(HexCoordinates coordinates)
+        {
+            SelectCommand.CreateCommand(coordinates, false);
+        }
+
+        private static void CreateCommand(HexCoordinates coordinates, bool select)
         {
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
@@ -32,7 +26,7 @@ namespace Game
             Entity entity = entityManager.CreateEntity(archetype);
 
             entityManager.AddComponentData<CommandSelectCell>(entity, new CommandSelectCell {
-                select = false
+                select = select
             });
             entityManager.AddComponentData<HexCoordinates>(entity, coordinates);
         }
