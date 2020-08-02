@@ -1,8 +1,4 @@
-using UnityEngine;
 using Unity.Entities;
-using Unity.Mathematics;
-using Unity.Collections;
-using Unity.Transforms;
 using Hex;
 
 namespace Game

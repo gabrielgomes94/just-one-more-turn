@@ -1,4 +1,3 @@
-using System.Collections;
 using Unity.Entities;
 
 namespace Hex
