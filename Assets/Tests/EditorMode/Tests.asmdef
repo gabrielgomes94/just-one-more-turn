@@ -3,7 +3,6 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "GameAssebly",
         "HexAssembly",
         "Unity.Collections",
         "Unity.Physics",
