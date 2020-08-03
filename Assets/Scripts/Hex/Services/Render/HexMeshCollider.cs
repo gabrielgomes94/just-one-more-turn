@@ -1,8 +1,6 @@
-using UnityEngine;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
-using Unity.Physics;
 using Collider = Unity.Physics.Collider;
 
 namespace Hex
