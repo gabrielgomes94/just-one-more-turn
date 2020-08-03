@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Unity.Collections;
+﻿using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
-using Unity.Transforms;
 
 namespace Hex
 {

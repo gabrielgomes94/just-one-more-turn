@@ -1,12 +1,9 @@
 using UnityEngine;
-using Unity.Mathematics;
-using Unity.Collections;
 using Unity.Transforms;
 using Unity.Entities;
 using Unity.Rendering;
 using Unity.Jobs;
 using Unity.Physics;
-using System.Collections.Generic;
 
 namespace Hex
 {
