@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Hex;
 
-public class CityPanelManager : MonoBehaviour
+public class CityLabelManager : MonoBehaviour
 {
     public GameObject cityPanelPrefab;
     Canvas gridCanvas;
@@ -17,12 +17,10 @@ public class CityPanelManager : MonoBehaviour
     void Start()
     {
         GameObject label = Instantiate(cityPanelPrefab);
+        var pos = HexCellService.GetTranslationComponentByHexCoordinates(CoordinatesService.CreateFromOffset(8, 2));
+
         label.GetComponent<RectTransform>().SetParent(gridCanvas.transform, false);
-        label.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(
-            PositionCalculator.GetPositionX(17, 8),
-            PositionCalculator.GetPositionZ(8),
-            220f
-        );
+        label.GetComponent<RectTransform>().position = new Vector3(pos.x, pos.y + 10f, pos.z - 5f);
     }
 
     // Update is called once per frame
