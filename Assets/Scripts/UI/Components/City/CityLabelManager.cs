@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Hex;
 
-namespace GameUI
+namespace GameUI.Components
 {
     public class CityLabelManager : MonoBehaviour
     {
