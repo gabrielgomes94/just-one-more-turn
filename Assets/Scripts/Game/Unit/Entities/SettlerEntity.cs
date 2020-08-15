@@ -6,8 +6,8 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using Unity.Physics;
-using Hex;
 using Hex.Cell;
+using Hex.Coordinates;
 using GameUI;
 
 namespace Game

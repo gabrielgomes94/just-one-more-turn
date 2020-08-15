@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
-using Hex;
+using Hex.Coordinates;
 
 namespace Game
 {
