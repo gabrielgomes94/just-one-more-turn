@@ -12,7 +12,7 @@ namespace GameUI
 {
     public class SettlerPanelManager : MonoBehaviour
     {
-        public event EventHandler<CreateCityEventArgs> OnCreateCity;
+        // public event EventHandler<CreateCityEventArgs> OnCreateCity;
 
         // public void CreateCityOnClick()
         // {

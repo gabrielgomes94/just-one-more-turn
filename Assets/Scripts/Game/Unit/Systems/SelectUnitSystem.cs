@@ -23,7 +23,7 @@ namespace Game
                 ) => {
                     if (EntityManager.HasComponent<SettlerTag>(entity))
                     {
-                        UI.UIManager.showSettlerPanel = true;
+                        // UI.UIManager.showSettlerPanel = true;
                     }
                 })
                 .Run();
