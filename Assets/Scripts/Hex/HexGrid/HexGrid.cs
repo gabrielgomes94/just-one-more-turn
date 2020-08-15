@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using Hex.Coordinates;
 
-namespace Hex
+namespace Hex.Grid
 {
     public class HexGrid : MonoBehaviour
     {
