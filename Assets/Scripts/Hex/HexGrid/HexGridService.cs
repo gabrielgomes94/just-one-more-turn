@@ -4,6 +4,7 @@ using Unity.Mathematics;
 using Unity.Collections;
 using Unity.Transforms;
 using Hex.Cell;
+using Hex.Coordinates;
 
 namespace Hex
 {
