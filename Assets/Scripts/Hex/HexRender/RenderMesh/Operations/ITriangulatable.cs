@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hex.Mesh
+namespace Hex.Render
 {
     interface ITriangulatable
     {

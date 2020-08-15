@@ -7,7 +7,7 @@ using Unity.Physics;
 using Hex.Cell;
 using Hex.Coordinates;
 
-namespace Hex.Mesh
+namespace Hex.Render
 {
     public class HexMeshRenderSystem : SystemBase
     {

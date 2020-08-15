@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Hex.Mesh
+namespace Hex.Render
 {
     public class RenderOperations
     {

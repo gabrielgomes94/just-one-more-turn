@@ -1,6 +1,6 @@
 using Unity.Entities;
 
-namespace Hex.Mesh
+namespace Hex.Render
 {
     public struct HexMeshTag : IComponentData {}
 }

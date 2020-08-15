@@ -3,7 +3,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Hex.Cell;
 
-namespace Hex.Mesh
+namespace Hex.Render
 {
     public class RenderService : IRenderService
     {

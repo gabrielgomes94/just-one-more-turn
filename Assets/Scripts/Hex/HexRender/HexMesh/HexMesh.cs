@@ -4,7 +4,7 @@ using Unity.Rendering;
 using Unity.Transforms;
 using Unity.Physics;
 
-namespace Hex.Mesh
+namespace Hex.Render
 {
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
     public class HexMesh : MonoBehaviour
