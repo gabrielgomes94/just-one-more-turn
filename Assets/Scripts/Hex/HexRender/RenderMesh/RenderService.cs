@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
+using Hex.Cell;
 
 namespace Hex
 {

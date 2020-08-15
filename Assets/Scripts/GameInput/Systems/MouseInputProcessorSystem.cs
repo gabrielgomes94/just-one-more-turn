@@ -6,6 +6,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using Hex;
+using Hex.Cell;
 using RaycastHit = Unity.Physics.RaycastHit;
 using Unity.Physics;
 using Unity.Physics.Systems;
