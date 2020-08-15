@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hex
+namespace Hex.Mesh
 {
     public class RenderHexMeshData
     {

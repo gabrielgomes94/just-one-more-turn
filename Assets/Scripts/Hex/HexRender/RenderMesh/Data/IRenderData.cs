@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Hex
+namespace Hex.Mesh
 {
     public interface IRenderData
     {

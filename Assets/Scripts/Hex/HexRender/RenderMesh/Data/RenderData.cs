@@ -3,7 +3,7 @@ using Unity.Entities;
 using Unity.Transforms;
 using Hex.Cell;
 
-namespace Hex
+namespace Hex.Mesh
 {
     public class RenderData: IRenderData
     {

@@ -3,7 +3,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Collider = Unity.Physics.Collider;
 
-namespace Hex
+namespace Hex.Mesh
 {
     public class HexMeshCollider
     {

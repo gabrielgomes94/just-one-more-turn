@@ -1,6 +1,6 @@
 using Unity.Mathematics;
 
-namespace Hex
+namespace Hex.Mesh
 {
     public interface IRenderService
     {
