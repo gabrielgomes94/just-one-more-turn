@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
 
-namespace Hex {
+namespace Hex.Coordinates {
     public struct HexCoordinates : IComponentData
     {
         public int3 Value;

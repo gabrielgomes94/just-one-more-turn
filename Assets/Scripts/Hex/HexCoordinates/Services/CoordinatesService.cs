@@ -1,7 +1,7 @@
 using UnityEngine;
 using Unity.Mathematics;
 
-namespace Hex
+namespace Hex.Coordinates
 {
     public class CoordinatesService
     {
