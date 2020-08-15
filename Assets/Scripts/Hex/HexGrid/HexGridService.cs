@@ -6,7 +6,7 @@ using Unity.Transforms;
 using Hex.Cell;
 using Hex.Coordinates;
 
-namespace Hex
+namespace Hex.Grid
 {
     public class HexGridService
     {

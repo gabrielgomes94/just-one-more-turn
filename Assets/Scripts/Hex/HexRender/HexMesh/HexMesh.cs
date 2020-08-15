@@ -4,12 +4,12 @@ using Unity.Rendering;
 using Unity.Transforms;
 using Unity.Physics;
 
-namespace Hex
+namespace Hex.Render
 {
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
     public class HexMesh : MonoBehaviour
     {
-        [SerializeField] private Mesh hexMesh;
+        [SerializeField] private UnityEngine.Mesh hexMesh;
         [SerializeField] private UnityEngine.Material hexMaterial;
 
         UnityEngine.MeshCollider meshCollider;
@@ -17,7 +17,7 @@ namespace Hex
 
         void Awake()
         {
-            GetComponent<MeshFilter>().mesh = hexMesh = new Mesh();
+            GetComponent<MeshFilter>().mesh = hexMesh = new UnityEngine.Mesh();
             meshCollider = gameObject.AddComponent<UnityEngine.MeshCollider>();
             hexMesh.name = "Hex Mesh";
 

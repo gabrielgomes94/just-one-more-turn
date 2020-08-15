@@ -7,7 +7,7 @@ using Unity.Physics;
 using Hex.Cell;
 using Hex.Coordinates;
 
-namespace Hex
+namespace Hex.Render
 {
     public class HexMeshRenderSystem : SystemBase
     {
@@ -45,7 +45,7 @@ namespace Hex
                 }
             ).Run();
 
-            Mesh hexMesh = CreateHexMesh(
+            UnityEngine.Mesh hexMesh = CreateHexMesh(
                 renderService.GetVerticesArray(),
                 renderService.GetTrianglesArray(),
                 renderService.GetColorsArray()
@@ -79,9 +79,9 @@ namespace Hex
             shouldRender = false;
         }
 
-        private Mesh CreateHexMesh(Vector3[] vertices, int[] triangles, Color[] colors)
+        private UnityEngine.Mesh CreateHexMesh(Vector3[] vertices, int[] triangles, Color[] colors)
         {
-            Mesh hexMesh = new Mesh();
+            UnityEngine.Mesh hexMesh = new UnityEngine.Mesh();
 
             hexMesh.name = "Hex Mesh";
             hexMesh.vertices = vertices;
