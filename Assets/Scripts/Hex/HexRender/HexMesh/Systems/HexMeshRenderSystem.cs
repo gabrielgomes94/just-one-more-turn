@@ -5,6 +5,7 @@ using Unity.Rendering;
 using Unity.Jobs;
 using Unity.Physics;
 using Hex.Cell;
+using Hex.Coordinates;
 
 namespace Hex
 {

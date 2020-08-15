@@ -1,5 +1,5 @@
 using Unity.Entities;
-using Hex;
+using Hex.Coordinates;
 
 namespace Game
 {

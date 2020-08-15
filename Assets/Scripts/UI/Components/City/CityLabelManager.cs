@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using Hex;
 using Hex.Cell;
+using Hex.Coordinates;
 
 namespace GameUI.Components
 {

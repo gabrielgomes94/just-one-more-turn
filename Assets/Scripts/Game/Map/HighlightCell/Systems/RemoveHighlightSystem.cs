@@ -1,6 +1,6 @@
 using Unity.Entities;
 using Unity.Collections;
-using Hex;
+using Hex.Coordinates;
 
 namespace Game
 {

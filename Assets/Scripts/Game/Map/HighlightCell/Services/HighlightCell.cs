@@ -2,8 +2,8 @@ using Unity.Entities;
 using Unity.Collections;
 using Unity.Mathematics;
 using Unity.Transforms;
-using Hex;
 using Hex.Cell;
+using Hex.Coordinates;
 
 namespace Game
 {

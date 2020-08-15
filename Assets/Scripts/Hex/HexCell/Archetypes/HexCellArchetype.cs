@@ -1,5 +1,6 @@
 using Unity.Entities;
 using Unity.Transforms;
+using Hex.Coordinates;
 
 namespace Hex.Cell {
     public class HexCellArchetype
