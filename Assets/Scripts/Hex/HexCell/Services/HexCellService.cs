@@ -3,7 +3,7 @@ using Unity.Mathematics;
 using Unity.Collections;
 using Unity.Transforms;
 
-namespace Hex
+namespace Hex.Cell
 {
     public class HexCellService
     {

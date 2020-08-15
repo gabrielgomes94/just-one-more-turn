@@ -1,7 +1,7 @@
 using Unity.Entities;
 using UnityEngine;
 
-namespace Hex {
+namespace Hex.Cell {
     public struct ColorComponent : IComponentData
     {
         public Color Value;
