@@ -2,7 +2,7 @@
 using Unity.Entities;
 using Unity.Mathematics;
 
-namespace Hex
+namespace Hex.Cell
 {
     public class NeighborCellService
     {

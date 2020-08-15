@@ -1,7 +1,7 @@
 using Unity.Entities;
 using Unity.Transforms;
 
-namespace Hex {
+namespace Hex.Cell {
     public class HexCellArchetype
     {
         public static EntityArchetype GetArchetype()

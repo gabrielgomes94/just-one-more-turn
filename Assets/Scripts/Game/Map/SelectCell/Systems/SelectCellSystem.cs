@@ -1,5 +1,6 @@
 using Unity.Entities;
 using Hex;
+using Hex.Cell;
 
 namespace Game
 {

@@ -1,6 +1,6 @@
 using Unity.Entities;
 
-namespace Hex {
+namespace Hex.Cell {
     public struct Elevation : IComponentData
     {
         public int Value;
