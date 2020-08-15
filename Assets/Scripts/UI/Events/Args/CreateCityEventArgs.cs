@@ -2,7 +2,7 @@ using System;
 using Unity.Entities;
 using Unity.Mathematics;
 
-namespace Game
+namespace GameUI
 {
     public class CreateCityEventArgs : EventArgs
     {
