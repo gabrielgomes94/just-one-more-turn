@@ -48,6 +48,32 @@ namespace GameInput
 
                     if (hitEntity == Entity.Null) return;
 
+                    if (EntityManager.HasComponent<SettlerTag>(hitEntity)) {
+
+                        Debug.Log("");
+
+                        SelectUnit.Create(hitEntity);
+
+                        // TODO: lógica pra ativar o painel
+                        /**
+                            - Adiciona componente de Seleção
+                            - Sistema de seleção:
+                                - Cria entidade com dados pra criar o painel:
+                                    - coordenadas
+                                    - UIEvents:
+                            - UIComponents:
+                                - CityLabel
+                                    - : Monobehaviour
+                                    - update: query nas UIEntities
+                                        - Create label
+                                        - Destroy label
+
+                        */
+
+                        mouseInput.primaryAction = 0;
+                        return;
+                    }
+
                     HexCoordinates coordinates = CoordinatesService.GetCoordinatesFromPosition(hit.Position);
                     Entity selectedEntity = HexCellService.FindBy(coordinates);
 
