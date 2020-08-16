@@ -7,6 +7,7 @@ using Unity.Transforms;
 using Unity.Mathematics;
 using Unity.Physics;
 using Hex;
+using GameUI.Events;
 
 namespace Game
 {
@@ -27,7 +28,10 @@ namespace Game
                     in SettlerTag settlerTag,
                     in CommandCreateCityComponent cmdCreateCity
                 ) => {
-                    CityEntity.Create(ecb, cityPrefab, entity);
+                    // CityEntity.Create(ecb, cityPrefab, entity);
+                    Entity city = CityEntity.Create(ecb, cityPrefab, entity);
+
+                    CityLabel.Create(city);
                 }
             ).Run();
         }
