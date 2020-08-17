@@ -54,6 +54,8 @@ namespace GameInput
 
                         SelectUnit.Create(hitEntity);
 
+                        EntityManager.AddComponentData<Selected>(hitEntity, new Selected {});
+
                         // TODO: lógica pra ativar o painel
                         /**
                             - Adiciona componente de Seleção
