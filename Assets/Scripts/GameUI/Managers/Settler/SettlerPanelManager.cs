@@ -8,6 +8,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using Hex.Coordinates;
 using GameUI.Events;
+using Game;
 
 namespace GameUI.Managers
 {
@@ -47,6 +48,17 @@ namespace GameUI.Managers
             }
 
             panels.Dispose();
+        }
+
+        public void CreateCity()
+        {
+            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+
+            Entity entity = SettlerEntity.GetSelected(entityManager);
+
+            SettlerEntity.AddCommandCreateCity(entityManager, entity);
+
+            Debug.Log("Criação de cidade");
         }
     }
 }
