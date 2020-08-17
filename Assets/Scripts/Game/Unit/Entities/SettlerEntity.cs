@@ -41,7 +41,7 @@ namespace Game
 
         public static Entity GetSelected(EntityManager entityManager)
         {
-            var query = entityManager.CreateEntityQuery(ComponentType.ReadOnly<Selected>());
+            var query = entityManager.CreateEntityQuery(ComponentType.ReadOnly<Selected>(), ComponentType.ReadOnly<SettlerTag>());
 
             NativeArray<Entity> entities = query.ToEntityArray(Allocator.TempJob);
             Entity entity = entities[0];
@@ -51,20 +51,20 @@ namespace Game
             return entity;
         }
 
-        public static void AddCommandCreateCity(EntityManager entityManager, Entity entity, CreateCityEventArgs createCityArgs)
+        public static void AddCommandCreateCity(EntityManager entityManager, Entity entity)
         {
             if (entityManager.HasComponent<SettlerTag>(entity)) {
                 entityManager.AddComponentData<CommandCreateCityComponent>(
                     entity,
                     new CommandCreateCityComponent {
-                        Coordinates = createCityArgs.Coordinates
+                        Coordinates = new int3(0, 0, 0)
                     }
                 );
 
                 entityManager.AddSharedComponentData<CivIdSharedComponent>(
                     entity,
                     new CivIdSharedComponent {
-                        Value = createCityArgs.CivId
+                        Value = 1
                     }
                 );
             }
