@@ -1,7 +1,7 @@
 using Unity.Entities;
 using Hex.Cell;
 using Hex.Coordinates;
-using GameUI.Events;
+using GameUI.Entities;
 
 namespace Game
 {
@@ -12,11 +12,7 @@ namespace Game
         protected override void OnUpdate()
         {
             EntityCommandBuffer ecb = barrier.CreateCommandBuffer();
-
-            EntityArchetype archetype = EntityManager.CreateArchetype(
-                typeof(SettlerPanelTag),
-                typeof(HexCoordinates)
-            );
+            EntityArchetype archetype = UISettlerPanel.GetArchetype();
 
             Entities
                 .WithoutBurst()
@@ -27,7 +23,9 @@ namespace Game
                 ) => {
                     Entity selectedCell = HexCellService.FindBy(hexCoordinates);
 
-                    SettlerPanel.Create(ecb, archetype, hexCoordinates);
+                    UISettlerPanel.Show(ecb, archetype, hexCoordinates);
+
+                    ecb.DestroyEntity(entity);
             }).Run();
 
             barrier.AddJobHandleForProducer(this.Dependency);
