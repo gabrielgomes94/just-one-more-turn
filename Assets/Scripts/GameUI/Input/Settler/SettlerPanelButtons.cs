@@ -7,22 +7,25 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using Hex.Coordinates;
 using Game;
+using GameUI.Entities;
 
-public class SettlerPanelButtons : MonoBehaviour
+namespace GameUI.Input
 {
-    // Start is called before the first frame update
-    void Start()
+    public class SettlerPanelButtons : MonoBehaviour
     {
+        // Start is called before the first frame update
+        void Start()
+        {
 
-    }
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
+        // Update is called once per frame
+        void Update()
+        {
 
-    }
+        }
 
-    public void CreateCity()
+        public void CreateCity()
         {
             Debug.Log("Criação de cidade");
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -31,16 +34,14 @@ public class SettlerPanelButtons : MonoBehaviour
 
             SettlerEntity.AddCommandCreateCity(entityManager, entity);
 
-            // settlerPanelPrefab.SetActive(false);
-
-            // if (panel != Entity.Null) {
-            //     entityManager.DestroyEntity(panel);
-            // }
+            UISettlerPanel.Hide();
         }
 
         public void BackButton()
         {
             Debug.Log("Destrua o painel");
-            // settlerPanelPrefab.SetActive(false);
+
+            UISettlerPanel.Hide();
         }
+    }
 }
