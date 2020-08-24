@@ -57,27 +57,5 @@ namespace GameUI.View
 
             settlerPanelPrefab.SetActive(false);
         }
-
-        // public void CreateCity()
-        // {
-        //     Debug.Log("Criação de cidade");
-        //     EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-
-        //     Entity entity = SettlerEntity.GetSelected(entityManager);
-
-        //     SettlerEntity.AddCommandCreateCity(entityManager, entity);
-
-        //     settlerPanelPrefab.SetActive(false);
-
-        //     if (panel != Entity.Null) {
-        //         entityManager.DestroyEntity(panel);
-        //     }
-        // }
-
-        // public void BackButton()
-        // {
-        //     Debug.Log("Destrua o painel");
-        //     settlerPanelPrefab.SetActive(false);
-        // }
     }
 }
