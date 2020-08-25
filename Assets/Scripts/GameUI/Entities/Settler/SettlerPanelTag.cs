@@ -1,6 +1,6 @@
 using Unity.Entities;
 
-namespace GameUI.Events
+namespace GameUI.Entities
 {
     public struct SettlerPanelTag : IComponentData { }
 }

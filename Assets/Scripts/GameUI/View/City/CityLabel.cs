@@ -1,7 +1,7 @@
 using Unity.Entities;
 using UnityEngine;
 
-namespace GameUI.Events
+namespace GameUI.View
 {
     public class CityLabel {
         public static void Create(Entity city)
