@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Unity.Collections;
+﻿using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using Unity.Physics;
 using Hex.Cell;
 using Hex.Coordinates;
-using GameUI;
 
 namespace Game
 {
@@ -54,11 +50,9 @@ namespace Game
         public static void AddCommandCreateCity(EntityManager entityManager, Entity entity)
         {
             if (entityManager.HasComponent<SettlerTag>(entity)) {
-                entityManager.AddComponentData<CommandCreateCityComponent>(
+                entityManager.AddComponentData<CommandCreateCity>(
                     entity,
-                    new CommandCreateCityComponent {
-                        Coordinates = new int3(0, 0, 0)
-                    }
+                    new CommandCreateCity {}
                 );
 
                 entityManager.AddSharedComponentData<CivIdSharedComponent>(
