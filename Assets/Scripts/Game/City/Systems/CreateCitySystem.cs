@@ -7,7 +7,8 @@ using Unity.Transforms;
 using Unity.Mathematics;
 using Unity.Physics;
 using Hex;
-using GameUI.Events;
+using GameUI.Entities;
+using Hex.Coordinates;
 
 namespace Game
 {
@@ -19,6 +20,7 @@ namespace Game
         {
             CityPrefab cityPrefab = GetSingleton<CityPrefab>();
             var ecb = barrier.CreateCommandBuffer();
+            var archetype = CityLabel.GetArchetype();
 
             Entities
                 .WithoutBurst()
@@ -26,12 +28,12 @@ namespace Game
                     Entity entity,
                     int entityInQueryIndex,
                     in SettlerTag settlerTag,
-                    in CommandCreateCityComponent cmdCreateCity
+                    in CommandCreateCity cmdCreateCity,
+                    in HexCoordinates hexCoordinates
                 ) => {
-                    // CityEntity.Create(ecb, cityPrefab, entity);
                     Entity city = CityEntity.Create(ecb, cityPrefab, entity);
 
-                    CityLabel.Create(city);
+                    CityLabel.Create(ecb, archetype, hexCoordinates);
                 }
             ).Run();
         }
