@@ -30,9 +30,9 @@ namespace GameUI.Input
             Debug.Log("Criação de cidade");
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-            Entity entity = SettlerEntity.GetSelected(entityManager);
+            Entity entity = SettlerRepository.GetSelected(entityManager);
 
-            SettlerEntity.AddCommandCreateCity(entityManager, entity);
+            SettlerService.AddCommandCreateCity(entityManager, entity);
 
             UISettlerPanel.Hide();
         }

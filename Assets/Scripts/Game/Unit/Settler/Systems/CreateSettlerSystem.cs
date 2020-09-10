@@ -25,7 +25,7 @@ namespace Game
                     in CommandCreateSettler createUnitCommand,
                     in HexCoordinates coordinates
                 ) => {
-                    SettlerEntity.Create(ecb, settlerPrefab, coordinates);
+                    SettlerRepository.Create(ecb, settlerPrefab, coordinates);
 
                     ecb.DestroyEntity(entity);
                 })
