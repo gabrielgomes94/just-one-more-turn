@@ -14,24 +14,24 @@ namespace Game
 
         protected override void OnUpdate()
         {
-            EntityCommandBuffer ecb = barrier.CreateCommandBuffer();
-            SettlerPrefab settlerPrefab = GetSingleton<SettlerPrefab>();
+            // EntityCommandBuffer ecb = barrier.CreateCommandBuffer();
+            // SettlerPrefab settlerPrefab = GetSingleton<SettlerPrefab>();
 
-            Entities
-                .WithoutBurst()
-                .ForEach((
-                    Entity entity,
-                    int entityInQueryIndex,
-                    in CommandCreateUnitComponent createUnitCommand,
-                    in HexCoordinates coordinates
-                ) => {
-                    SettlerEntity.Create(ecb, settlerPrefab, coordinates);
+            // Entities
+            //     .WithoutBurst()
+            //     .ForEach((
+            //         Entity entity,
+            //         int entityInQueryIndex,
+            //         in CommandCreateSettler createUnitCommand,
+            //         in HexCoordinates coordinates
+            //     ) => {
+            //         SettlerEntity.Create(ecb, settlerPrefab, coordinates);
 
-                    ecb.DestroyEntity(entity);
-                })
-                .Run();
+            //         ecb.DestroyEntity(entity);
+            //     })
+            //     .Run();
 
-            barrier.AddJobHandleForProducer(this.Dependency);
+            // barrier.AddJobHandleForProducer(this.Dependency);
         }
     }
 }
