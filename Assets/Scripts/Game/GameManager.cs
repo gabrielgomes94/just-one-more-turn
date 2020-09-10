@@ -2,27 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Entities;
 using Unity.Mathematics;
+using Hex.Coordinates;
 
 namespace Game
 {
     public class GameManager : MonoBehaviour
     {
-        public event EventHandler<CreateUnitEventArgs> OnCivilizationCreated;
-
-
         void Start()
         {
-            // Create Civilization
-            Civilization civ = new Civilization();
-            civ.Create();
-
-            // Create Civilization's settler
-            CreateUnitEventArgs args = new CreateUnitEventArgs();
-
-            args.Coordinates = new int3(1, -1, 0);
-
-            OnCivilizationCreated?.Invoke(this, args);
+            SettlerService.Create(new HexCoordinates{ Value = new int3(8, -17 ,9) });
+            SettlerService.Create(new HexCoordinates{ Value = new int3(10, -15,5) });
+            SettlerService.Create(new HexCoordinates{ Value = new int3(2, -6 ,4) });
+            SettlerService.Create(new HexCoordinates{ Value = new int3(0, -9 ,9) });
+            SettlerService.Create(new HexCoordinates{ Value = new int3(8, -8 ,0) });
+            SettlerService.Create(new HexCoordinates{ Value = new int3(1, -11, 10) });
         }
     }
 }
