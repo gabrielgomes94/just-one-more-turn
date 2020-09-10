@@ -1,14 +1,14 @@
-﻿using Unity.Collections;
-using Unity.Entities;
-using Unity.Mathematics;
-using Unity.Transforms;
-using Unity.Physics;
 using Hex.Cell;
 using Hex.Coordinates;
+using Unity.Collections;
+using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Physics;
+using Unity.Transforms;
 
 namespace Game
 {
-    public class SettlerEntity
+    public class SettlerRepository
     {
         public static void Create(EntityCommandBuffer ecb, SettlerPrefab settlerPrefab, HexCoordinates coordinates)
         {
@@ -45,23 +45,6 @@ namespace Game
             entities.Dispose();
 
             return entity;
-        }
-
-        public static void AddCommandCreateCity(EntityManager entityManager, Entity entity)
-        {
-            if (entityManager.HasComponent<SettlerTag>(entity)) {
-                entityManager.AddComponentData<CommandCreateCity>(
-                    entity,
-                    new CommandCreateCity {}
-                );
-
-                entityManager.AddSharedComponentData<CivIdSharedComponent>(
-                    entity,
-                    new CivIdSharedComponent {
-                        Value = 1
-                    }
-                );
-            }
         }
     }
 }
