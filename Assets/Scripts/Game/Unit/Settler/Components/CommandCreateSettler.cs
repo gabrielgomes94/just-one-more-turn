@@ -4,5 +4,5 @@ using Unity.Mathematics;
 
 namespace Game
 {
-    public struct CommandCreateUnitComponent : IComponentData {}
+    public struct CommandCreateSettler : IComponentData {}
 }
