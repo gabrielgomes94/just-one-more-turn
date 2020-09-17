@@ -6,17 +6,17 @@ using Hex.Coordinates;
 namespace GameUI.Input {
     public class CityData
     {
-            public string name;
-            public int population;
-            private HexCoordinates hexCoordinates;
+        public string name;
+        public int population;
+        public HexCoordinates hexCoordinates;
 
-            public CityData(string name, int population, HexCoordinates hexCoordinates)
-            {
-                this.name = name;
+        public CityData(string name, int population, HexCoordinates hexCoordinates)
+        {
+            this.name = name;
 
-                this.population = population;
+            this.population = population;
 
-                this.hexCoordinates = hexCoordinates;
-            }
+            this.hexCoordinates = hexCoordinates;
+        }
     }
 }
