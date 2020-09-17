@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Hex.Cell;
 using Hex.Coordinates;
 using GameUI.Entities;
+using GameUI.Input;
 
 namespace GameUI.View
 {
@@ -26,6 +27,7 @@ namespace GameUI.View
         {
             query = CityLabel.GetQuery();
 
+            // TODO: abstrair essa lógica pra outro local
             if (query.CalculateEntityCount() > 0) {
                 NativeArray<Entity> labels = query.ToEntityArray(Allocator.TempJob);
 
@@ -35,6 +37,25 @@ namespace GameUI.View
 
                     label.GetComponent<RectTransform>().SetParent(gridCanvas.transform, false);
                     label.GetComponent<RectTransform>().position = new Vector3(pos.x, pos.y + 10f, pos.z - 5f);
+
+                    string name = "Itajubá";
+                    int population = 47;
+                    HexCoordinates hexCoordinates = entityManager.GetComponentData<HexCoordinates>(cityLabel);
+
+                    // City Label Button
+                    CityLabelButton cityLabelButton = label.GetComponentInChildren<CityLabelButton>();
+                    // cityLabelButton.cityData = new CityData(name, population, hexCoordinates);
+                    // Debug.Log(cityLabelButton.cityData);
+
+                    // City Name Text
+                    GameObject cityName = label.transform.Find("City Name").gameObject;
+                    // cityName.GetComponent<Text>().text = cityLabelButton.cityData.name;
+                    cityName.GetComponent<Text>().text = name;
+
+                    // City population Text
+                    GameObject cityPopulation = label.transform.Find("City Population").gameObject;
+                    // cityPopulation.GetComponent<Text>().text = cityLabelButton.cityData.population.ToString();
+                    cityPopulation.GetComponent<Text>().text = population.ToString();
 
                     entityManager.RemoveComponent<UICreate>(cityLabel);
                 }
