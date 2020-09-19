@@ -25,11 +25,14 @@ namespace GameUI.View
 
         void LateUpdate()
         {
+
             query = CityLabel.GetQuery();
 
             // TODO: abstrair essa lógica pra outro local
             if (query.CalculateEntityCount() > 0) {
                 NativeArray<Entity> labels = query.ToEntityArray(Allocator.TempJob);
+
+
 
                 foreach(Entity cityLabel in labels) {
                     GameObject label = Instantiate(cityPanelPrefab);
@@ -44,18 +47,17 @@ namespace GameUI.View
 
                     // City Label Button
                     CityLabelButton cityLabelButton = label.GetComponentInChildren<CityLabelButton>();
-                    // cityLabelButton.cityData = new CityData(name, population, hexCoordinates);
-                    // Debug.Log(cityLabelButton.cityData);
+
+                    CityData cityData = new CityData(name, population, hexCoordinates);
+                    cityLabelButton.cityData = cityData;
 
                     // City Name Text
                     GameObject cityName = label.transform.Find("City Name").gameObject;
-                    // cityName.GetComponent<Text>().text = cityLabelButton.cityData.name;
-                    cityName.GetComponent<Text>().text = name;
+                    cityName.GetComponent<Text>().text = cityLabelButton.cityData.name;
 
                     // City population Text
                     GameObject cityPopulation = label.transform.Find("City Population").gameObject;
-                    // cityPopulation.GetComponent<Text>().text = cityLabelButton.cityData.population.ToString();
-                    cityPopulation.GetComponent<Text>().text = population.ToString();
+                    cityPopulation.GetComponent<Text>().text = cityLabelButton.cityData.population.ToString();
 
                     entityManager.RemoveComponent<UICreate>(cityLabel);
                 }
