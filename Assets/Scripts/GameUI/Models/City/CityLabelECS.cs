@@ -3,7 +3,7 @@ using Unity.Mathematics;
 using Hex.Cell;
 using Hex.Coordinates;
 
-namespace GameUI.Entities
+namespace GameUI.Models
 {
     public class CityLabelECS
     {
@@ -45,10 +45,6 @@ namespace GameUI.Entities
 
             return query;
         }
-
-        // public static EntityQuery GetUIUpdateQuery()
-        // {
-        // }
 
         public static float3 GetWorldPosition(Entity cityLabel)
         {

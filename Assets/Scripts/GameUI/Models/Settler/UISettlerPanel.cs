@@ -2,7 +2,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Hex.Coordinates;
 
-namespace GameUI.Entities
+namespace GameUI.Models
 {
     public class UISettlerPanel
     {

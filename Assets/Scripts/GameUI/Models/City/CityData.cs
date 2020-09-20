@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Hex.Coordinates;
 
-namespace GameUI.Input {
+namespace GameUI.Models
+{
     public class CityData
     {
         public string name;
@@ -17,6 +18,13 @@ namespace GameUI.Input {
             this.population = population;
 
             this.hexCoordinates = hexCoordinates;
+        }
+
+        public CityData(string name, int population)
+        {
+            this.name = name;
+
+            this.population = population;
         }
     }
 }
