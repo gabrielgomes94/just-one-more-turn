@@ -5,7 +5,7 @@ using Hex.Coordinates;
 
 namespace GameUI.Entities
 {
-    public class CityLabel
+    public class CityLabelECS
     {
         public static void Create(EntityCommandBuffer ecb, EntityArchetype archetype, HexCoordinates hexCoordinates)
         {
@@ -18,7 +18,7 @@ namespace GameUI.Entities
             ecb.SetComponent<UICreate>(cityLabel, new UICreate {});
         }
 
-        public static EntityArchetype GetArchetype()
+        public static EntityArchetype GetCreateArchetype()
         {
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
@@ -32,7 +32,7 @@ namespace GameUI.Entities
             return archetype;
         }
 
-        public static EntityQuery GetQuery()
+        public static EntityQuery GetUICreateQuery()
         {
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
@@ -41,11 +41,14 @@ namespace GameUI.Entities
                 ComponentType.ReadOnly<HexCoordinates>(),
                 ComponentType.ReadOnly<UI>(),
                 ComponentType.ReadOnly<UICreate>()
-
             );
 
             return query;
         }
+
+        // public static EntityQuery GetUIUpdateQuery()
+        // {
+        // }
 
         public static float3 GetWorldPosition(Entity cityLabel)
         {
