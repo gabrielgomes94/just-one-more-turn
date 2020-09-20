@@ -7,7 +7,7 @@ using Unity.Transforms;
 using Unity.Mathematics;
 using Unity.Physics;
 using Hex;
-using GameUI.Entities;
+using GameUI.Models;
 using Hex.Coordinates;
 
 namespace Game

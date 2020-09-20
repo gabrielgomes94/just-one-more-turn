@@ -1,7 +1,7 @@
 using Unity.Entities;
 using Hex.Cell;
 using Hex.Coordinates;
-using GameUI.Entities;
+using GameUI.Models;
 
 namespace Game
 {
