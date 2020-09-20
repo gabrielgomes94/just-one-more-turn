@@ -50,8 +50,6 @@ namespace GameInput
 
                     if (EntityManager.HasComponent<SettlerTag>(hitEntity)) {
 
-                        Debug.Log("");
-
                         SelectUnit.Create(hitEntity);
 
                         EntityManager.AddComponentData<Selected>(hitEntity, new Selected {});
