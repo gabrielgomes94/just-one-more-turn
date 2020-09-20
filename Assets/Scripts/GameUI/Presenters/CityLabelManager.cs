@@ -26,19 +26,11 @@ namespace GameUI.Presenters
         void LateUpdate()
         {
             createQuery = CityLabelECS.GetUICreateQuery();
-
-            // CityData cityData = new CityData("Itajubá", 10);
-            // CityLabelView cityLabelViewService = new CityLabelView(cityPanelPrefab, cityData);
-
-            // cityLabelViewService.Create(createQuery, gridCanvas);
-
-            // Create(EntityQuery query, GameObject cityPanelPrefab, Canvas gridCanvas)
             CreateCityLabel(createQuery);
         }
 
         private void CreateCityLabel(EntityQuery query)
         {
-            // Debug.Log(createQuery.CalculateEntityCount());
             if (query.CalculateEntityCount() == 0) {
                 return;
             }
@@ -46,9 +38,10 @@ namespace GameUI.Presenters
             NativeArray<Entity> labels = query.ToEntityArray(Allocator.TempJob);
 
             foreach(Entity createCityLabel in labels) {
+                HexCoordinates hexCoordinates = entityManager.GetComponentData<HexCoordinates>(createCityLabel);
                 GameObject label = Instantiate(cityPanelPrefab);
-                CityData cityData = new CityData("Itajubá", 10);
-                CityLabel cityLabel = new CityLabel(label, cityData);
+                CityData cityData = new CityData("Varginha", 10, hexCoordinates);
+                CityLabel cityLabel = new CityLabel(label, cityData, hexCoordinates);
 
                 cityLabel.SetPosition(createCityLabel, gridCanvas);
                 cityLabel.SetContent(cityLabel.label);

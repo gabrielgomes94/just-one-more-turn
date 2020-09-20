@@ -1,3 +1,4 @@
+using Hex.Coordinates;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.Entities;
@@ -11,19 +12,21 @@ namespace GameUI.View
     {
         public string name;
         public string population;
+        public HexCoordinates hexCoordinates;
         public GameObject label;
 
-        public CityLabel(GameObject label, CityData cityData)
+        public CityLabel(GameObject label, CityData cityData, HexCoordinates hexCoordinates)
         {
             this.label = label;
             this.name = cityData.name;
             this.population = cityData.population.ToString();
+            this.hexCoordinates = hexCoordinates;
         }
 
         public void SetButton()
         {
             CityLabelButton cityLabelButton = this.label.GetComponentInChildren<CityLabelButton>();
-            cityLabelButton.cityData = new CityData(name, Int32.Parse(population));
+            cityLabelButton.cityData = new CityData(name, Int32.Parse(population), hexCoordinates);
         }
 
         public void SetContent(GameObject label)
