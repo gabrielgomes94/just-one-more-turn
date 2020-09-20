@@ -26,7 +26,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6766417536229050039}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalPosition: {x: 0, y: 0, z: 145}
   m_LocalScale: {x: 0.051, y: 0.03, z: 1}
   m_Children:
   - {fileID: 6766417536501061712}
@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -244, y: -131.25}
+  m_AnchoredPosition: {x: 103.92304, y: 10.1}
   m_SizeDelta: {x: 0, y: -262.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6766417536229050042
@@ -156,7 +156,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Cidade
+  m_Text: "Itajub\xE1"
 --- !u!1 &6766417537307511536
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 8
+  m_Text: 10
 --- !u!1 &8650755372966496685
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +281,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8650755372966496685}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81f05f6fbb6e36440bba61f5e8f8658e, type: 3}
+  m_Script: {fileID: 11500000, guid: 10b58a699c3008b4f90e05b469bc2ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
