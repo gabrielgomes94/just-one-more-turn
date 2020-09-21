@@ -8,7 +8,7 @@ using System;
 
 namespace GameUI.View
 {
-    public class CityLabel
+    public class CityLabel : IButton, ILabel
     {
         public string name;
         public string population;
