@@ -20,7 +20,7 @@ namespace Game
         {
             CityPrefab cityPrefab = GetSingleton<CityPrefab>();
             var ecb = barrier.CreateCommandBuffer();
-            var archetype = CityLabelECS.GetCreateArchetype();
+            var archetype = UICityLabel.GetCreateArchetype();
 
             Entities
                 .WithoutBurst()
@@ -33,7 +33,7 @@ namespace Game
                 ) => {
                     Entity city = CityEntity.Create(ecb, cityPrefab, entity);
 
-                    CityLabelECS.Create(ecb, archetype, hexCoordinates);
+                    UICityLabel.Create(ecb, archetype, hexCoordinates);
                 }
             ).Run();
         }

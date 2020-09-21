@@ -25,7 +25,7 @@ namespace GameUI.Presenters
 
         void LateUpdate()
         {
-            createQuery = CityLabelECS.GetUICreateQuery();
+            createQuery = UICityLabel.GetUICreateQuery();
             CreateCityLabel(createQuery);
         }
 

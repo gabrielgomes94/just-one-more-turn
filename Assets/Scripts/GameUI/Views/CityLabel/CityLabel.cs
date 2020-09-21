@@ -39,7 +39,7 @@ namespace GameUI.View
         }
         public void SetPosition(Entity cityLabel, Canvas gridCanvas)
         {
-            float3 pos = CityLabelECS.GetWorldPosition(cityLabel);
+            float3 pos = UICityLabel.GetWorldPosition(cityLabel);
 
             this.label.GetComponent<RectTransform>().SetParent(gridCanvas.transform, false);
             this.label.GetComponent<RectTransform>().position = new Vector3(pos.x, pos.y + 10f, pos.z - 5f);

@@ -5,7 +5,7 @@ using Hex.Coordinates;
 
 namespace GameUI.Models
 {
-    public class CityLabelECS
+    public class UICityLabel
     {
         public static void Create(EntityCommandBuffer ecb, EntityArchetype archetype, HexCoordinates hexCoordinates)
         {
