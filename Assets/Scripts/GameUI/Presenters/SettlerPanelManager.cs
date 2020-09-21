@@ -28,11 +28,6 @@ namespace GameUI.View
             settlerPanelPrefab.SetActive(false);
         }
 
-        void Update()
-        {
-
-        }
-
         void LateUpdate()
         {
             query = entityManager.CreateEntityQuery(
@@ -43,15 +38,7 @@ namespace GameUI.View
             panel = Entity.Null;
 
             if (query.CalculateEntityCount() > 0) {
-                Debug.Log("EAEQWEQWEQ   popopopopo");
-                // Show panel
-                // NativeArray<Entity> panels = query.ToEntityArray(Allocator.TempJob);
-                // panel = panels[0];
-
                 settlerPanelPrefab.SetActive(true);
-                // Set Panel attributes in Value Object
-
-                // panels.Dispose();
                 return;
             }
 
