@@ -8,31 +8,15 @@ namespace GameUI.View
 {
     public class CityLabelButton : MonoBehaviour
     {
-
         public CityData cityData;
 
-        void Awake()
+        public void Execute()
         {
-
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            SelectCommand.Create(cityData.hexCoordinates);
         }
 
         public void SelectCity()
         {
-            Debug.Log("clicou aqui!! pq pq pq ");
-            Debug.Log("clicou aqui, na posiçao: " + cityData.hexCoordinates.Value);
-
             SelectCommand.Create(cityData.hexCoordinates);
         }
     }
