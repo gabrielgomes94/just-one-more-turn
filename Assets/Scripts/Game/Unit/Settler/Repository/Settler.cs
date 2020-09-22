@@ -8,7 +8,7 @@ using Unity.Transforms;
 
 namespace Game
 {
-    public class SettlerRepository
+    public class Settler
     {
         public static void Create(EntityCommandBuffer ecb, SettlerPrefab settlerPrefab, HexCoordinates coordinates)
         {

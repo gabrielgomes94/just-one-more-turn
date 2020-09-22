@@ -9,21 +9,21 @@ namespace Game
         {
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-            Entity entity = entityManager.CreateEntity(GetArchetype());
+            Entity entity = entityManager.CreateEntity(SettlerArchetype.CreateSettler());
             entityManager.SetComponentData(entity, hexCoordinates);
         }
 
-        public static EntityArchetype GetArchetype()
-        {
-            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        // public static EntityArchetype GetArchetype()
+        // {
+        //     EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-            EntityArchetype createUnit = entityManager.CreateArchetype(
-                typeof(CommandCreateSettler),
-                typeof(HexCoordinates)
-            );
+        //     EntityArchetype createUnit = entityManager.CreateArchetype(
+        //         typeof(CommandCreateSettler),
+        //         typeof(HexCoordinates)
+        //     );
 
-            return createUnit;
-        }
+        //     return createUnit;
+        // }
 
         public static void AddCommandCreateCity(EntityManager entityManager, Entity entity)
         {
