@@ -8,7 +8,7 @@ using System;
 
 namespace GameUI.View
 {
-    public class CityLabel : IHasButton, ILabel
+    public class CityLabel
     {
         static EntityManager entityManager => World.DefaultGameObjectInjectionWorld.EntityManager;
         public CityData cityData;
