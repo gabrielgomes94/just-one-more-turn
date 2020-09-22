@@ -8,38 +8,47 @@ using System;
 
 namespace GameUI.View
 {
-    public class CityLabel : IButton, ILabel
+    public class CityLabel : IHasButton, ILabel
     {
-        public string name;
-        public string population;
-        public HexCoordinates hexCoordinates;
+        static EntityManager entityManager => World.DefaultGameObjectInjectionWorld.EntityManager;
+        public CityData cityData;
         public GameObject label;
+        public Canvas gridCanvas;
+        public Entity createCityLabel;
 
-        public CityLabel(GameObject label, CityData cityData, HexCoordinates hexCoordinates)
+        public CityLabel(Entity createCityLabel, GameObject label, Canvas gridCanvas)
         {
+            HexCoordinates hexCoordinates = entityManager.GetComponentData<HexCoordinates>(createCityLabel);
+            this.cityData = new CityData("Varginha", 10, hexCoordinates);
             this.label = label;
-            this.name = cityData.name;
-            this.population = cityData.population.ToString();
-            this.hexCoordinates = hexCoordinates;
+            this.createCityLabel = createCityLabel;
+            this.gridCanvas = gridCanvas;
         }
 
-        public void SetButton()
+        public void SetLabel()
+        {
+            this.SetPosition();
+            this.SetContent(label);
+            this.SetButton();
+        }
+
+        private void SetButton()
         {
             CityLabelButton cityLabelButton = this.label.GetComponentInChildren<CityLabelButton>();
-            cityLabelButton.cityData = new CityData(name, Int32.Parse(population), hexCoordinates);
+            cityLabelButton.cityData = cityData;
         }
 
-        public void SetContent(GameObject label)
+        private void SetContent(GameObject label)
         {
             GameObject cityName = label.transform.Find("City Name").gameObject;
             GameObject cityPopulation = label.transform.Find("City Population").gameObject;
 
-            cityName.GetComponent<Text>().text = name;
-            cityPopulation.GetComponent<Text>().text = population.ToString();
+            cityName.GetComponent<Text>().text = cityData.name;
+            cityPopulation.GetComponent<Text>().text = cityData.population.ToString();
         }
-        public void SetPosition(Entity cityLabel, Canvas gridCanvas)
+        private void SetPosition()
         {
-            float3 pos = UICityLabel.GetWorldPosition(cityLabel);
+            float3 pos = UICityLabel.GetWorldPosition(createCityLabel);
 
             this.label.GetComponent<RectTransform>().SetParent(gridCanvas.transform, false);
             this.label.GetComponent<RectTransform>().position = new Vector3(pos.x, pos.y + 10f, pos.z - 5f);
