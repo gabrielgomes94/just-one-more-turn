@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
@@ -21,6 +22,11 @@ namespace GameInput
                 EntityManager.CreateEntity(typeof(MouseInput));
 
             if (Input.GetMouseButtonDown(0)) {
+
+                if (EventSystem.current.IsPointerOverGameObject()) {
+                    return;
+                }
+
                 var position = new float3(Input.mousePosition.x, Input.mousePosition.y, 0f);
 
                 mouseInputQuery.SetSingleton(new MouseInput {

@@ -1,13 +1,9 @@
 {
-    "name": "GameAssembly",
+    "name": "GameUIManagerAssembly",
     "references": [
         "GUID:734d92eba21c94caba915361bd5ac177",
-        "GUID:e0cd26848372d4e5c891c569017e11f1",
-        "GUID:600148156417db343b2cbe0d59c5da46",
-        "GUID:7a450cf7ca9694b5a8bfa3fd83ec635a",
         "GUID:d8b63aba1907145bea998dd612889d6b",
-        "GUID:a5baed0c9693541a5bd947d336ec7659",
-        "GUID:63afb046c8423dd448ae7aba042ea63d",
+        "GUID:1f4f57f1c6b947e42a2fdacbf6936273",
         "GUID:f5c81823401f2164484e02bfc181f689",
         "GUID:62ba7c7a6851dbb43b1fd76b245171d1",
         "GUID:c1d3d11c735e61240a4cff15d0337f89"

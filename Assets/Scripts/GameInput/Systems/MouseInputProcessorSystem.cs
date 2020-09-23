@@ -48,6 +48,14 @@ namespace GameInput
 
                     if (hitEntity == Entity.Null) return;
 
+                    if (EntityManager.HasComponent<SettlerTag>(hitEntity)) {
+                        SelectUnit.Create(hitEntity);
+                        // EntityManager.AddComponentData<Selected>(hitEntity, new Selected {});
+                        mouseInput.primaryAction = 0;
+
+                        return;
+                    }
+
                     HexCoordinates coordinates = CoordinatesService.GetCoordinatesFromPosition(hit.Position);
                     Entity selectedEntity = HexCellService.FindBy(coordinates);
 

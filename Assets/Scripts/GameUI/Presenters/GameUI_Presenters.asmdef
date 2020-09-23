@@ -1,0 +1,21 @@
+{
+    "name": "GameUI_Presenters",
+    "references": [
+        "GUID:59410cfff2595fb4c89f447f89088d9b",
+        "GUID:c1d3d11c735e61240a4cff15d0337f89",
+        "GUID:62ba7c7a6851dbb43b1fd76b245171d1",
+        "GUID:734d92eba21c94caba915361bd5ac177",
+        "GUID:d8b63aba1907145bea998dd612889d6b",
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:f5c81823401f2164484e02bfc181f689"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

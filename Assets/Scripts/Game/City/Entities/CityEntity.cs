@@ -14,7 +14,7 @@ namespace Game
 {
     public class CityEntity
     {
-        public static void Create(EntityCommandBuffer ecb, CityPrefab cityPrefab, Entity settlerEntity)
+        public static Entity Create(EntityCommandBuffer ecb, CityPrefab cityPrefab, Entity settlerEntity)
         {
             Entity city = ecb.Instantiate(cityPrefab.Value);
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -36,6 +36,8 @@ namespace Game
             );
 
             ecb.DestroyEntity(settlerEntity);
+
+            return city;
         }
     }
 }
