@@ -18,7 +18,10 @@ namespace Game
 
             HexCoordinates coordinates = entityManager.GetComponentData<HexCoordinates>(entity);
 
-            entityManager.AddComponentData<CommandSelectUnit>(selectEntity, new CommandSelectUnit {});
+            entityManager.AddComponentData<CommandSelectUnit>(
+                selectEntity,
+                new CommandSelectUnit { entity = entity}
+            );
             entityManager.AddComponentData<HexCoordinates>(selectEntity, coordinates);
         }
     }

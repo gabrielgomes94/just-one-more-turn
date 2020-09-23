@@ -22,6 +22,7 @@ namespace Game
                     in HexCoordinates hexCoordinates
                 ) => {
                     Entity selectedCell = HexCellService.FindBy(hexCoordinates);
+                    ecb.AddComponent<Selected>(commandSelectUnit.Value, new Selected {});
 
                     UISettlerPanel.Show(ecb, archetype, hexCoordinates);
 
