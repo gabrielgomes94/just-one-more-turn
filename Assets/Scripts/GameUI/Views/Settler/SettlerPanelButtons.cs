@@ -18,7 +18,7 @@ namespace GameUI.View
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             Entity entity = Settler.GetSelected(entityManager);
 
-            SettlerService.AddCommandCreateCity(entityManager, entity);
+            SettlerActions.AddCommandCreateCity(entity);
             UISettlerPanel.Hide();
         }
 
