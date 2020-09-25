@@ -5,6 +5,7 @@ using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
 using Hex.Coordinates;
+using Game.Turn;
 
 namespace Game
 {
@@ -18,6 +19,8 @@ namespace Game
             CreateSettlerService.Execute(new HexCoordinates{ Value = new int3(0, -9 ,9) });
             CreateSettlerService.Execute(new HexCoordinates{ Value = new int3(8, -8 ,0) });
             CreateSettlerService.Execute(new HexCoordinates{ Value = new int3(1, -11, 10) });
+
+            TurnService.Init();
         }
     }
 }
